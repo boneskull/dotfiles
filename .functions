@@ -1,246 +1,269 @@
-# Simple calculator
-function calc() {
-	local result="";
-	result="$(printf "scale=10;$*\n" | bc --mathlib | tr -d '\\\n')";
-	#                       └─ default (when `--mathlib` is used) is 20
-	#
-	if [[ "$result" == *.* ]]; then
-		# improve the output for decimal numbers
-		printf "$result" |
-		sed -e 's/^\./0./'        `# add "0" for cases like ".5"` \
-		    -e 's/^-\./-0./'      `# add "0" for cases like "-.5"`\
-		    -e 's/0*$//;s/\.$//';  # remove trailing zeros
-	else
-		printf "$result";
-	fi;
-	printf "\n";
+cite about group param example
+
+function is-darwin {
+  about 'asserts current OS is Darwin, for chaining commands'
+  group 'shell'
+  if [[ `uname` == Darwin ]]; then
+    return 0
+  else
+    echo "${bold}${red}This function only available on Mac OS X${reset}"
+    return 1
+  fi
 }
 
-# Create a new directory and enter it
+function update-composure {
+  curl -L http://git.io/composure > ${DOTFILES}/.composure
+  cd ${DOTFILES} && git add .composure
+  cd -
+}
+
 function mkd() {
-	mkdir -p "$@" && cd "$@";
+  about 'mkdir and enter it'
+  group 'util'
+  mkdir -p "$@" && cd "$@";
 }
 
-# Change working directory to the top-most Finder window location
-function cdf() { # short for `cdfinder`
-	cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')";
-}
-
-# Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
-function targz() {
-	local tmpFile="${@%/}.tar";
-	tar -cvf "${tmpFile}" --exclude=".DS_Store" "${@}" || return 1;
-
-	size=$(
-		stat -f"%z" "${tmpFile}" 2> /dev/null; # OS X `stat`
-		stat -c"%s" "${tmpFile}" 2> /dev/null # GNU `stat`
-	);
-
-	local cmd="";
-	if (( size < 52428800 )) && hash zopfli 2> /dev/null; then
-		# the .tar file is smaller than 50 MB and Zopfli is available; use it
-		cmd="zopfli";
-	else
-		if hash pigz 2> /dev/null; then
-			cmd="pigz";
-		else
-			cmd="gzip";
-		fi;
-	fi;
-
-	echo "Compressing .tar using \`${cmd}\`…";
-	"${cmd}" -v "${tmpFile}" || return 1;
-	[ -f "${tmpFile}" ] && rm "${tmpFile}";
-	echo "${tmpFile}.gz created successfully.";
+function archive()
+{
+  about 'archive a directory to the BACKUP_DIR or PWD'
+  group 'util'
+  local BACKUP_DIR=${BACKUP_DIR:-$(pwd)}
+  local DIRS=$@
+  local DATE=`slug "$(date"+%Y-%m-%d %H:%M:%S")"`
+  for DIR in ${DIRS}; do
+    if [[ -d ${DIR} ]]; then
+      [[ -d ${DIR}/node_modules ]] && {
+        rm -rf "${DIR}/node_modules"
+      }
+      tar cvzf "${BACKUP_DIR}/`slug${DIR}`-${DATE}.tar.gz" ${DIR} && rm -frv "${DIR}"
+    else
+      echo "Skipping non-directory ${DIR}..."
+    fi
+  done
 }
 
 # Determine size of a file or total size of a directory
 function fs() {
-	if du -b /dev/null > /dev/null 2>&1; then
-		local arg=-sbh;
-	else
-		local arg=-sh;
-	fi
-	if [[ -n "$@" ]]; then
-		du $arg -- "$@";
-	else
-		du $arg .[^.]* *;
-	fi;
+  about 'determine size of file or total size of dir'
+  group 'util'
+  if du -b /dev/null > /dev/null 2>&1; then
+    local arg=-sbh;
+  else
+    local arg=-sh;
+  fi
+  if [[ -n "$@" ]]; then
+    du $arg -- "$@";
+  else
+    du $arg .[^.]* *;
+  fi;
 }
 
-# Use Git’s colored diff when available
-hash git &>/dev/null;
-if [ $? -eq 0 ]; then
-	function diff() {
-		git diff --no-index --color-words "$@";
-	}
-fi;
-
-# Create a data URL from a file
-function dataurl() {
-	local mimeType=$(file -b --mime-type "$1");
-	if [[ $mimeType == text/* ]]; then
-		mimeType="${mimeType};charset=utf-8";
-	fi
-	echo "data:${mimeType};base64,$(openssl base64 -in "$1" | tr -d '\n')";
-}
-
-# Create a git.io short URL
-function gitio() {
-	if [ -z "${1}" -o -z "${2}" ]; then
-		echo "Usage: \`gitio slug url\`";
-		return 1;
-	fi;
-	curl -i http://git.io/ -F "url=${2}" -F "code=${1}";
-}
-
-# Start an HTTP server from a directory, optionally specifying the port
 function server() {
-	local port="${1:-8000}";
-	sleep 1 && open "http://localhost:${port}/" &
-	# Set the default Content-Type to `text/plain` instead of `application/octet-stream`
-	# And serve everything as UTF-8 (although not technically correct, this doesn’t break anything for binary files)
-	python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "$port";
+  about 'start simple HTTP server in directory'
+  param '1: port'
+  group 'dev'
+  local port="${1:-8000}";
+  sleep 1 && open "http://localhost:${port}/" &
+  # Set the default Content-Type to `text/plain` instead of `application/octet-stream`
+  # And serve everything as UTF-8 (although not technically correct, this doesn’t break anything for binary files)
+  python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "$port";
 }
 
-# Start a PHP server from a directory, optionally specifying the port
-# (Requires PHP 5.4.0+.)
-function phpserver() {
-	local port="${1:-4000}";
-	local ip=$(ipconfig getifaddr en1);
-	sleep 1 && open "http://${ip}:${port}/" &
-	php -S "${ip}:${port}";
+function e() {
+  about 'open file or current directory with EDITOR'
+  group 'dev'
+  if [ $# -eq 0 ]; then
+    ${EDITOR} .;
+  else
+    ${EDITOR} "$@";
+  fi;
 }
 
-# Compare original and gzipped file size
-function gz() {
-	local origsize=$(wc -c < "$1");
-	local gzipsize=$(gzip -c "$1" | wc -c);
-	local ratio=$(echo "$gzipsize * 100 / $origsize" | bc -l);
-	printf "orig: %d bytes\n" "$origsize";
-	printf "gzip: %d bytes (%2.2f%%)\n" "$gzipsize" "$ratio";
-}
-
-# Syntax-highlight JSON strings or files
-# Usage: `json '{"foo":42}'` or `echo '{"foo":42}' | json`
-function json() {
-	if [ -t 0 ]; then # argument
-		python -mjson.tool <<< "$*" | pygmentize -l javascript;
-	else # pipe
-		python -mjson.tool | pygmentize -l javascript;
-	fi;
-}
-
-# Run `dig` and display the most useful info
-function digga() {
-	dig +nocmd "$1" any +multiline +noall +answer;
-}
-
-# UTF-8-encode a string of Unicode symbols
-function escape() {
-	printf "\\\x%s" $(printf "$@" | xxd -p -c1 -u);
-	# print a newline unless we’re piping the output to another program
-	if [ -t 1 ]; then
-		echo ""; # newline
-	fi;
-}
-
-# Decode \x{ABCD}-style Unicode escape sequences
-function unidecode() {
-	perl -e "binmode(STDOUT, ':utf8'); print \"$@\"";
-	# print a newline unless we’re piping the output to another program
-	if [ -t 1 ]; then
-		echo ""; # newline
-	fi;
-}
-
-# Get a character’s Unicode code point
-function codepoint() {
-	perl -e "use utf8; print sprintf('U+%04X', ord(\"$@\"))";
-	# print a newline unless we’re piping the output to another program
-	if [ -t 1 ]; then
-		echo ""; # newline
-	fi;
-}
-
-# Show all the names (CNs and SANs) listed in the SSL certificate
-# for a given domain
-function getcertnames() {
-	if [ -z "${1}" ]; then
-		echo "ERROR: No domain specified.";
-		return 1;
-	fi;
-
-	local domain="${1}";
-	echo "Testing ${domain}…";
-	echo ""; # newline
-
-	local tmp=$(echo -e "GET / HTTP/1.0\nEOT" \
-		| openssl s_client -connect "${domain}:443" 2>&1);
-
-	if [[ "${tmp}" = *"-----BEGIN CERTIFICATE-----"* ]]; then
-		local certText=$(echo "${tmp}" \
-			| openssl x509 -text -certopt "no_header, no_serial, no_version, \
-			no_signame, no_validity, no_issuer, no_pubkey, no_sigdump, no_aux");
-			echo "Common Name:";
-			echo ""; # newline
-			echo "${certText}" | grep "Subject:" | sed -e "s/^.*CN=//";
-			echo ""; # newline
-			echo "Subject Alternative Name(s):";
-			echo ""; # newline
-			echo "${certText}" | grep -A 1 "Subject Alternative Name:" \
-				| sed -e "2s/DNS://g" -e "s/ //g" | tr "," "\n" | tail -n +2;
-			return 0;
-	else
-		echo "ERROR: Certificate not found.";
-		return 1;
-	fi;
-}
-
-# `s` with no arguments opens the current directory in Sublime Text, otherwise
-# opens the given location
-function s() {
-	if [ $# -eq 0 ]; then
-		subl .;
-	else
-		subl "$@";
-	fi;
-}
-
-# `a` with no arguments opens the current directory in Atom Editor, otherwise
-# opens the given location
-function a() {
-	if [ $# -eq 0 ]; then
-		atom .;
-	else
-		atom "$@";
-	fi;
-}
-
-# `v` with no arguments opens the current directory in Vim, otherwise opens the
-# given location
-function v() {
-	if [ $# -eq 0 ]; then
-		vim .;
-	else
-		vim "$@";
-	fi;
-}
-
-# `o` with no arguments opens the current directory, otherwise opens the given
-# location
 function o() {
-	if [ $# -eq 0 ]; then
-		open .;
-	else
-		open "$@";
-	fi;
+  about 'open file or current directory'
+  group 'shell'
+  ! exists open && {
+    return 1
+  }
+  if [ $# -eq 0 ]; then
+    open .;
+  else
+    open "$@";
+  fi;
 }
 
-# `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
-# the `.git` directory, listing directories first. The output gets piped into
-# `less` with options to preserve color and line numbers, unless the output is
-# small enough for one screen.
-function tre() {
-	tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
+function source-dirname {
+  about 'echo dirname of currently running script'
+  group 'shell'
+  local SOURCE="${BASH_SOURCE[0]}"
+  local DIR
+  while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+    DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+    SOURCE="$(readlink "$SOURCE")"
+    [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+  done
+  echo "$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 }
+
+ # http://stackoverflow.com/questions/296536/urlencode-from-a-bash-script
+    # this enables to search multiple strings; "man git fetch" will find the "git" page and search for "fetch" within
+ function encodeuri {
+    about 'encodes URI'
+    group 'dev'
+    local string="${@}"
+    local strlen=${#string}
+    local encoded=""
+
+    for (( pos = 0; pos < strlen; pos ++ )); do
+      c=${string:$pos:1}
+      case "$c" in
+        [-_.~a-zA-Z0-9]) o="${c}" ;;
+        *) printf -v o '%%%02x' "'$c"
+      esac
+      encoded+="${o}"
+    done
+    echo "${encoded}"
+}
+
+function man {
+  about 'opens man pages in Dash.app'
+  group 'osx'
+  /usr/bin/open dash://${DASH_MAN_DOCSET}:`encodeuri ${@}`
+}
+
+function setup-dash-man {
+  about 'sets up man->Dash config'
+  group 'install'
+  # To override the DocSet shortcut Man Pages name, export DASH_MAN_DOCSET somewhere.
+  DASH_MAN_DOCSET=${DASH_MAN_DOCSET-manpages}
+
+  if ! is-darwin || [[ ! -d /Applications/Dash.app ]] || \
+    [[ ! -d "$HOME/Library/Application Support/Dash/DocSets/Man_Pages" ]]; then
+    unset man
+    return 1
+  fi
+}
+setup-dash-man
+
+
+function install-npm-packages {
+  about 'installs global npm packages'
+  group 'install'
+  if exists npm; then
+    for PACKAGE in `cat ${DOTFILES}/init/npm-packages.txt`; do
+      sudo /usr/bin/env npm install -g ${PACKAGE}
+    done
+  else
+    return 1
+  fi
+}
+
+function install-homebrew {
+  about 'installs homebrew'
+  group 'install'
+  if is-darwin; then
+    /usr/bin/env ruby -e \
+      "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+  else
+    return 1
+  fi
+}
+
+function exists {
+  about 'kinda like "which" except for use with test'
+  group 'shell'
+  if [[ -z $1 ]]; then
+    return 1
+  elif [[ `command -v $1` ]]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+function install-homebrew-packages {
+  about 'installs homebrew packages as defined in ~/.init/brew-packages.txt'
+  group 'install'
+
+  is-darwin && {
+    ! exists brew && {
+      install-homebrew
+    }
+
+    brew update
+    brew upgrade
+    for PACKAGE in `cat ${DOTFILES}/init/brew-packages.txt`; do
+      brew install "${PACKAGE}"
+    done
+    brew cleanup
+  }
+}
+
+function install-cask-packages {
+  about 'installs homebrew-cask packages as defined in ~/.init/cask-packages.txt'
+  group 'install'
+  is-darwin && {
+    ! exists brew && {
+      install-homebrew
+    }
+    [[ -z `brew ls brew-cask` ]] && {
+      brew install caskroom/cask/brew-cask
+    }
+
+    tap caskroom/versions
+
+    for PACKAGE in `cat ${DOTFILES}/init/cask-packages.txt`; do
+      brew cask install "${PACKAGE}"
+    done
+
+    [[ `brew cask ls alfred` ]] && brew cask alfred link
+  }
+}
+
+function install-osx {
+  about 'installs osx defaults'
+  group 'install'
+  is-darwin && bash ${HOME}/.osx
+}
+
+function license {
+  about 'creates an MIT "LICENSE" file in the current directory'
+  param "-y year"
+  param "-a author"
+  group 'dev'
+  exists license-mit && /usr/bin/env license-mit create $@
+}
+
+function down4me()
+{
+  about 'checks whether a website is down for you, or everybody'
+  param '1: website url'
+  example '$ down4me http://www.google.com'
+  group 'net'
+  curl -s "http://www.downforeveryoneorjustme.com/$1" | sed '/just you/!d;s/<[^>]*>//g'
+}
+
+function myip()
+{
+  about 'displays your ip address, as seen by the Internet'
+  group 'net'
+  res=$(curl -s checkip.dyndns.org | grep -Eo '[0-9\.]+')
+  echo -e "Your public IP is: ${bold}${green}$res${reset}"
+}
+
+
+function all-groups ()
+{
+  about 'displays all unique metadata groups'
+  group 'meta'
+
+  typeset func
+  typeset file=$(mktemp /tmp/composure.XXXX)
+  for func in $(_typeset_functions)
+  do
+    typeset -f $func | metafor group >> $file
+  done
+  cat $file | sort | uniq
+  rm $file
+}
+

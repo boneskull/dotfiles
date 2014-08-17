@@ -1,0 +1,6 @@
+#!/bin/bash
+
+[[ -d ${HOME}/projects/beacon/ ]] && {
+  cd ${HOME}/projects/beacon/
+  /usr/bin/env vagrant suspend
+}

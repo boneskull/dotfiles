@@ -1,0 +1,20 @@
+ack
+bash
+bash-completion
+caskroom/cask/brew-cask
+coreutils
+findutils
+fswatch
+git
+git-extras
+gnu-sed --default-names
+gnu-tar
+homebrew/dupes/grep
+mercurial
+nginx
+nmap
+readline
+rsync
+source-highlight
+unrar
+wget --enable-iri

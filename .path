@@ -1,0 +1,4 @@
+export PATH="./node_modules/.bin:/usr/local/bin:/usr/local/sbin:/usr/local/heroku/bin:$PATH"
+[[ -n `command -v brew` && -n `brew ls coreutils` ]] && {
+  export PATH="$PATH:$(brew --prefix coreutils)/libexec/gnubin"
+}

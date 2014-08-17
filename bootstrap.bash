@@ -1,12 +1,17 @@
-#!/usr/bin/env bash
 
 cd "$(dirname "${BASH_SOURCE}")";
 
 git pull origin master;
 
 function doIt() {
-	rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.sh" \
+	rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.bash" \
+    --exclude ".idea" --exclude "LaunchAgents" \
 		--exclude "README.md" --exclude "LICENSE-MIT.txt" -avh --no-perms . ~;
+
+  [[ ! -d ${HOME}/betty && `command -v git` ]] && {
+    /usr/bin/env git clone https://github.com/pickhardt/betty ${HOME}/betty
+  }
+
 	source ~/.bash_profile;
 }
 

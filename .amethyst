@@ -1,0 +1,15 @@
+{
+	"floating": [
+		"com.runningwithcrayons.Alfred-2",
+		"com.runningwithcrayons.Alfred-Preferences",
+		"com.rockysandstudio.RSS-Notifier",
+		"com.apple.systempreferences",
+		"org.m0k.transmission",
+		"com.freemacsoft.AppCleaner",
+		"org.bjango.istat",
+		"com.apple.backup.launcher",
+		"com.ni.labview"
+	],
+	"ignore-menu-bar": true,
+	"enables-layout-hud-on-space-change": false
+}
