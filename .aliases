@@ -145,3 +145,4 @@ alias diff="ksdiff -w $1 $2"
 alias betty="$HOME/betty/main.rb"
 
 alias irc="open -a Textual.app"
+

@@ -145,6 +145,13 @@ function setup-dash-man {
 }
 setup-dash-man
 
+function download-idea-settings {
+  about 'downlods idea settings .jar'
+  group 'install'
+  cd ${HOME}
+  curl -O https://www.dropbox.com/s/0por9kxmz9vafch/intellij.jar
+  cd -
+}
 
 function install-npm-packages {
   about 'installs global npm packages'
@@ -224,14 +231,6 @@ function install-osx {
   about 'installs osx defaults'
   group 'install'
   is-darwin && bash ${HOME}/.osx
-}
-
-function license {
-  about 'creates an MIT "LICENSE" file in the current directory'
-  param "-y year"
-  param "-a author"
-  group 'dev'
-  exists license-mit && /usr/bin/env license-mit create $@
 }
 
 function down4me()
