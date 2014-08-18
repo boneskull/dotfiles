@@ -12,4 +12,5 @@ grunt-cli \
  open-readme \
  n \
  ng-html2js \
+ plunk \
  git://github.com/boneskull/node-slug.git
