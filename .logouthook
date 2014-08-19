@@ -1,6 +1,8 @@
 #!/bin/bash
+#
+# to enable this file, "sudo defaults write com.apple.loginwindow LoginHook /path/to/this/script"
 
-[[ -d ${HOME}/projects/beacon/ ]] && {
-  cd ${HOME}/projects/beacon/
+VAGRANT_DIR=${HOME}/projects/beacon/
+[[ -d ${VAGRANT_DIR} ]] && \
+  cd ${VAGRANT_DIR} && \
   /usr/bin/env vagrant suspend
-}
