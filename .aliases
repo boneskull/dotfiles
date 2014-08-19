@@ -138,9 +138,6 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"
 
-alias vim=${EDITOR}
-alias emacs=${EDITOR}
-
 alias diff="ksdiff -w $1 $2"
 alias betty="$HOME/betty/main.rb"
 
