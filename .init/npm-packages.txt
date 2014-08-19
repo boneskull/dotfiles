@@ -1,16 +1,16 @@
-grunt-cli \
- jshint \
- jsdoc \
- bower \
- mocha \
- karma-cli \
- json \
- less \
- mit-license-generator \
- nesh \
- ng-annotate \
- open-readme \
- n \
- ng-html2js \
- plunk \
- git://github.com/boneskull/node-slug.git
+grunt-cli
+jshint
+jsdoc 
+bower
+mocha
+karma-cli
+json
+less
+mit-license-generator
+nesh
+ng-annotate
+open-readme
+n
+ng-html2js
+plunk
+git://github.com/boneskull/node-slug.git
