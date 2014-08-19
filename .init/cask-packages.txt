@@ -42,3 +42,4 @@ vlc
 vmware-fusion
 wireshark
 xquartz
+hiss
