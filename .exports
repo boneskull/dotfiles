@@ -1,10 +1,15 @@
-# Make Sublime the default editor
-export EDITOR="subl -w";
+# Make Sublime the default editor; use vim if unavailable
+if [[ `uname` == Darwin && `command -v subl` ]]; then
+	export EDITOR="/usr/local/bin/subl -w";
+else
+	export EDITOR="/usr/bin/vim"
+fi	
 
 # Larger bash history (allow 32³ entries; default is 500)
 export HISTSIZE=32768;
 export HISTFILESIZE=$HISTSIZE;
 export HISTCONTROL=ignoredups;
+
 # Make some commands not show up in history
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help";
 
@@ -27,3 +32,5 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications";
 export INPUTRC="${HOME}/.inputrc"
 
 export DOTFILES="${HOME}/dotfiles"
+
+export IDE="${HOME}/bin/idea"
