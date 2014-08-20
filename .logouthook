@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# to enable this file, "sudo defaults write com.apple.loginwindow LoginHook /path/to/this/script"
+# to enable this file, "sudo defaults write com.apple.loginwindow LogoutHook /path/to/this/script"
 
 VAGRANT_DIR=${HOME}/projects/beacon/
 [[ -d ${VAGRANT_DIR} ]] && \
