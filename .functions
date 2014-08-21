@@ -264,7 +264,7 @@ function ed {
   about 'opens a file in Sublime Text; does not wait'
   group 'dev'
   if is-darwin && exists subl; then
-    /usr/local/bin/subl $@  
+    /usr/local/bin/subl $@
   else
     ${EDITOR} $@
   fi
@@ -283,4 +283,9 @@ function st-dotfiles {
   about 'opens dotfiles in SourceTree'
   group 'dev'
   /usr/bin/env stree "${HOME}/dotfiles"
+}
+
+function npmg {
+  sudo npm --global $@
+  sudo chown -R ${UID} `npm config get cache`
 }
