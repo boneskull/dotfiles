@@ -286,6 +286,15 @@ function st-dotfiles {
 }
 
 function npmg {
-  sudo npm --global $@
+  about 'runs npm in a global context'
+  group 'dev'
+  sudo /usr/bin/env npm --global $@
   sudo chown -R ${UID} `npm config get cache`
+}
+
+function reinstall {
+  about 'reinstalls dotfiles'
+  about 'install'
+  source ${DOTFILES}/bootstrap.bash -f
+  reload
 }
