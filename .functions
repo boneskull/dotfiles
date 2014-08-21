@@ -99,7 +99,7 @@ function source-dirname {
   while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
     DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
     SOURCE="$(readlink "$SOURCE")"
-    [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+    [[ ${SOURCE} != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
   done
   echo "$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 }
@@ -154,8 +154,8 @@ function install-npm-packages {
   about 'installs global npm packages'
   group 'install'
   if exists npm; then
-    for PACKAGE in `cat ${DOTFILES}/init/npm-packages.txt`; do
-      sudo /usr/bin/env npm install -g ${PACKAGE}
+    for PACKAGE in `cat ${HOME}/.init/npm-packages.txt`; do
+      /usr/bin/env npm install -g ${PACKAGE}
     done
   else
     return 1
@@ -178,7 +178,7 @@ function exists {
   group 'shell'
   if [[ -z $1 ]]; then
     return 1
-  elif [[ `command -v $1 > /dev/null` ]]; then
+  elif command -v $1 > /dev/null; then
     return 0
   else
     return 1
@@ -196,7 +196,7 @@ function install-homebrew-packages {
 
     brew update
     brew upgrade
-    for PACKAGE in `cat ${DOTFILES}/init/brew-packages.txt`; do
+    for PACKAGE in `cat ${HOME}/.init/brew-packages.txt`; do
       brew install "${PACKAGE}"
     done
     brew cleanup
@@ -216,7 +216,7 @@ function install-cask-packages {
 
     tap caskroom/versions
 
-    for PACKAGE in `cat ${DOTFILES}/init/cask-packages.txt`; do
+    for PACKAGE in `cat ${HOME}/.init/cask-packages.txt`; do
       brew cask install "${PACKAGE}"
     done
 
@@ -230,20 +230,18 @@ function install-osx {
   is-darwin && bash ${HOME}/.osx
 }
 
+function install-nvm {
+  about 'installs nvm (node version manager)'
+  group 'install'
+  curl https://raw.githubusercontent.com/creationix/nvm/v0.13.1/install.sh | bash
+}
+
 function down4me {
   about 'checks whether a website is down for you, or everybody'
   param '1: website url'
   example '$ down4me http://www.google.com'
   group 'net'
   curl -s "http://www.downforeveryoneorjustme.com/$1" | sed '/just you/!d;s/<[^>]*>//g'
-}
-
-function myip
-{
-  about 'displays your ip address, as seen by the Internet'
-  group 'net'
-  res=$(curl -s checkip.dyndns.org | grep -Eo '[0-9\.]+')
-  echo -e "Your public IP is: ${bold}${green}$res${reset}"
 }
 
 function all-groups() {
@@ -264,7 +262,7 @@ function ed {
   about 'opens a file in Sublime Text; does not wait'
   group 'dev'
   if is-darwin && exists subl; then
-    /usr/local/bin/subl $@
+    /usr/bin/env subl $@
   else
     ${EDITOR} $@
   fi
@@ -276,20 +274,13 @@ alias emacs=ed
 function ed-dotfiles {
   about 'opens dotfiles in IDE'
   group 'dev'
-  ${IDE} "${HOME}/dotfiles"
+  ${IDE} "${DOTFILES}"
 }
 
 function st-dotfiles {
   about 'opens dotfiles in SourceTree'
   group 'dev'
-  /usr/bin/env stree "${HOME}/dotfiles"
-}
-
-function npmg {
-  about 'runs npm in a global context'
-  group 'dev'
-  sudo /usr/bin/env npm --global $@
-  sudo chown -R ${UID} `npm config get cache`
+  /usr/bin/env stree "${DOTFILES}"
 }
 
 function reinstall {
