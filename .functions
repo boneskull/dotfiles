@@ -28,7 +28,7 @@ function archive {
   group 'util'
   local BACKUP_DIR=${BACKUP_DIR:-$(pwd)}
   local DIRS=$@
-  local DATE=`slug "$(date"+%Y-%m-%d %H:%M:%S")"`
+  local DATE=`slug "$(date '+%Y-%m-%d %H:%M:%S')"`
   for DIR in ${DIRS}; do
     if [[ -d ${DIR} ]]; then
       [[ -d ${DIR}/node_modules ]] && {
@@ -124,7 +124,7 @@ function source-dirname {
     echo "${encoded}"
 }
 
-function man {
+function dash-man {
   about 'opens man pages in Dash.app'
   group 'osx'
   /usr/bin/open dash://${DASH_MAN_DOCSET}:`encodeuri ${@}`
@@ -138,7 +138,7 @@ function setup-dash-man {
 
   if ! is-darwin || [[ ! -d /Applications/Dash.app ]] || \
     [[ ! -d "$HOME/Library/Application Support/Dash/DocSets/Man_Pages" ]]; then
-    unset man
+    alias man=dash-man
     return 1
   fi
 }
