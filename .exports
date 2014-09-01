@@ -3,7 +3,7 @@ if [[ `uname` == Darwin && `command -v subl` ]]; then
 	export EDITOR="/usr/local/bin/subl -w";
 else
 	export EDITOR="/usr/bin/vim"
-fi	
+fi
 
 # Larger bash history (allow 32³ entries; default is 500)
 export HISTSIZE=32768;
@@ -33,4 +33,4 @@ export INPUTRC="${HOME}/.inputrc"
 
 export DOTFILES="${HOME}/dotfiles"
 
-export IDE="${HOME}/bin/idea"
+export IDE="/usr/local/bin/charm"
