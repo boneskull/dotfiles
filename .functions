@@ -289,7 +289,7 @@ function st-dotfiles {
 
 function reinstall {
   about 'reinstalls dotfiles'
-  about 'install'
+  group 'install'
   source ${DOTFILES}/bootstrap.bash -f
   reload
 }
