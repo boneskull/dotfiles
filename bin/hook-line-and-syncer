@@ -2,7 +2,7 @@
 # TODO launchctl load this?
 
 EXCLUDES_FILE="/tmp/syncer-excludes.txt"
-SOURCES=( "/Volumes/samara/projects/decipher" )
+SOURCE="/Volumes/samara/projects/decipher"
 EXCLUDES=(
         "*.vmwarevm"
         ".DS_Store"
@@ -11,12 +11,11 @@ EXCLUDES=(
         ".dropbox.attr"
 )
 
-DEST="/Volumes/samara/Dropbox (Decipher Dev)/projects"
+DEST='/Volumes/samara/Dropbox (Decipher Dev)/projects'
 
 printf -- '%s\n' "${EXCLUDES[@]}" > ${EXCLUDES_FILE}
 
-for SOURCE in ${SOURCES[@]}; do
-  fswatch "${SOURCE}" "echo \"`date +%H:%M:%S`: Changes detected in ${SOURCE}; syncing to ${DEST}\" && /usr/local/bin/rsync -ru --stats --links --copy-unsafe-links --delete --exclude-from=${EXCLUDES_FILE} \"${SOURCE}\" \"${DEST}\"" &
-done
+set -x
+/usr/local/bin/rsync -ru --protect-args --stats --links --copy-unsafe-links --delete --exclude-from=${EXCLUDES_FILE} "${SOURCE}" "${DEST}"
 
-wait ${!}
+
