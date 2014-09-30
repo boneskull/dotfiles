@@ -2,7 +2,6 @@
 #
 # to enable this file, "sudo defaults write com.apple.loginwindow LogoutHook /path/to/this/script"
 
-VAGRANT_DIR=${HOME}/projects/beacon/
-[[ -d ${VAGRANT_DIR} ]] && \
-  cd ${VAGRANT_DIR} && \
-  /usr/bin/env vagrant suspend
+vboxmanage list runningvms | sed -r 's/.*\{(.*)\}/\1/' | xargs -L1 -I {} VBoxManage controlvm {} savestate
+
+killall rsync
