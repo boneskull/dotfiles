@@ -4,6 +4,7 @@ jsdoc
 bower
 mocha
 karma-cli
+json
 less
 mit-license-generator
 nesh
