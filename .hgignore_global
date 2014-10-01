@@ -1,0 +1,8 @@
+syntax: glob
+
+*~
+.DS_Store
+.idea
+workspace.xml
+npm-debug.log
+.git
