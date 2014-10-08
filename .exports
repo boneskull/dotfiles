@@ -33,4 +33,16 @@ export INPUTRC="${HOME}/.inputrc"
 
 export DOTFILES="${HOME}/dotfiles"
 
-export IDE="/usr/local/bin/charm"
+# path to IDE .app file
+export IDE_APP="/Applications/PyCharm 4.0 EAP.app"
+
+# path to IDE prefs
+export IDE_CONFIG_PATH="${HOME}/Library/Preferences/PyCharm40"
+
+# path to IDE launcher executable
+if [[ -e ${HOME}/bin/charm ]]; then
+	export IDE="${HOME}/bin/charm"
+else
+	export IDE="/usr/local/bin/charm"
+fi
+
