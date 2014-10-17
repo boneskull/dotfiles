@@ -17,3 +17,7 @@ Thumbs.db
 .idea
 
 .extra
+
+# vagrant nonsense
+.vagrant
+Vagrantfile
