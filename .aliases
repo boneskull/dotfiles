@@ -143,3 +143,10 @@ alias betty="$HOME/betty/main.rb"
 
 alias irc="open -a Textual.app"
 
+alias edit=ed
+alias vim=ed
+alias emacs=ed
+
+alias st=/usr/local/bin/stree
+
+alias dotfiles="cd ${DOTFILES}"
