@@ -34,7 +34,7 @@ export INPUTRC="${HOME}/.inputrc"
 export DOTFILES="${HOME}/dotfiles"
 
 # path to IDE .app file
-export IDE_APP="/Applications/PyCharm 4.0 EAP.app"
+export IDE_APP="/Applications/PyCharm 4.0.app"
 
 # path to IDE prefs
 export IDE_CONFIG_PATH="${HOME}/Library/Preferences/PyCharm40"
