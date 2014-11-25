@@ -5,10 +5,10 @@
 		"com.rockysandstudio.RSS-Notifier",
 		"com.apple.systempreferences",
 		"org.m0k.transmission",
-		"com.freemacsoft.AppCleaner",
 		"org.bjango.istat",
 		"com.apple.backup.launcher",
-		"com.ni.labview"
+		"com.ni.labview",
+		"com.jetbrains.pycharm"
 	],
 	"ignore-menu-bar": true,
 	"enables-layout-hud-on-space-change": false
