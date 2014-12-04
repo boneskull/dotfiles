@@ -2,6 +2,10 @@
 #
 # to enable this file, "sudo defaults write com.apple.loginwindow LogoutHook /path/to/this/script"
 
-vboxmanage list runningvms | sed -r 's/.*\{(.*)\}/\1/' | xargs -L1 -I {} VBoxManage controlvm {} savestate
+BEACON_DIR=/Volumes/samara/projects/decipher/core/beacon
+[[ -d ${BEACON_DIR} ]] && {
+  cd ${BEACON_DIR}
+  vagrant suspend
+}
 
-killall rsync
+killall -9 rsync
