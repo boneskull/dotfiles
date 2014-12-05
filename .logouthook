@@ -8,4 +8,4 @@ BEACON_DIR=/Volumes/samara/projects/decipher/core/beacon
   vagrant suspend
 }
 
-killall -9 rsync
+launchctl stop org.hiller.syncer
