@@ -5,7 +5,7 @@
 BEACON_DIR=/Volumes/samara/projects/decipher/core/beacon
 [[ -d ${BEACON_DIR} ]] && {
   cd ${BEACON_DIR}
-  vagrant suspend
+  /usr/bin/vagrant suspend
 }
 
-launchctl stop org.hiller.syncer
+/bin/launchctl stop org.hiller.syncer
