@@ -1,0 +1,5 @@
+"*.vmwarevm"
+".DS_Store"
+"Icon\r"
+".dropbox"
+".dropbox.attr"
