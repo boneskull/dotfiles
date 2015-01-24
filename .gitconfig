@@ -179,4 +179,4 @@
 	smudge = git-media-smudge %f
 
 [http]
-sslCAInfo="/Users/Shared/Certificates/Decipher, Inc..pem"
+sslCAInfo=~/.cacert.pem
