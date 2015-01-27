@@ -43,6 +43,13 @@ export IDE_CONFIG_PATH="${HOME}/Library/Preferences/PyCharm40"
 if [[ -e ${HOME}/bin/charm ]]; then
 	export IDE="${HOME}/bin/charm"
 else
-	export IDE="/usr/local/bin/charm"
+	if [[ -e /usr/local/bin/charm ]]; then
+	  export IDE="/usr/local/bin/charm"
+	else
+	  export IDE=${EDITOR}
+  fi
 fi
 
+export ANSIBLE_HOSTFILE=/usr/local/share/ansible/hosts
+
+export ANSIBLE_LIBRARY=/usr/local/share/ansible
