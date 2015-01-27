@@ -50,6 +50,6 @@ else
   fi
 fi
 
-export ANSIBLE_HOSTFILE=/usr/local/share/ansible/hosts
+export ANSIBLE_HOSTS=/usr/local/share/ansible/hosts
 
 export ANSIBLE_LIBRARY=/usr/local/share/ansible
