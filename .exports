@@ -1,6 +1,13 @@
-# Make Sublime the default editor; use vim if unavailable
-if [[ `uname` == Darwin && `command -v subl` ]]; then
-	export EDITOR="/usr/local/bin/subl -w";
+# Make atom the default editor;
+# use subl if unavailable; use vim if unavailable
+if [[ `uname` == Darwin ]]; then
+  if [[ `command -v atom` ]]; then
+	  export EDITOR="/usr/local/bin/atom -w"
+  elif [[ `command -v subl` ]]; then
+    export EDITOR="/usr/local/bin/subl -w"
+  else
+    export EDITOR="/usr/bin/vim"
+  fi
 else
 	export EDITOR="/usr/bin/vim"
 fi

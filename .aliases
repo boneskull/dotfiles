@@ -17,6 +17,7 @@ alias j="jobs"
 alias c="clear"
 alias prune="rm -rf"
 alias s="/usr/local/bin/subl"
+alias a="/usr/local/bin/atom"
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
