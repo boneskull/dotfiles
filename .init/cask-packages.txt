@@ -1,6 +1,7 @@
 alfred
 amethyst
 appcleaner
+atom
 bettertouchtool
 calibre
 daisydisk
@@ -9,11 +10,11 @@ dropbox
 evernote
 fantastical
 firefox
-flux
 google-chrome
 google-drive
 gpgtools
 heroku-toolbelt
+hiss
 iterm2
 jing
 kaleidoscope
@@ -29,7 +30,6 @@ mongodbpreferencepane
 musicbrainz-picard
 node
 path-finder
-ps3-media-server
 slack
 soulseek
 sourcetree
@@ -42,4 +42,3 @@ vlc
 vmware-fusion
 wireshark
 xquartz
-hiss
