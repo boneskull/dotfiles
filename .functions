@@ -242,29 +242,6 @@ function all-groups() {
   rm $file
 }
 
-function ed {
-  about 'opens a file in Sublime Text; does not wait'
-  group 'dev'
-  if is-darwin && exists subl; then
-    /usr/bin/env subl $@
-  else
-    ${EDITOR} $@
-  fi
-}
-
-
-function ed-dotfiles {
-  about 'opens dotfiles in IDE'
-  group 'dev'
-  ${IDE} "${DOTFILES}"
-}
-
-function st-dotfiles {
-  about 'opens dotfiles in SourceTree'
-  group 'dev'
-  /usr/bin/env stree "${DOTFILES}"
-}
-
 function reinstall {
   about 'reinstalls dotfiles'
   group 'install'
