@@ -248,3 +248,9 @@ function reinstall {
   source ${DOTFILES}/bootstrap.bash -f
   reload
 }
+
+function editorconfig {
+  about 'installs .editorconfig into current directory'
+  group 'install'
+  cp -iv ${HOME}/.editorconfig .
+}
