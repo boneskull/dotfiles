@@ -9,6 +9,7 @@ git
 git-extras
 gnu-sed --default-names
 gnu-tar
+hub
 homebrew/dupes/grep
 mercurial
 nginx
