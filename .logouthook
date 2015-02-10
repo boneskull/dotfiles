@@ -2,9 +2,8 @@
 #
 # to enable this file, "sudo defaults write com.apple.loginwindow LogoutHook /path/to/this/script"
 
-BEACON_DIR=/Volumes/samara/projects/decipher/core/beacon
+BEACON_DIR=${HOME}/projects/decipher/core/beacon
 [[ -d ${BEACON_DIR} ]] && {
   cd ${BEACON_DIR}
   /usr/bin/env vagrant suspend
 }
-
