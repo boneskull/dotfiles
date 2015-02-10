@@ -179,3 +179,6 @@
 	smudge = git-media-smudge %f
 
 
+[user]
+	name = Christopher Hiller
+	email = chiller@badwing.com
