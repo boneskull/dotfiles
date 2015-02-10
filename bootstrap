@@ -8,6 +8,7 @@ function doIt() {
 		--exclude "README.md" --exclude "LICENSE" -avh --no-perms . ${HOME};
 
 	# clone Vundle
+	rm -rf ${HOME}/.vim/bundle/Vundle.vim
 	git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 	vim +PluginInstall +qall
 
