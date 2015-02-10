@@ -8,7 +8,7 @@ purge=
 schemes=
 churn=
 record=
-hggit=/Volumes/samara/projects/boneskull/hg-git/hggit
+hggit=~/.hg-git/hggit
 
 [extdiff]
 cmd.ksdiff = /usr/local/bin/ksdiff
