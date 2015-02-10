@@ -254,3 +254,13 @@ function editorconfig {
   group 'install'
   cp -iv ${HOME}/.editorconfig .
 }
+
+function p {
+  about 'shortcut to projects dir; accepts a param'
+  group 'shell'
+  [[ ${1} ]] && {
+    cd "${HOME}/projects/${1}"
+    return
+  }
+  cd "${HOME}/projects"
+}

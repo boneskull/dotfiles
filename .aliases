@@ -10,7 +10,6 @@ alias -- -="cd -"
 alias d="cd ${DROPBOX}"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
-alias p="cd ~/projects"
 alias g="git"
 alias h="history"
 alias j="jobs"
@@ -18,6 +17,7 @@ alias c="clear"
 alias prune="rm -rf"
 alias s="/usr/local/bin/subl"
 alias a="/usr/local/bin/atom"
+alias git="/usr/local/bin/hub"
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
