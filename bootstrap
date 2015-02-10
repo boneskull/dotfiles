@@ -7,6 +7,10 @@ function doIt() {
     --exclude ".idea" --exclude "LaunchAgents" \
 		--exclude "README.md" --exclude "LICENSE" -avh --no-perms . ${HOME};
 
+	# clone Vundle
+	git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+	vim +PluginInstall +qall
+
 	source ${HOME}/.bash_profile;
 }
 

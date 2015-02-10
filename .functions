@@ -264,3 +264,10 @@ function p {
   }
   cd "${HOME}/projects"
 }
+
+function update-vundle {
+  about 'pulls latest Vundle from repo'
+  group 'install'
+	git clone https://github.com/gmarik/Vundle.vim.git ${HOME}/.vim/bundle/Vundle.vim
+	vim +PluginInstall +qall
+}
