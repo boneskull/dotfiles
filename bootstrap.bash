@@ -3,18 +3,30 @@ cd "$(dirname "${BASH_SOURCE}")";
 git pull origin master;
 
 function doIt() {
+  local VUNDLE="${HOME}/.vim/bundle/Vundle.vim"
+  local HGGIT="${HOME}/.hg-git"
 	rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap" \
     --exclude ".idea" --exclude "README.md" --exclude "LICENSE" -avh \
     --no-perms . ${HOME};
 
 	# clone/update Vundle
-	rm -rf ${HOME}/.vim/bundle/Vundle.vim
-	git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+	if [[ -d ${VUNDLE} ]] 
+	then
+          cd ${VUNDLE}
+          git pull
+	else
+	  git clone https://github.com/gmarik/Vundle.vim.git ${VUNDLE}
+	fi
 	vim +PluginInstall +qall
 
 	# install hg-git
-	rm -rf ${HOME}/.hg-git
-	git clone https://github.com/schacon/hg-git.git ~/.hg-git
+	if [[ -d ${HGGIT} ]] 
+	then
+	  cd ${HGGIT}
+	  git pull
+	else
+	  git clone https://github.com/schacon/hg-git.git ${HGGIT}
+        fi
 
 	source ${HOME}/.bash_profile;
 }
