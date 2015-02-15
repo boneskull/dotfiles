@@ -5,7 +5,7 @@ git pull origin master;
 function doIt() {
   local VUNDLE="${HOME}/.vim/bundle/Vundle.vim"
   local HGGIT="${HOME}/.hg-git"
-	rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap" \
+	rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.bash" \
     --exclude ".idea" --exclude "README.md" --exclude "LICENSE" -avh \
     --no-perms . ${HOME};
 
