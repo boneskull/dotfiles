@@ -6,7 +6,6 @@ function is-darwin {
   if [[ `uname` == Darwin ]]; then
     return 0
   else
-    echo "${bold}${red}This function only available on Mac OS X${reset}"
     return 1
   fi
 }
