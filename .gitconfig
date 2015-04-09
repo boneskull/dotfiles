@@ -57,6 +57,9 @@
 	# List contributors with number of commits
 	contributors = shortlog --summary --numbered
 
+	# commit
+	ci = commit
+
 [apply]
 
 	# Detect whitespace errors when applying a patch
@@ -181,4 +184,4 @@
 
 [user]
 	name = Christopher Hiller
-	email = chiller@badwing.com
+	email = boneskull@boneskull.com
