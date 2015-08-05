@@ -27,13 +27,19 @@ function archive {
   group 'util'
   local BACKUP_DIR=${BACKUP_DIR:-$(pwd)}
   local DIRS=$@
-  local DATE=`slug "$(date '+%Y-%m-%d %H:%M:%S')"`
+
   for DIR in ${DIRS}; do
-    if [[ -d ${DIR} ]]; then
-      [[ -d ${DIR}/node_modules ]] && {
-        rm -rf "${DIR}/node_modules"
-      }
-      tar cvzf "${BACKUP_DIR}/`slug${DIR}`-${DATE}.tar.gz" ${DIR} && rm -frv "${DIR}"
+    if [[ -d ${DIR} ]]
+    then
+      if [[ -e ${DIR}/package.json ]]
+      then
+        echo "Archiving npm module ${DIR}..."
+        npm pack "${DIR}" && rm -frv "${DIR}"
+      else
+        echo "Archiving ${DIR}..."
+        local DATE=`slug "$(date '+%Y-%m-%d %H:%M:%S')"`
+        tar cvzf "${BACKUP_DIR}/`slug ${DIR}`-${DATE}.tar.gz" ${DIR} && rm -frv "${DIR}"
+      fi
     else
       echo "Skipping non-directory ${DIR}..."
     fi
