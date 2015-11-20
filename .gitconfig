@@ -2,6 +2,9 @@
 	# a nice log
  	l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 
+	# fetch
+	fet = fetch
+
 	# View the current working tree status using the short format
 	s = status -s
 
