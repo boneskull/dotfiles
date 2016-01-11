@@ -49,9 +49,5 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 # disable mail checking
 unset MAILCHECK
 
-# setup git
-#[[ -n ${GIT_AUTHOR_EMAIL} ]] && git config --global user.email "$GIT_AUTHOR_EMAIL" 2&1>/dev/null
-#[[ -n ${GIT_AUTHOR_NAME} ]] && git config --global user.name "$GIT_AUTHOR_NAME" 2&1>/dev/null
-
 export NVM_DIR="${HOME}/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

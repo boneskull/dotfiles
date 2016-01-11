@@ -43,8 +43,6 @@ export DOTFILES="${HOME}/dotfiles"
 # path to IDE .app file
 export IDE_APP="/Applications/PyCharm.app"
 
-# path to IDE prefs
-export IDE_CONFIG_PATH="${HOME}/Library/Preferences/PyCharm40"
 
 # path to IDE launcher executable
 if [[ -e ${HOME}/bin/charm ]]; then
