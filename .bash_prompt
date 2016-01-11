@@ -23,16 +23,6 @@ prompt_scm() {
 			git rev-parse --short HEAD 2> /dev/null || \
 			echo '(unknown)')";
 
-		echo -e "${1}${branchName}${blue}";
-
-  # check for hg repo
-  elif [[ $(hg root 2> /dev/null) ]]; then
-    bookmarkNames="$(hg id -B)" || echo '(unknown)'
-
-    echo -e "${1}${bookmarkNames}${blue}";
-	else
-		return;
-	fi;
 }
 
 if tput setaf 1 &> /dev/null; then
