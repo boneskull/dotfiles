@@ -141,29 +141,6 @@ function man {
   fi
 }
 
-function install-npm-packages {
-  about 'installs global npm packages'
-  group 'install'
-  if exists npm; then
-    for PACKAGE in `cat ${HOME}/.init/npm-packages.txt`; do
-      /usr/bin/env npm install -g ${PACKAGE}
-    done
-  else
-    return 1
-  fi
-}
-
-function install-homebrew {
-  about 'installs homebrew'
-  group 'install'
-  if is-darwin; then
-    /usr/bin/env ruby -e \
-      "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
-  else
-    return 1
-  fi
-}
-
 function exists {
   about 'kinda like which'
   group 'shell'
@@ -174,45 +151,6 @@ function exists {
   else
     return 1
   fi
-}
-
-function install-homebrew-packages {
-  about 'installs homebrew packages as defined in ~/.init/brew-packages.txt'
-  group 'install'
-
-  is-darwin && {
-    ! exists brew && {
-      install-homebrew
-    }
-
-    brew update
-    brew upgrade
-    for PACKAGE in `cat ${HOME}/.init/brew-packages.txt`; do
-      brew install "${PACKAGE}"
-    done
-    brew cleanup
-  }
-}
-
-function install-cask-packages {
-  about 'installs homebrew-cask packages as defined in ~/.init/cask-packages.txt'
-  group 'install'
-  is-darwin && {
-    ! exists brew && {
-      install-homebrew
-    }
-    [[ -z `brew ls brew-cask` ]] && {
-      brew install caskroom/cask/brew-cask
-    }
-
-    tap caskroom/versions
-
-    for PACKAGE in `cat ${HOME}/.init/cask-packages.txt`; do
-      brew cask install "${PACKAGE}"
-    done
-
-    [[ `brew cask ls alfred` ]] && brew cask alfred link
-  }
 }
 
 function install-osx {

@@ -65,11 +65,3 @@ Then, to show functions within a specific group:
 ```bash
 glossary <group>
 ```
-
-### Homebrew, Cask & NPM Packages
-
-The functions `install-homebrew-packages`, `install-cask-packages`, and `install-npm-packages` will install global packages.
-
-Manage the packages to be installed by editing the `.init/brew-packages.txt`, `./init/cask-packages.txt`, and `./init/npm-packages.txt`, respectively.
-
-> To use any of these commands, you may need to execute `install-homebrew` first.  Package `homebrew-cask` comes down via `install-homebrew-packages`, and `npm` comes down via `node` from `install-cask-packages`.
