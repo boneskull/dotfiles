@@ -21,10 +21,6 @@ function doIt() {
   fi
   vim +PluginInstall +qall
 
-  # setup git
-  git config --global user.email "$GIT_AUTHOR_EMAIL" 2&1>/dev/null
-  git config --global user.name "$GIT_AUTHOR_NAME" 2&1>/dev/null
-
   source ${HOME}/.bash_profile;
 }
 
