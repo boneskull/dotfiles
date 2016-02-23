@@ -82,8 +82,8 @@
 	# More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
 	trustctime = false
 
-  autocrlf = input
-  quotepath = false
+	autocrlf = input
+	quotepath = false
 
 [color]
 
@@ -115,7 +115,7 @@
 	# Detect copies as well as renames
 	renames = copies
 
-  tool = Kaleidoscope
+	tool = Kaleidoscope
 
 [difftool "sourcetree"]
 	cmd = /usr/local/bin/ksdiff -w \"$LOCAL\" \"$REMOTE\"
@@ -144,7 +144,7 @@
 
 	# Include summaries of merged commits in newly created merge commit messages
 	log = true
-  tool = Kaleidoscope
+	tool = Kaleidoscope
 
 [push]
 
@@ -177,12 +177,11 @@
 
 [credential]
 
-  helper = store
+	helper = store
 
 [filter "media"]
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
-
 
 [user]
 	name = Christopher Hiller
