@@ -62,14 +62,6 @@ function fs {
   fi;
 }
 
-function serve {
-  about 'start simple HTTP server in directory'
-  param '1: port'
-  group 'dev'
-  local port="${1:-8000}";
-  python -m SimpleHTTPServer
-}
-
 function e {
   about 'open file or current directory with EDITOR'
   group 'dev'
