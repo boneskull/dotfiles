@@ -101,9 +101,6 @@ is-darwin && {
 	# PlistBuddy alias, because sometimes `defaults` just doesn’t cut it
 	alias plistbuddy="/usr/libexec/PlistBuddy"
 
-	# use kaleidoscope for diffing
-	alias diff="ksdiff -w $1 $2"
-
 	# SourceTree
 	alias st=/usr/local/bin/stree
 
