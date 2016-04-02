@@ -49,8 +49,15 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 # disable mail checking
 unset MAILCHECK
 
+# nvm setup
 export NVM_DIR="${HOME}/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+if [[ -s ${NVM_DIR}/nvm.sh ]]
+then
+	. "${NVM_DIR}/nvm.sh"
+else
+	. "$(brew --prefix nvm)/nvm.sh"
+fi
+
 ###-begin-pm2-completion-###
 ### credits to npm for the completion file model
 #
