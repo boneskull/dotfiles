@@ -8,7 +8,7 @@ function doIt() {
   local GIT_AUTHOR_NAME="Christopher Hiller"
 
   rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.bash" \
-    --exclude ".idea" --exclude "README.md" --exclude "LICENSE" -avh \
+    --exclude ".idea" --exclude "README.md" --exclude "LICENSE" --exclude "iTerm" -avh \
     --no-perms . ${HOME};
 
   # clone/update Vundle
