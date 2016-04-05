@@ -101,9 +101,6 @@ is-darwin && {
 	# PlistBuddy alias, because sometimes `defaults` just doesn’t cut it
 	alias plistbuddy="/usr/libexec/PlistBuddy"
 
-	# SourceTree
-	alias st=/usr/local/bin/stree
-
 }
 
 # URL-encode strings
@@ -122,3 +119,5 @@ alias reload="exec $SHELL -l"
 
 # hub
 command -v hub > /dev/null && alias git=/usr/local/bin/hub
+
+alias st='/Applications/SourceTree.app/Contents/Resources/stree'
