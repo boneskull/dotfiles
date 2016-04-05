@@ -98,3 +98,5 @@ elif type compctl &>/dev/null; then
   compctl -K _pm2_completion + -f + pm2
 fi
 ###-end-pm2-completion-###
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
