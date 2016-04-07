@@ -8939,13 +8939,9 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame Preferences</key>
-	<string>267 581 606 456 0 0 1920 1057 </string>
-	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>-1270 553 620 392 -1920 55 1920 1057 </string>
-	<key>NSWindow Frame UKCrashReporter</key>
-	<string>155 473 592 584 0 0 1920 1057 </string>
+	<string>269 389 606 456 0 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>-1360 180 1360 768 -1920 0 1920 1057 </string>
+	<string>0 425 650 523 0 0 1920 1177 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -9142,7 +9138,7 @@
 				<real>0.31057274341583252</real>
 			</dict>
 			<key>Badge Text</key>
-			<string>lizardo</string>
+			<string></string>
 			<key>Blend</key>
 			<real>1</real>
 			<key>Blink Allowed</key>
@@ -9564,6 +9560,8 @@
 			<string>Menlo-Regular 14</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
+			<key>Place Prompt at First Column</key>
+			<false/>
 			<key>Prompt Before Closing 2</key>
 			<integer>2</integer>
 			<key>Right Option Key Sends</key>
@@ -9611,6 +9609,8 @@
 			<true/>
 			<key>Shortcut</key>
 			<string>1</string>
+			<key>Show Mark Indicators</key>
+			<false/>
 			<key>Silence Bell</key>
 			<true/>
 			<key>Smart Cursor Color</key>
@@ -9713,7 +9713,7 @@
 				<string>local</string>
 			</array>
 			<key>Terminal Type</key>
-			<string>ansi</string>
+			<string>xterm-256color</string>
 			<key>Thin Strokes</key>
 			<false/>
 			<key>Transparency</key>
@@ -10351,6 +10351,8 @@
 			<string>Menlo-Regular 14</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
+			<key>Place Prompt at First Column</key>
+			<false/>
 			<key>Prompt Before Closing 2</key>
 			<integer>2</integer>
 			<key>Right Option Key Sends</key>
@@ -10398,6 +10400,8 @@
 			<true/>
 			<key>Shortcut</key>
 			<string>C</string>
+			<key>Show Mark Indicators</key>
+			<false/>
 			<key>Silence Bell</key>
 			<true/>
 			<key>Smart Cursor Color</key>
@@ -11921,6 +11925,8 @@
 			<string>Menlo-Regular 14</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
+			<key>Place Prompt at First Column</key>
+			<false/>
 			<key>Prompt Before Closing 2</key>
 			<integer>2</integer>
 			<key>Right Option Key Sends</key>
@@ -11968,6 +11974,8 @@
 			<true/>
 			<key>Shortcut</key>
 			<string>W</string>
+			<key>Show Mark Indicators</key>
+			<false/>
 			<key>Silence Bell</key>
 			<true/>
 			<key>Smart Cursor Color</key>
@@ -12706,6 +12714,8 @@
 			<string>Menlo-Regular 14</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
+			<key>Place Prompt at First Column</key>
+			<false/>
 			<key>Prompt Before Closing 2</key>
 			<integer>2</integer>
 			<key>Right Option Key Sends</key>
@@ -12753,6 +12763,8 @@
 			<true/>
 			<key>Shortcut</key>
 			<string>R</string>
+			<key>Show Mark Indicators</key>
+			<false/>
 			<key>Silence Bell</key>
 			<true/>
 			<key>Smart Cursor Color</key>
@@ -13100,6 +13112,7 @@
 			<key>Bound Hosts</key>
 			<array>
 				<string>lectroid</string>
+				<string>lectroid.local</string>
 			</array>
 			<key>Character Encoding</key>
 			<integer>4</integer>
@@ -13503,6 +13516,8 @@
 			<string>Menlo-Regular 14</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
+			<key>Place Prompt at First Column</key>
+			<false/>
 			<key>Prompt Before Closing 2</key>
 			<integer>2</integer>
 			<key>Right Option Key Sends</key>
@@ -13550,6 +13565,8 @@
 			<true/>
 			<key>Shortcut</key>
 			<string>L</string>
+			<key>Show Mark Indicators</key>
+			<false/>
 			<key>Silence Bell</key>
 			<true/>
 			<key>Smart Cursor Color</key>
@@ -13652,7 +13669,7 @@
 				<string>local</string>
 			</array>
 			<key>Terminal Type</key>
-			<string>ansi</string>
+			<string>xterm-256color</string>
 			<key>Thin Strokes</key>
 			<false/>
 			<key>Transparency</key>
@@ -14302,6 +14319,8 @@
 			<string>Menlo-Regular 14</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
+			<key>Place Prompt at First Column</key>
+			<false/>
 			<key>Prompt Before Closing 2</key>
 			<integer>2</integer>
 			<key>Right Option Key Sends</key>
@@ -14349,6 +14368,8 @@
 			<true/>
 			<key>Shortcut</key>
 			<string>Z</string>
+			<key>Show Mark Indicators</key>
+			<false/>
 			<key>Silence Bell</key>
 			<true/>
 			<key>Smart Cursor Color</key>
@@ -14491,7 +14512,7 @@
 	<key>NoSyncPermissionToShowTip</key>
 	<false/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>480211299.44555402</real>
+	<real>481269590.594356</real>
 	<key>OnlyWhenMoreTabs</key>
 	<false/>
 	<key>OpenArrangementAtStartup</key>
@@ -14551,18 +14572,16 @@
 	<integer>8</integer>
 	<key>RightOption</key>
 	<integer>3</integer>
-	<key>SUAutomaticallyUpdate</key>
-	<true/>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/nightly.xml</string>
+	<string>https://iterm2.com/appcasts/testing3.xml</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-04-06T05:23:20Z</date>
+	<date>2016-04-06T17:38:59Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -14595,8 +14614,6 @@
 	<integer>10</integer>
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<true/>
-	<key>UKCrashReporterLastCrashReportDate</key>
-	<real>1460000384</real>
 	<key>URLHandlersByGuid</key>
 	<dict>
 		<key>ssh</key>
@@ -16205,7 +16222,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.9.20160403-nightly</string>
+	<string>2.9.20160313</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>1</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
