@@ -8939,11 +8939,11 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame Preferences</key>
-	<string>-1653 581 606 456 -1920 0 1920 1057 </string>
+	<string>267 581 606 456 0 0 1920 1057 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>-1270 553 620 392 -1920 55 1920 1057 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
-	<string>-1765 528 592 584 -1920 55 1920 1057 </string>
+	<string>155 473 592 584 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>-1360 180 1360 768 -1920 0 1920 1057 </string>
 	<key>New Bookmarks</key>
@@ -14562,7 +14562,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-04-05T05:23:06Z</date>
+	<date>2016-04-06T05:23:20Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -14596,7 +14596,7 @@
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<true/>
 	<key>UKCrashReporterLastCrashReportDate</key>
-	<real>1459360896</real>
+	<real>1460000384</real>
 	<key>URLHandlersByGuid</key>
 	<dict>
 		<key>ssh</key>
