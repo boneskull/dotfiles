@@ -21,5 +21,8 @@ Thumbs.db
 # vagrant nonsense
 .vagrant
 
+# filemerge leftovers
 *.orig
 
+# vim open files
+*.swp
