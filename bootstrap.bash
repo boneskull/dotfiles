@@ -1,11 +1,10 @@
-cd "$(dirname "${BASH_SOURCE}")";
+VUNDLE="${HOME}/.vim/bundle/Vundle.vim"
 
-git pull origin master;
+cd "$(dirname "${BASH_SOURCE}")"
+
+git pull origin master
 
 function doIt() {
-  local VUNDLE="${HOME}/.vim/bundle/Vundle.vim"
-  local GIT_AUTHOR_EMAIL="boneskull@boneskull.com"
-  local GIT_AUTHOR_NAME="Christopher Hiller"
 
   rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.bash" \
     --exclude ".idea" --exclude "README.md" --exclude "LICENSE" --exclude "iTerm" -avh \
@@ -20,6 +19,9 @@ function doIt() {
     git clone https://github.com/gmarik/Vundle.vim.git ${VUNDLE}
   fi
   vim +PluginInstall +qall
+
+  # install iTerm shell integration
+  curl -L https://iterm2.com/misc/install_shell_integration_and_utilities.sh | bash
 
   source ${HOME}/.bash_profile;
 }
