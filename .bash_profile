@@ -54,7 +54,8 @@ export NVM_DIR="${HOME}/.nvm"
 if [[ -s ${NVM_DIR}/nvm.sh ]]
 then
 	. "${NVM_DIR}/nvm.sh"
-else
+elif [[ -x /usr/local/bin/brew ]]
+then
 	. "$(brew --prefix nvm)/nvm.sh"
 fi
 
