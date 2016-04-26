@@ -121,3 +121,5 @@ alias reload="exec $SHELL -l"
 command -v hub > /dev/null && alias git=/usr/local/bin/hub
 
 alias st='/Applications/SourceTree.app/Contents/Resources/stree'
+
+alias timestamp="date +'%s'"
