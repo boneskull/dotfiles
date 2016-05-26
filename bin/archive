@@ -1,34 +1,11 @@
 #!/bin/bash
 
-doPack() {
-  echo "Archiving npm module ${DIR}..."
-  local NEWDIR="${BACKUP_DIR}/${DIR}"
-  mv "${DIR}" "${BACKUP_DIR}"
-  ${NPM} pack "${NEWDIR}"
-  rm -frv "${NEWDIR}"
-}
-
-doArchive() {
-  echo "Archiving ${DIR}..."
-  local DATE=`slug "$(date '+%Y-%m-%d %H:%M:%S')"`
-  gtar cvz --exclude-vcs -f "${BACKUP_DIR}/`slug ${DIR}`-${DATE}.tar.gz" ${DIR}
-}
-
-set -e
-
-NPM=/usr/local/bin/npm
+GTAR=/usr/local/bin/gtar
+SLUG=/usr/local/bin/slug
 BACKUP_DIR="/media/samara/Archives/"
 DIR="${1}"
 
-type -p slug || {
-  echo "You must 'npm install -g slug' first"
-  exit 1
-}
-
-type -p gtar || {
-  echo "You must 'brew install tar' first"
-  exit 1
-}
+set -e
 
 [[ ${DIR} ]] || {
   echo "Specify target directory"
@@ -40,9 +17,8 @@ type -p gtar || {
   exit 1
 }
 
-if [[ -e ${DIR}/package.json ]]
-then
-  doPack
-else
-  doArchive
-fi
+echo "Archiving ${DIR}..."
+NOW=`date '+%Y-%m-%d %H:%M:%S'`
+SLUGGED=`${SLUG} "${DIR} ${NOW}"`
+${GTAR} cz --exclude-vcs-ignores --exclude-vcs -f "${BACKUP_DIR}/${SLUGGED}.tar.gz" "${DIR}"
+rm -frv "${DIR}"
