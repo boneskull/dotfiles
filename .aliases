@@ -7,15 +7,6 @@ alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
 # Shortcuts
-alias d="cd ${DROPBOX}"
-alias dl="cd ~/Downloads"
-alias dt="cd ~/Desktop"
-alias g="git"
-alias h="history"
-alias j="jobs"
-alias c="clear"
-alias prune="rm -rf"
-alias s="/usr/local/bin/subl"
 alias a="/usr/local/bin/atom"
 
 # Detect which `ls` flavor is in use
