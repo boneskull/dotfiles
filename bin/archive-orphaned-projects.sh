@@ -1,7 +1,10 @@
 #!/bin/bash
 
+set -e
+
 DIR=${1}
-BACKUP_DIR=/Volumes/alien/projects/archive/
+BACKUP_DIR=/media/samara/Archives/
+ARCHIVE="${HOME}/bin/archive"
 
 function archive {
   local DIRS=$@
@@ -10,15 +13,7 @@ function archive {
   do
     if [[ -d ${DIR} ]]
     then
-      if [[ -e ${DIR}/package.json ]]
-      then
-        echo "Archiving npm module ${DIR}..."
-        mv "${DIR}" "${BACKUP_DIR}" && cd "${BACKUP_DIR}" && npm pack "${DIR}" && rm -frv "${DIR}" && cd - >/dev/null
-      else
-        echo "Archiving ${DIR}..."
-        local DATE=`slug "$(date '+%Y-%m-%d %H:%M:%S')"`
-        tar cvzf "${BACKUP_DIR}/`slug ${DIR}`-${DATE}.tar.gz" ${DIR} && rm -frv "${DIR}"
-      fi
+      ${ARCHIVE} "${DIR}"
     else
       echo "Skipping non-directory ${DIR}..."
     fi

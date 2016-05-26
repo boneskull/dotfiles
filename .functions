@@ -22,30 +22,6 @@ function mkd {
   mkdir -p "$@" && cd "$@";
 }
 
-function archive {
-  about 'archive a directory to the BACKUP_DIR or PWD'
-  group 'util'
-  local BACKUP_DIR=${BACKUP_DIR:-$(pwd)}
-  local DIRS=$@
-
-  for DIR in ${DIRS}; do
-    if [[ -d ${DIR} ]]
-    then
-      if [[ -e ${DIR}/package.json ]]
-      then
-        echo "Archiving npm module ${DIR}..."
-        npm pack "${DIR}" && rm -frv "${DIR}"
-      else
-        echo "Archiving ${DIR}..."
-        local DATE=`slug "$(date '+%Y-%m-%d %H:%M:%S')"`
-        tar cvzf "${BACKUP_DIR}/`slug ${DIR}`-${DATE}.tar.gz" ${DIR} && rm -frv "${DIR}"
-      fi
-    else
-      echo "Skipping non-directory ${DIR}..."
-    fi
-  done
-}
-
 # Determine size of a file or total size of a directory
 function fs {
   about 'determine size of file or total size of dir'
