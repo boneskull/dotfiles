@@ -11,7 +11,7 @@ doPack() {
 doArchive() {
   echo "Archiving ${DIR}..."
   local DATE=`slug "$(date '+%Y-%m-%d %H:%M:%S')"`
-  tar cvzf "${BACKUP_DIR}/`slug ${DIR}`-${DATE}.tar.gz" ${DIR}
+  gtar cvz --exclude-vcs -f "${BACKUP_DIR}/`slug ${DIR}`-${DATE}.tar.gz" ${DIR}
 }
 
 set -e
@@ -22,6 +22,11 @@ DIR="${1}"
 
 type -p slug || {
   echo "You must 'npm install -g slug' first"
+  exit 1
+}
+
+type -p gtar || {
+  echo "You must 'brew install tar' first"
   exit 1
 }
 
