@@ -13,9 +13,7 @@ Thumbs.db
 .Spotlight-V100
 .Trashes
 
-# Jetbrains crapola
-.idea
-
+# dotfiles
 .extra
 
 # vagrant nonsense
