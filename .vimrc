@@ -17,6 +17,8 @@ Plugin 'gmarik/Vundle.vim'
 " plugin on GitHub repo
 Plugin 'elzr/vim-json'
 
+Plugin "Matt-Deacalion/vim-systemd-syntax"
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -31,3 +33,8 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
