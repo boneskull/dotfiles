@@ -17,7 +17,8 @@ Plugin 'gmarik/Vundle.vim'
 " plugin on GitHub repo
 Plugin 'elzr/vim-json'
 
-Plugin "Matt-Deacalion/vim-systemd-syntax"
+" systemd syntax
+Plugin 'Matt-Deacalion/vim-systemd-syntax'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
