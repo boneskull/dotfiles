@@ -8945,11 +8945,11 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>650 499 620 392 0 0 1920 1057 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>269 234 937 512 0 0 1440 900 </string>
+	<string>-1451 566 796 473 -1920 0 1920 1080 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>155 593 592 584 0 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>-1920 0 1360 745 -1920 0 1920 1057 </string>
+	<string>-1920 0 650 548 -1920 0 1920 1057 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -9743,6 +9743,8 @@
 			<key>Use Italic Font</key>
 			<true/>
 			<key>Use Non-ASCII Font</key>
+			<false/>
+			<key>Use Tab Color</key>
 			<false/>
 			<key>Vertical Spacing</key>
 			<real>1.0791279077529907</real>
@@ -13141,6 +13143,7 @@
 			<array>
 				<string>lectroid</string>
 				<string>lectroid.local</string>
+				<string>lectroid-2.local</string>
 			</array>
 			<key>Character Encoding</key>
 			<integer>4</integer>
@@ -13720,6 +13723,8 @@
 			<true/>
 			<key>Use Non-ASCII Font</key>
 			<false/>
+			<key>Use Tab Color</key>
+			<false/>
 			<key>Vertical Spacing</key>
 			<real>1.0791279077529907</real>
 			<key>Visual Bell</key>
@@ -13993,7 +13998,7 @@
 			<key>Custom Command</key>
 			<string>Yes</string>
 			<key>Custom Directory</key>
-			<string>Advanced</string>
+			<string>Recycle</string>
 			<key>Default Bookmark</key>
 			<string>No</string>
 			<key>Disable Printing</key>
@@ -14627,7 +14632,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-08-02T17:45:14Z</date>
+	<date>2016-08-17T04:44:11Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>

@@ -1,4 +1,0 @@
-#!/bin/bash
-
-TARGET=${1:-./}
-open -a "Path Finder" ${TARGET}
