@@ -9,7 +9,7 @@
   s = status -s
 
   # Show the diff between the latest commit and the current state
-  d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+  d = !"git diff --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 
   # `git di $number` shows the diff between the state `$number` revisions ago and the current state
   di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
@@ -78,12 +78,21 @@
   # [default] space-before-tab: looks for spaces before tabs at the beginning of a line
   whitespace = space-before-tab,-indent-with-non-tab,trailing-space
 
-  # Make `git rebase` safer on OS X
-  # More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
   trustctime = false
 
-  autocrlf = input
   quotepath = false
+  precomposeUnicode = true
+
+[branch]
+  autoSetupMerge = always
+  autoSetupRebase = always
+
+[fetch]
+  prune = true
+
+[rebase]
+  autoStash = true
+  stat = true
 
 [color]
 
@@ -129,9 +138,6 @@
 
 [push]
 
-  # Use the Git 1.x.x default to avoid errors on machines with old Git
-  # installations. To use `simple` instead, add this to your `~/.extra` file:
-  # `git config --global push.default simple`. See http://git.io/mMah-w.
   default = current
 
 # URL shorthands
@@ -169,16 +175,25 @@
   email = boneskull@boneskull.com
 
 [difftool "Kaleidoscope"]
-    cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+  cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [difftool]
-	prompt = false
+  prompt = false
 [diff]
-	tool = Kaleidoscope
+  tool = Kaleidoscope
 
 [mergetool "Kaleidoscope"]
-    cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" \"$REMOTE\"
+  cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" \"$REMOTE\"
 
 [mergetool]
-	prompt = false
+  prompt = false
 [merge]
-	tool = Kaleidoscope
+  tool = Kaleidoscope
+
+[difftool "sourcetree"]
+  cmd = /usr/local/bin/ksdiff -w \"$LOCAL\" \"$REMOTE\"
+  path =
+[mergetool "sourcetree"]
+  cmd = /usr/local/bin/ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+  trustExitCode = true
+[commit]
+  template = /Users/boneskull/.stCommitMsg
