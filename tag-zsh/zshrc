@@ -1,4 +1,4 @@
-source ~/.dotfiles/.antigen.git/antigen.zsh
+source $(brew --prefix)/share/antigen/antigen.zsh
 
 antigen use oh-my-zsh
 antigen bundle zsh-users/zsh-syntax-highlighting
