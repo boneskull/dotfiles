@@ -1,7 +1,0 @@
-
-# tap repositories and their packages
-
-# Other Homebrew packages
-brew ansiweather
-brew jq
-brew oniguruma
