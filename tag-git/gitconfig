@@ -84,8 +84,7 @@
   precomposeUnicode = true
 
 [branch]
-  autoSetupMerge = always
-  autoSetupRebase = always
+  autoSetupRebase = remote
 
 [fetch]
   prune = true

@@ -1,0 +1,68 @@
+
+# tap repositories and their packages
+
+tap caskroom/cask
+cask alfred
+cask backblaze
+cask bartender
+cask bettertouchtool
+cask calibre
+cask catch
+cask dash
+cask dropbox
+cask evernote
+cask firefox
+cask flash
+cask fritzing
+cask gitter
+cask google-chrome
+cask google-drive
+cask keka
+cask launchcontrol
+cask skype
+cask tunnelblick
+cask vlc
+cask yate
+
+tap caskroom/fonts
+
+tap caskroom/versions
+
+tap homebrew/boneyard
+
+tap homebrew/bundle
+
+tap homebrew/core
+brew flac
+brew mas
+
+tap homebrew/dupes
+
+tap homebrew/fuse
+
+tap homebrew/php
+
+tap homebrew/services
+
+tap homebrew/versions
+
+tap homebrew/x11
+
+tap lastfm/lastfmdesktop
+
+tap rcmdnk/file
+brew brew-file
+
+# App Store applications
+appstore 961578824 PeakHour 3
+appstore 896450579 Textual 6
+appstore 562184107 LanScan Pro
+appstore 411643860 DaisyDisk
+appstore 926319434 Stars by Karelia
+appstore 417602904 CloudApp
+appstore 880001334 Reeder 3
+qappstore 926036361 LastPass: Password Manager and Secure Digital Vault
+appstore 915542151 Monity
+appstore 639968404 Parcel - Delivery Tracking
+appstore 410628904 Wunderlist: To-Do List & Tasks
+appstore 485812721 TweetDeck by Twitter
