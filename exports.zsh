@@ -7,9 +7,6 @@ export EDITOR="/usr/bin/env vim"
 export LANG="en_US.UTF-8"
 export LC_ALL="${LANG}"
 
-# Highlight section titles in manual pages
-export LESS_TERMCAP_md="${yellow}"
-
 # Don’t clear the screen after quitting a manual page
 export MANPAGER="less -X"
 
