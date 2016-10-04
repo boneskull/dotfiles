@@ -3,6 +3,7 @@
 
 tap caskroom/cask
 cask alfred
+cask atom
 cask backblaze
 cask bartender
 cask bettertouchtool
@@ -11,36 +12,122 @@ cask catch
 cask dash
 cask dropbox
 cask evernote
+cask filebot
 cask firefox
 cask flash
+cask fontforge
 cask fritzing
 cask gitter
 cask google-chrome
 cask google-drive
-cask keka
+cask java
+cask lastfm
 cask launchcontrol
+cask makemkv
+cask powermate
+cask rescuetime
+cask sauce-connect
 cask skype
+cask slack
+cask slic3r
+cask soulseek
+cask sourcetree
 cask tunnelblick
+cask vagrant
+cask virtualbox-extension-pack
+cask virtualbox
 cask vlc
+cask wireshark
+cask xquartz
 cask yate
 
 tap caskroom/fonts
+cask font-source-code-pro
 
 tap caskroom/versions
+cask iterm2-beta
 
-tap homebrew/boneyard
-
-tap homebrew/bundle
+tap git-time-metric/gtm
+brew gtm
 
 tap homebrew/core
+brew antigen
+brew asciinema
+brew awscli
+brew base64
+brew clang-format
+brew coreutils
+brew cuetools
+brew curl
+brew dos2unix
+brew ffmpeg
 brew flac
+brew gawk
+brew git
+brew git-extras
+brew git-flow
+brew gmp
+brew gnu-tar
+brew heroku
+brew hub
+brew lame
+brew libffi
+brew libogg
+brew libpng
+brew libtiff
+brew libvorbis
+brew libxml2
+brew libyaml
+brew little-cms
 brew mas
+brew media-info
+brew mercurial
+brew minicom
+brew mpfr
+brew nmap
+brew node
+brew openssl
+brew p7zip
+brew pcre
+brew pcre2
+brew pyqt
+brew python
+brew python3
+brew qt --with-qt3support
+brew readline
+brew rename
+brew ruby --force
+brew socat
+brew source-highlight
+brew speex
+brew sqlite
+brew ssh-copy-id
+brew subversion
+brew terminal-notifier
+brew theora
+brew tree
+brew ucl
+brew uncrustify
+brew unixodbc
+brew unrar
+brew upx
+brew wakeonlan
+brew webp
+brew wget
+brew x264
+brew xvid
+brew xz
+brew zsh
 
 tap homebrew/dupes
+brew grep
+brew rsync
 
 tap homebrew/fuse
+brew sshfs
 
 tap homebrew/php
+brew php70
 
 tap homebrew/services
 
@@ -48,21 +135,30 @@ tap homebrew/versions
 
 tap homebrew/x11
 
-tap lastfm/lastfmdesktop
-
 tap rcmdnk/file
 brew brew-file
 
+tap thoughtbot/formulae
+brew rcm
+
 # App Store applications
-appstore 961578824 PeakHour 3
-appstore 896450579 Textual 6
-appstore 562184107 LanScan Pro
-appstore 411643860 DaisyDisk
-appstore 926319434 Stars by Karelia
-appstore 417602904 CloudApp
-appstore 880001334 Reeder 3
-qappstore 926036361 LastPass: Password Manager and Secure Digital Vault
-appstore 915542151 Monity
-appstore 639968404 Parcel - Delivery Tracking
-appstore 410628904 Wunderlist: To-Do List & Tasks
-appstore 485812721 TweetDeck by Twitter
+appstore 1053031090 Boxy (1.2.1)
+appstore 417602904 CloudApp (4.1.1)
+appstore 411643860 DaisyDisk (4.2)
+appstore 682180765 Final Music Converter (2.3.6)
+appstore 562184107 LanScan Pro (4.0)
+appstore 926036361 LastPass (3.16.0)
+appstore 915542151 Monity (1.4.1)
+appstore 639968404 Parcel (2.1)
+appstore 961578824 PeakHour 3 (3.1.6)
+appstore 880001334 Reeder (3.0.1)
+appstore 803453959 Slack (2.0.3)
+appstore 926319434 Stars (5.0.2)
+appstore 896450579 Textual (6.0.1)
+appstore 485812721 TweetDeck (3.9.889)
+appstore 410628904 Wunderlist (3.4.4)
+appstore 497799835 Xcode (8.0)
+appstore 409907375 Apple Remote Desktop
+
+# Other commands
+qappstore 926036361 'LastPass: Password Manager and Secure Digital Vault'
