@@ -41,7 +41,8 @@ antigen bundle wd
   antigen bundle unixorn/tumult.plugin.zsh
 }
 
-antigen theme caiogondim/bullet-train-oh-my-zsh-theme bullet-train
+#antigen theme caiogondim/bullet-train-oh-my-zsh-theme bullet-train
+antigen theme bureau
 antigen apply
 
 [[ -f ~/.aliases.zsh ]] && source ~/.aliases.zsh
