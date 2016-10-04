@@ -70,7 +70,7 @@
 [core]
 
   # Use custom `.gitignore` and `.gitattributes`
-  excludesfile = ~/.gitignore_global
+	excludesfile = /Users/boneskull/.gitignore_global
   attributesfile = ~/.gitattributes
 
   # Treat spaces before tabs and all kinds of trailing whitespace as an error
@@ -170,8 +170,8 @@
   smudge = git-media-smudge %f
 
 [user]
-  name = Christopher Hiller
-  email = boneskull@boneskull.com
+	name = Christopher Hiller
+	email = boneskull@boneskull.com
 
 [difftool "Kaleidoscope"]
   cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
@@ -189,10 +189,10 @@
   tool = Kaleidoscope
 
 [difftool "sourcetree"]
-  cmd = /usr/local/bin/ksdiff -w \"$LOCAL\" \"$REMOTE\"
-  path =
+	cmd = /usr/local/bin/ksdiff -w \"$LOCAL\" \"$REMOTE\"
+	path = 
 [mergetool "sourcetree"]
-  cmd = /usr/local/bin/ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-  trustExitCode = true
+	cmd = /usr/local/bin/ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
 [commit]
-  template = /Users/boneskull/.stCommitMsg
+	template = /Users/boneskull/.stCommitMsg
