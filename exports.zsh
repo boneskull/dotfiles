@@ -1,4 +1,5 @@
 #!/usr/bin/env zsh
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/opt/X11/bin:/Applications/Server.app/Contents/ServerRoot/usr/bin:/Applications/Server.app/Contents/ServerRoot/usr/sbin:/usr/local/git/bin:${PATH}"
 
 [[ `uname` == Darwin ]] && export DARWIN=1
 export EDITOR="/usr/bin/env vim"
