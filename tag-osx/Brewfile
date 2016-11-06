@@ -7,23 +7,25 @@ cask atom
 cask backblaze
 cask bartender
 cask bettertouchtool
+cask cakebrew
 cask calibre
-cask catch
 cask dash
 cask dropbox
 cask evernote
 cask filebot
 cask firefox
-cask flash
 cask fontforge
 cask fritzing
 cask gitter
 cask google-chrome
 cask google-drive
 cask java
+cask jing
 cask lastfm
 cask launchcontrol
+cask lingon-x
 cask makemkv
+cask marked
 cask powermate
 cask rescuetime
 cask sauce-connect
@@ -46,6 +48,7 @@ cask font-source-code-pro
 
 tap caskroom/versions
 cask iterm2-beta
+cask xbox360-controller-driver-beta
 
 tap git-time-metric/gtm
 brew gtm
@@ -55,6 +58,7 @@ brew antigen
 brew asciinema
 brew awscli
 brew base64
+brew bash
 brew clang-format
 brew coreutils
 brew cuetools
@@ -62,19 +66,27 @@ brew curl
 brew dos2unix
 brew ffmpeg
 brew flac
+brew freetype
 brew gawk
+brew gettext
 brew git
 brew git-extras
 brew git-flow
 brew gmp
 brew gnu-tar
+brew go
+brew graphicsmagick
 brew heroku
 brew hub
+brew icu4c
+brew imagemagick
+brew jpeg
 brew lame
 brew libffi
 brew libogg
 brew libpng
 brew libtiff
+brew libtool
 brew libvorbis
 brew libxml2
 brew libyaml
@@ -112,6 +124,7 @@ brew unixodbc
 brew unrar
 brew upx
 brew wakeonlan
+brew watchman
 brew webp
 brew wget
 brew x264
@@ -127,7 +140,9 @@ tap homebrew/fuse
 brew sshfs
 
 tap homebrew/php
+brew composer
 brew php70
+brew php70-xdebug
 
 tap homebrew/services
 
@@ -153,12 +168,10 @@ appstore 639968404 Parcel (2.1)
 appstore 961578824 PeakHour 3 (3.1.6)
 appstore 880001334 Reeder (3.0.1)
 appstore 803453959 Slack (2.0.3)
-appstore 926319434 Stars (5.0.2)
 appstore 896450579 Textual (6.0.1)
 appstore 485812721 TweetDeck (3.9.889)
 appstore 410628904 Wunderlist (3.4.4)
 appstore 497799835 Xcode (8.0)
 appstore 409907375 Apple Remote Desktop
-
-# Other commands
-qappstore 926036361 'LastPass: Password Manager and Secure Digital Vault'
+appstore 926319434 Stars by Karelia
+appstore 926036361 'LastPass: Password Manager and Secure Digital Vault
