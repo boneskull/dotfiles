@@ -14,6 +14,7 @@ cask dropbox
 cask evernote
 cask filebot
 cask firefox
+cask flux
 cask fontforge
 cask fritzing
 cask gitter
