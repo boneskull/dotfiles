@@ -62,9 +62,6 @@
   # commit
   ci = commit
 
-  # fetch & rebase all locally-tracked remote branches
-  up = pull --rebase --autostash
-
 [apply]
 
   # Detect whitespace errors when applying a patch
