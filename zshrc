@@ -17,3 +17,4 @@
 [[ -f ${HOME}/.extra.zsh ]] && {
   source "${HOME}/.extra.zsh"
 }
+
