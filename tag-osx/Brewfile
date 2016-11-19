@@ -108,6 +108,7 @@ brew p7zip
 brew pcre
 brew pcre2
 brew pyqt
+brew platformio
 brew python
 brew python3
 brew qt --with-qt3support
