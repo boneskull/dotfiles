@@ -83,6 +83,10 @@ export DISABLE_AUTO_UPDATE='true'
 export HYPHEN_INSENSITIVE='true'
 export COMPLETION_WAITING_DOTS='true'
 
+whence pygmentize >/dev/null && {
+  export LESSOPEN="| pygmentize -g -f terminal256 %s"
+}
+
 # load config for OS
 [[ -f ${HOME}/.exports.$(get_env os).zsh ]] && {
   source "${HOME}/.exports.$(get_env os).zsh"
