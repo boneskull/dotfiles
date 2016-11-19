@@ -165,6 +165,7 @@ brew rcm
 brew pyqt
 
 # gem packages
+gem bundler --homebrew-ruby
 gem git-up --homebrew-ruby
 gem travis --homebrew-ruby
 
