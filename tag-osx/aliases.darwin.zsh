@@ -10,12 +10,11 @@ whence rcup >/dev/null && {
   alias lsrc="lsrc -t app git osx"
 }
 
-[[ -d /Applications/Dash.app || -d ${HOME}/Applications/Dash.app ]] && {
-  # Man pages to Dash
+# Man pages to Dash
+[[ -n $(mdfind "kMDItemFSName == 'Dash.app'" | head -n1) ]] && {
   dash_man () {
     /usr/bin/open "dash://manpages:$(omz_urlencode ${@})"
   }
 
   alias man=dash_man
 }
-
