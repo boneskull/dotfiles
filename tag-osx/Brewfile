@@ -3,6 +3,7 @@
 
 tap caskroom/cask
 cask alfred
+cask arduino
 cask atom
 cask backblaze
 cask bartender
