@@ -72,6 +72,7 @@ brew ffmpeg
 brew flac
 brew freetype
 brew gawk
+brew gdbm
 brew gettext
 brew git
 brew git-extras
