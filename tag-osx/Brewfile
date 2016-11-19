@@ -36,7 +36,6 @@ cask slic3r
 cask soulseek
 cask sourcetree
 cask tunnelblick
-cask vagrant
 cask virtualbox-extension-pack
 cask virtualbox
 cask vlc
