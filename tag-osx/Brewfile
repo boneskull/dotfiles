@@ -55,6 +55,7 @@ tap git-time-metric/gtm
 brew gtm
 
 tap homebrew/core
+brew ansible
 brew antigen
 brew asciinema
 brew awscli
@@ -100,6 +101,7 @@ brew mpfr
 brew nmap
 brew node
 brew openssl
+brew openssl@1.1
 brew p7zip
 brew pcre
 brew pcre2
