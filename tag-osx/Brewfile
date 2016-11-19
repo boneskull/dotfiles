@@ -61,6 +61,8 @@ brew asciinema
 brew awscli
 brew base64
 brew bash
+brew brew-gem
+brew brew-pip
 brew clang-format
 brew coreutils
 brew cuetools
