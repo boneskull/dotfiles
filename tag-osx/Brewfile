@@ -162,6 +162,9 @@ brew brew-file
 tap thoughtbot/formulae
 brew rcm
 
+# gem packages
+gem git-up --homebrew-ruby
+gem travis --homebrew-ruby
 # App Store applications
 appstore 1053031090 Boxy (1.2.1)
 appstore 417602904 CloudApp (4.1.1)
