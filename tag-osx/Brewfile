@@ -101,7 +101,6 @@ brew mercurial
 brew minicom
 brew mpfr
 brew nmap
-brew node
 brew openssl
 brew openssl@1.1
 brew p7zip
