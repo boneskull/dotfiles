@@ -53,6 +53,13 @@ set_env_flags () {
     set_env 'go' "${HOME}/.go"
     export PATH="${GOPATH}/bin:${PATH}"
   }
+
+  # config if source-highlighter is present
+  set_executable_env_flag 'src-hilite-lesspipe.sh' 'source-highlighter'
+  [[ $(get_env source-highlighter) ]] && {
+    export LESSOPEN="| /usr/bin/env src-hilite-lesspipe.sh %s"
+    export LESS=' -R'
+  }
 }
 
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:${PATH}"
@@ -82,10 +89,6 @@ export ENABLE_CORRECTION='true'
 export DISABLE_AUTO_UPDATE='true'
 export HYPHEN_INSENSITIVE='true'
 export COMPLETION_WAITING_DOTS='true'
-
-whence pygmentize >/dev/null && {
-  export LESSOPEN="| pygmentize -g -f terminal256 %s"
-}
 
 # load config for OS
 [[ -f ${HOME}/.exports.$(get_env os).zsh ]] && {
