@@ -169,6 +169,8 @@ brew pyqt
 gem bundler --homebrew-ruby
 gem git-up --homebrew-ruby
 gem github-pages --homebrew-ruby
+gem jekyll --homebrew-ruby
+gem jekyll-paginate --homebrew-ruby
 gem travis --homebrew-ruby
 
 # App Store applications
