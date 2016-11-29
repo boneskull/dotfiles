@@ -11,4 +11,4 @@ alias reload="exec $SHELL -l"
   print "%{$fg[yellow]%} Warning: aliases not found for OS \"$(get_env os)\"%{$reset_color%}"
 }
 
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
