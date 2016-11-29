@@ -93,6 +93,4 @@ export COMPLETION_WAITING_DOTS='true'
 # load config for OS
 [[ -f ${HOME}/.exports.$(get_env os).zsh ]] && {
   source "${HOME}/.exports.$(get_env os).zsh"
-} || {
-  print "%{$fg[yellow]%} Warning: exports not found for OS \"$(get_env os)\"%{$reset_color%}"
 }
