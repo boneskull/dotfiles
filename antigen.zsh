@@ -18,7 +18,7 @@ boneskull_update_antigen () {
 [[ ! -f ${ANTIGEN_HOME}/antigen.zsh ]] && {
   boneskull_install_antigen
 }
-  
+
 source "${ANTIGEN_HOME}/antigen.zsh"
 
 antigen use oh-my-zsh
@@ -59,10 +59,7 @@ antigen bundle bundler
 
 [[ -f ${HOME}/.antigen.$(get_env os).zsh ]] && {
   source "${HOME}/.antigen.$(get_env os).zsh"
-} || {
-  print "%{$fg[yellow]%} Warning: antigen config not found for OS \"$(get_env os)\"%{$reset_color%}"
 }
-
 
 antigen theme bureau
 antigen apply
