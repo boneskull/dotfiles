@@ -12,7 +12,9 @@ cask cakebrew
 cask calibre
 cask coolterm
 cask dash
+cask docker
 cask dropbox
+cask enjoyable
 cask evernote
 cask filebot
 cask firefox
@@ -24,22 +26,30 @@ cask google-chrome
 cask google-drive
 cask java
 cask jing
+cask keybase
+cask kitematic
 cask lastfm
 cask launchcontrol
 cask lingon-x
+cask little-flocker
+cask macfusion
 cask makemkv
 cask marked
+cask osxfuse
 cask powermate
 cask rescuetime
 cask sauce-connect
 cask skype
 cask slack
+cask sleepyhead
 cask slic3r
 cask soulseek
 cask sourcetree
 cask tunnelblick
+cask vagrant
 cask virtualbox-extension-pack
 cask virtualbox
+cask vivaldi
 cask vlc
 cask wireshark
 cask xquartz
@@ -50,7 +60,6 @@ cask font-source-code-pro
 
 tap caskroom/versions
 cask iterm2-beta
-cask xbox360-controller-driver-beta
 
 tap git-time-metric/gtm
 brew gtm
@@ -59,62 +68,98 @@ tap homebrew/core
 brew ansible
 brew antigen
 brew asciinema
+brew atk
+brew augeas
 brew awscli
 brew base64
 brew bash
+brew boost
 brew brew-gem
 brew brew-pip
+brew cairo
+brew certbot
 brew clang-format
+brew cmake
 brew coreutils
 brew cuetools
 brew curl
+brew ddclient
+brew dialog
 brew dos2unix
 brew ffmpeg
 brew flac
+brew fontconfig
 brew freetype
 brew gawk
 brew gdbm
+brew gdk-pixbuf
 brew gettext
 brew git
 brew git-extras
 brew git-flow
+brew glew
+brew glib
 brew gmp
+brew gnu-sed
 brew gnu-tar
 brew go
+brew gobject-introspection
+brew gource
 brew graphicsmagick
+brew gsettings-desktop-schemas
+brew gsl
+brew gtk+
+brew gtk+3
+brew gtksourceview3
+brew harfbuzz
 brew heroku
+brew hicolor-icon-theme
+brew htop-osx
 brew hub
 brew icu4c
 brew imagemagick
 brew jpeg
 brew lame
+brew libepoxy
 brew libffi
+brew libid3tag
+brew libmp3splt
 brew libogg
 brew libpng
 brew libtiff
 brew libtool
+brew libusb
 brew libvorbis
 brew libxml2
 brew libyaml
 brew little-cms
+brew logentries
+brew mad
 brew mas
 brew media-info
 brew mercurial
 brew minicom
+brew mp3splt
 brew mpfr
 brew nmap
+brew node
 brew openssl
 brew openssl@1.1
 brew p7zip
+brew pango
 brew pcre
 brew pcre2
+brew pixman
+brew pkg-config
 brew platformio
 brew python
 brew python3
-brew qt --with-qt3support
 brew readline
 brew rename
 brew ruby --force
+brew sdl2
+brew sdl2_image
+brew shared-mime-info
 brew socat
 brew source-highlight
 brew speex
@@ -136,6 +181,7 @@ brew wget
 brew x264
 brew xvid
 brew xz
+brew yarn
 brew zsh
 
 tap homebrew/dupes
@@ -149,6 +195,8 @@ tap homebrew/php
 brew composer
 brew php70
 brew php70-xdebug
+
+tap homebrew/science
 
 tap homebrew/services
 
@@ -164,6 +212,12 @@ brew rcm
 
 # Other Homebrew packages
 brew pyqt
+brew qt --with-qt3support
+
+# pip packages
+pip passlib
+pip pysocks
+pip socks
 
 # gem packages
 gem bundler --homebrew-ruby
