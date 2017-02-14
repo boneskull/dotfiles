@@ -57,8 +57,8 @@ set_env_flags () {
   # config if source-highlighter is present
   set_executable_env_flag 'src-hilite-lesspipe.sh' 'source-highlighter'
   [[ $(get_env source-highlighter) ]] && {
-    export LESSOPEN="| /usr/bin/env src-hilite-lesspipe.sh %s"
-    export LESS=' -R'
+    export LESSOPEN="| /usr/bin/env src-hilite-lesspipe.sh %s 2>/dev/null"
+    export LESS=" -R"
   }
 }
 
@@ -78,8 +78,9 @@ export EDITOR='/usr/bin/env vim'
 export LANG='en_US.UTF_8'
 export LC_ALL="${LANG}"
 
-# Don’t clear the screen after quitting a manual page
-export MANPAGER='less -X'
+export PAGER=less
+export MANPAGER="${PAGER}"
+export MORE="${LESS}"
 
 # Always enable colored `grep` output
 export GREP_OPTIONS='--color=auto'

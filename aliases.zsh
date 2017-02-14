@@ -10,3 +10,4 @@ alias reload="exec $SHELL -l"
 }
 
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias less="less -X"
