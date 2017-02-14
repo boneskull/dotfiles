@@ -62,7 +62,7 @@ set_env_flags () {
   }
 }
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:${PATH}"
+export PATH="./node_modules/.bin:${HOME}/.config/yarn/global/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:${PATH}"
 
 typeset -x -A BONESKULL
 
