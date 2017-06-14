@@ -8,3 +8,7 @@
 [[ -f ${HOME}/.iterm2_shell_integration.zsh ]] && {
   source ${HOME}/.iterm2_shell_integration.zsh
 }
+
+[[ -f $(brew --prefix)/etc/profile.d/z.sh ]] && {
+  . /usr/local/etc/profile.d/z.sh
+}
