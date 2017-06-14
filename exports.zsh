@@ -75,8 +75,8 @@ export ANTIGEN_HOME="${HOME}/.antigen/"
 export EDITOR='/usr/bin/env vim'
 
 # Prefer US English and use UTF_8
-export LANG='en_US.UTF_8'
-export LC_ALL="${LANG}"
+#export LANG='en_US.UTF_8'
+#export LC_ALL='en_US.UTF_8'
 
 export PAGER=less
 export MANPAGER="${PAGER}"
