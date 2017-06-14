@@ -171,7 +171,7 @@
 
 [user]
 	name = Christopher Hiller
-	email = boneskull@boneskull.com
+	email = boneskull@boneskull.com 
 
 [difftool "Kaleidoscope"]
   cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
