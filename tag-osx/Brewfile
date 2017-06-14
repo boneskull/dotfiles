@@ -11,6 +11,7 @@ cask bettertouchtool
 cask cakebrew
 cask calibre
 cask coolterm
+cask cubicsdr
 cask dash
 cask docker
 cask dropbox
@@ -19,11 +20,11 @@ cask evernote
 cask filebot
 cask firefox
 cask flux
-cask fontforge
 cask fritzing
 cask gitter
 cask google-chrome
 cask google-drive
+cask gqrx
 cask java
 cask jing
 cask keybase
@@ -31,7 +32,6 @@ cask kitematic
 cask lastfm
 cask launchcontrol
 cask lingon-x
-cask little-flocker
 cask macfusion
 cask makemkv
 cask marked
@@ -45,6 +45,7 @@ cask sleepyhead
 cask slic3r
 cask soulseek
 cask sourcetree
+cask the-unarchiver
 cask tunnelblick
 cask vagrant
 cask virtualbox-extension-pack
@@ -70,6 +71,7 @@ brew antigen
 brew asciinema
 brew atk
 brew augeas
+brew avrdude
 brew awscli
 brew base64
 brew bash
@@ -87,10 +89,12 @@ brew ddclient
 brew dialog
 brew dos2unix
 brew ffmpeg
+brew findutils
 brew flac
 brew fontconfig
 brew freetype
 brew gawk
+brew gd
 brew gdbm
 brew gdk-pixbuf
 brew gettext
@@ -106,11 +110,13 @@ brew go
 brew gobject-introspection
 brew gource
 brew graphicsmagick
+brew grep
 brew gsettings-desktop-schemas
 brew gsl
 brew gtk+
 brew gtk+3
 brew gtksourceview3
+brew gzip
 brew harfbuzz
 brew heroku
 brew hicolor-icon-theme
@@ -120,8 +126,10 @@ brew icu4c
 brew imagemagick
 brew jpeg
 brew lame
+brew libelf
 brew libepoxy
 brew libffi
+brew libftdi0
 brew libid3tag
 brew libmp3splt
 brew libogg
@@ -129,6 +137,7 @@ brew libpng
 brew libtiff
 brew libtool
 brew libusb
+brew libusb-compat
 brew libvorbis
 brew libxml2
 brew libyaml
@@ -143,6 +152,7 @@ brew mp3splt
 brew mpfr
 brew nmap
 brew node
+brew nvm
 brew openssl
 brew openssl@1.1
 brew p7zip
@@ -152,10 +162,14 @@ brew pcre2
 brew pixman
 brew pkg-config
 brew platformio
+brew povray
+brew pyqt
 brew python
 brew python3
+brew qt --with-qt3support
 brew readline
 brew rename
+brew rsync
 brew ruby --force
 brew sdl2
 brew sdl2_image
@@ -165,6 +179,7 @@ brew source-highlight
 brew speex
 brew sqlite
 brew ssh-copy-id
+brew sshfs
 brew subversion
 brew terminal-notifier
 brew theora
@@ -182,14 +197,12 @@ brew x264
 brew xvid
 brew xz
 brew yarn
+brew z
 brew zsh
 
 tap homebrew/dupes
-brew grep
-brew rsync
 
 tap homebrew/fuse
-brew sshfs
 
 tap homebrew/php
 brew composer
@@ -210,10 +223,6 @@ brew brew-file
 tap thoughtbot/formulae
 brew rcm
 
-# Other Homebrew packages
-brew pyqt
-brew qt --with-qt3support
-
 # pip packages
 pip passlib
 pip pysocks
@@ -221,7 +230,6 @@ pip socks
 
 # gem packages
 gem bundler --homebrew-ruby
-gem git-up --homebrew-ruby
 gem github-pages --homebrew-ruby
 gem jekyll --homebrew-ruby
 gem jekyll-paginate --homebrew-ruby
