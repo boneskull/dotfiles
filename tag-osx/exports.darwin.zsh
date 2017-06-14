@@ -3,7 +3,8 @@
 }
 
 [[ -d /Applications/Server.app/ ]] && {
-  export PATH="/Applications/Server.app/Contents/ServerRoot/usr/bin:/Applications/Server.app/Contents/ServerRoot/usr/sbin:${PATH}"
+  # importantly, don't override homebrew with this crap
+  export PATH="${PATH}:/Applications/Server.app/Contents/ServerRoot/usr/bin:/Applications/Server.app/Contents/ServerRoot/usr/sbin:"
 }
 
 [[ $(get_env homebrew) ]] && {
@@ -16,3 +17,4 @@
   export HOMEBREW_CASK_OPTS="--appdir=${HOME}/Applications";
   export HOMEBREW_BREWFILE="${HOME}/.Brewfile"
 }
+
