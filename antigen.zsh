@@ -63,3 +63,5 @@ antigen bundle bundler
 
 antigen theme bureau
 antigen apply
+
+unsetopt correct_all
