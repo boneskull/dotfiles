@@ -3,3 +3,7 @@
 antigen bundle osx
 antigen bundle brew
 antigen bundle unixorn/tumult.plugin.zsh
+
+[[ -d ${HOME}/.fonts ]] && {
+  source ${HOME}/.fonts/*.sh
+}

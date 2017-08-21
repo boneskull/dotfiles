@@ -18,3 +18,4 @@
   export HOMEBREW_BREWFILE="${HOME}/.Brewfile"
 }
 
+export PATH="/usr/local/opt/python/libexec/bin:${PATH}"
