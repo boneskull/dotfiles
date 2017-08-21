@@ -97,3 +97,4 @@ xcuserdata/
 
 # conflicts!
 *.orig
+cmake-build-debug/
