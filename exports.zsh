@@ -62,7 +62,7 @@ set_env_flags () {
   }
 }
 
-export PATH="./node_modules/.bin:${HOME}/bin:${HOME}/.config/yarn/global/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:${PATH}"
+export PATH="${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:${PATH}"
 
 typeset -x -A BONESKULL
 
@@ -90,6 +90,7 @@ export ENABLE_CORRECTION='true'
 export DISABLE_AUTO_UPDATE='true'
 export HYPHEN_INSENSITIVE='true'
 export COMPLETION_WAITING_DOTS='true'
+export NVM_DIR="${HOME}/.nvm"
 
 # load config for OS
 [[ -f ${HOME}/.exports.$(get_env os).zsh ]] && {
