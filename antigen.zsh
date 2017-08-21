@@ -45,13 +45,10 @@ antigen bundle sudo # ESC 2x: prefix w sudo
 antigen bundle vagrant # vagrant autocompletion
 
 antigen bundle history
-antigen bundle jsontools
-
-# warp directory
-# https://github.com/mfaerevaag/wd
-antigen bundle wd
 
 antigen bundle bundler
+# mkdir & cd
+antigen bundle Tarrasch/zsh-mcd
 
 [[ $(get_env aws) ]] && {
   antigen bundle aws
