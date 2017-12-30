@@ -162,8 +162,7 @@
   insteadOf = "gist:"
 
 [credential]
-
-  helper = store
+	helper = store
 
 [filter "media"]
   clean = git-media-clean %f
@@ -171,7 +170,8 @@
 
 [user]
 	name = Christopher Hiller
-	email = boneskull@boneskull.com 
+	email = boneskull@boneskull.com
+	signingkey = FA1529CB136A9E8A
 
 [difftool "Kaleidoscope"]
   cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
@@ -196,3 +196,12 @@
 	trustExitCode = true
 [commit]
 	template = /Users/boneskull/.stCommitMsg
+	gpgsign = true
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+
+[gpg]
+	program = /usr/local/bin/gpg
