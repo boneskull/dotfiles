@@ -1,71 +1,8 @@
 
 # tap repositories and their packages
 
-tap caskroom/cask
-cask alfred
-cask arduino
-cask atom
-cask backblaze
-cask bartender
-cask bettertouchtool
-cask cakebrew
-cask calibre
-cask coolterm
-cask cubicsdr
-cask dash
-cask docker
-cask dropbox
-cask enjoyable
-cask evernote
-cask filebot
-cask firefox
-cask flux
-cask fritzing
-cask gitter
-cask google-chrome
-cask google-drive
-cask gqrx
-cask java
-cask jing
-cask keybase
-cask kitematic
-cask lastfm
-cask launchcontrol
-cask lingon-x
-cask macfusion
-cask makemkv
-cask marked
-cask osxfuse
-cask powermate
-cask rescuetime
-cask sauce-connect
-cask skype
-cask slack
-cask sleepyhead
-cask slic3r
-cask soulseek
-cask sourcetree
-cask the-unarchiver
-cask tunnelblick
-cask vagrant
-cask virtualbox-extension-pack
-cask virtualbox
-cask vivaldi
-cask vlc
-cask wireshark
-cask xquartz
-cask yate
-
-tap caskroom/fonts
-cask font-source-code-pro
-
-tap caskroom/versions
-cask iterm2-beta
-
-tap git-time-metric/gtm
-brew gtm
-
 tap homebrew/core
+brew adns
 brew ansible
 brew antigen
 brew asciinema
@@ -75,9 +12,9 @@ brew avrdude
 brew awscli
 brew base64
 brew bash
+brew binutils
 brew boost
-brew brew-gem
-brew brew-pip
+brew c-ares
 brew cairo
 brew certbot
 brew clang-format
@@ -88,6 +25,8 @@ brew curl
 brew ddclient
 brew dialog
 brew dos2unix
+brew erlang
+brew erlang@19
 brew ffmpeg
 brew findutils
 brew flac
@@ -103,9 +42,11 @@ brew git-extras
 brew git-flow
 brew glew
 brew glib
+brew glibmm
 brew gmp
 brew gnu-sed
 brew gnu-tar
+brew gnutls
 brew go
 brew gobject-introspection
 brew gource
@@ -119,54 +60,74 @@ brew gtksourceview3
 brew gzip
 brew harfbuzz
 brew heroku
-brew hicolor-icon-theme
-brew htop-osx
+brew hr
 brew hub
+brew hugo
 brew icu4c
 brew imagemagick
 brew jpeg
+brew jq
 brew lame
+brew libassuan
+brew libdvdcss
 brew libelf
 brew libepoxy
 brew libffi
 brew libftdi0
+brew libgcrypt
+brew libgpg-error
 brew libid3tag
+brew libksba
 brew libmp3splt
 brew libogg
 brew libpng
+brew libsigc++
+brew libtasn1
 brew libtiff
 brew libtool
+brew libunistring
 brew libusb
 brew libusb-compat
 brew libvorbis
+brew libwebsockets
 brew libxml2
 brew libyaml
+brew libzip
 brew little-cms
 brew logentries
 brew mad
 brew mas
 brew media-info
 brew mercurial
-brew minicom
 brew mp3splt
 brew mpfr
+brew mypy
+brew nettle
 brew nmap
 brew node
-brew nvm
+brew npth
+brew oniguruma
 brew openssl
 brew openssl@1.1
+brew p11-kit
 brew p7zip
 brew pango
 brew pcre
 brew pcre2
+brew picocom
+brew pinentry
+brew pinentry-mac
 brew pixman
 brew pkg-config
 brew platformio
+brew portaudio
 brew povray
-brew pyqt
+brew pth
+brew pwgen
 brew python
 brew python3
 brew qt --with-qt3support
+brew rabbitmq
 brew readline
 brew rename
 brew rsync
@@ -176,10 +137,11 @@ brew sdl2_image
 brew shared-mime-info
 brew socat
 brew source-highlight
+brew sox
 brew speex
+brew sphinx-doc
 brew sqlite
 brew ssh-copy-id
-brew sshfs
 brew subversion
 brew terminal-notifier
 brew theora
@@ -193,21 +155,19 @@ brew wakeonlan
 brew watchman
 brew webp
 brew wget
+brew wmctrl
+brew wxmac
 brew x264
 brew xvid
 brew xz
 brew yarn
+brew yubico-piv-tool
 brew z
 brew zsh
 
-tap homebrew/dupes
-
-tap homebrew/fuse
-
-tap homebrew/php
-brew composer
-brew php70
-brew php70-xdebug
+tap homebrew/science
+brew libsigrokdecode
+brew sigrok-cli
 
 tap homebrew/science
 
@@ -217,40 +177,99 @@ tap homebrew/versions
 
 tap homebrew/x11
 
+tap caskroom/cask
+cask fritzing
+cask atom
+cask arduino
+cask launchcontrol
+cask yakyak
+cask virtualbox
+cask kitematic
+cask mqttfx
+cask marked
+cask vlc
+cask skype
+cask jing
+cask handbrake
+cask intellij-idea
+cask the-unarchiver
+cask keybase
+cask db-browser-for-sqlite
+cask dropbox
+cask free-ruler
+cask filebot
+cask docker
+cask dash
+cask vagrant
+cask pullover
+cask backblaze
+cask lastfm
+cask coolterm
+cask discord
+cask wireshark
+cask powermate
+cask firefox
+cask bartender
+cask google-chrome
+cask xquartz
+cask sauce-connect
+cask bluemix-cli
+cask java
+cask sourcetree
+cask alfred
+cask anaconda
+cask bettertouchtool
+cask tad
+cask calibre
+
+tap caskroom/fonts
+cask font-fira-mono-for-powerline
+cask font-inconsolata-for-powerline
+cask font-roboto
+cask font-roboto-mono
+cask font-roboto-mono-for-powerline
+cask font-hasklig
+cask font-roboto-slab
+cask font-source-code-pro
+cask font-roboto-condensed
+
+tap caskroom/fonts
+
+tap caskroom/versions
+cask iterm2-beta
+
+tap cloudfoundry/tap
+brew cf-cli
+
+tap git-time-metric/gtm
+brew gtm
+
+tap https://github.com/mengbo/ch340g-ch34g-ch34x-mac-os-x-driver
+
+tap mengbo/ch340g-ch34g-ch34x-mac-os-x-driver
+cask wch-ch34x-usb-serial-driver
+
 tap rcmdnk/file
 brew brew-file
 
 tap thoughtbot/formulae
 brew rcm
 
-# pip packages
-pip passlib
-pip pysocks
-pip socks
+tap vitorgalvao/tiny-scripts
+brew cask-repair
 
-# gem packages
-gem bundler --homebrew-ruby
-gem github-pages --homebrew-ruby
-gem jekyll --homebrew-ruby
-gem jekyll-paginate --homebrew-ruby
-gem travis --homebrew-ruby
+# Other Homebrew packages
+brew gpg
+
+# Cask applications
+cask Gitter
 
 # App Store applications
-appstore 1053031090 Boxy (1.2.1)
-appstore 417602904 CloudApp (4.1.1)
 appstore 411643860 DaisyDisk (4.2)
-appstore 682180765 Final Music Converter (2.3.6)
 appstore 562184107 LanScan Pro (4.0)
 appstore 926036361 LastPass (3.16.0)
 appstore 915542151 Monity (1.4.1)
 appstore 639968404 Parcel (2.1)
-appstore 961578824 PeakHour 3 (3.1.6)
 appstore 880001334 Reeder (3.0.1)
-appstore 803453959 Slack (2.0.3)
-appstore 896450579 Textual (6.0.1)
-appstore 485812721 TweetDeck (3.9.889)
-appstore 410628904 Wunderlist (3.4.4)
-appstore 497799835 Xcode (8.0)
-appstore 409907375 Apple Remote Desktop
 appstore 926319434 Stars by Karelia
-appstore 926036361 'LastPass: Password Manager and Secure Digital Vault
+appstore 485812721 TweetDeck (3.9.889)
