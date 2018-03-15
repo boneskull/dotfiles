@@ -1,0 +1,3 @@
+EXCLUDES="LICENSE README.md .editorconfig iTerm .gitignore rcrc"
+UNDOTTED="bin"
+TAGS="app git osx"

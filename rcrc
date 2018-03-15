@@ -1,3 +1,0 @@
-EXCLUDES="LICENSE README.md .editorconfig iTerm .gitignore"
-UNDOTTED="bin"
-TAGS="app git"
