@@ -98,3 +98,7 @@ xcuserdata/
 # conflicts!
 *.orig
 cmake-build-debug/
+
+# vscode
+.vscode/
+
