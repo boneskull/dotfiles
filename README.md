@@ -1,67 +1,28 @@
 # boneskull’s dotfiles
 
-Based on [Mathias's Dotfiles](https://github.com/mathiasbynens/dotfiles.git).
+> My precious dotfiles
+
+## Requirements
+
+macOS or Debian-based Linux distro
 
 ## Installation
 
-### Using Git and the bootstrap script
+1. Install `git`, `vim`, `zsh`, and `curl` via package manager (`apt`, `brew`, etc.)
+1. `chsh` to `zsh` if you haven't already
+1. Execute `./install-rcm.sh` to install [rcm](https://github.com/thoughtbot/rcm)
+1. Copy `linux.rcrc` or `osx.rcrc` (as appropriate) to `$HOME/.rcrc`
+1. Execute `rcup`
+1. Re-login
 
-You can clone the repository wherever you want. (I like to keep it in `~/Projects/dotfiles`, with `~/dotfiles` as a symlink.) The bootstrapper script will pull in the latest version and copy the files to your home folder.
+## Extras
 
-```bash
-git clone https://github.com/boneskull/dotfiles.git && cd dotfiles && source bootstrap.sh
-```
+Put sensitive env vars in `${HOME}/.extras.zsh`.
 
-To update, `cd` into your local `dotfiles` repository and then:
+## Prior Art
 
-```bash
-source bootstrap.bash
-```
+Based on [Mathias's dotfiles](https://github.com/mathiasbynens/dotfiles), but subsequently modified beyond recognition.
 
-Alternatively, to update while avoiding the confirmation prompt:
+## License
 
-```bash
-set -- -f; source bootstrap.bash
-```
-
-### Specify the `$PATH`
-
-If `~/.path` exists, it will be sourced along with the other files, before any feature testing (such as [detecting which version of `ls` is being used](https://github.com/mathiasbynens/dotfiles/blob/aff769fd75225d8f2e481185a71d5e05b76002dc/.aliases#L21-26)) takes place.
-
-Here’s an example `~/.path` file that adds `~/utils` to the `$PATH`:
-
-```bash
-export PATH="$HOME/utils:$PATH"
-```
-
-### Add custom commands without creating a new fork
-
-If `~/.extra` exists, it will be sourced along with the other files. You can use this to add a few custom commands without the need to fork this entire repository, or to add commands you don’t want to commit to a public repository.
-
-### Sensible OS X defaults
-
-When setting up a new Mac, you may want to set some sensible OS X defaults:
-
-```bash
-./.osx
-```
-
-### Function Glossary
-
-To print a list of all functions, execute:
-
-```bash
-glossary
-```
-
-To show "groups" which functions belong to, execute
-
-```bash
-all-groups
-```
-
-Then, to show functions within a specific group:
-
-```bash
-glossary <group>
-```
+Copyright (c) 2014-2018 [Christopher Hiller](https://boneskull.com).  Licensed MIT
