@@ -1,14 +1,8 @@
 # zshrc for darwin
 
-# setup for brew-file
-[[ $(get_env homebrew) && -f $(brew --prefix)/etc/brew-wrap ]] && {
-  source $(brew --prefix)/etc/brew-wrap
-}
-
-[[ -f $(brew --prefix)/etc/profile.d/z.sh ]] && {
-  . /usr/local/etc/profile.d/z.sh
-}
-
-[[ -f /usr/local/opt/nvm/nvm.sh ]] && {
-  . /usr/local/opt/nvm/nvm.sh
+[[ $(get-env homebrew) ]] && {
+  # setup for brew-file
+  trysource $(brew --prefix)/etc/brew-wrap
+  trysource $(brew --prefix)/etc/profile.d/z.sh
+  trysource $(brew --prefix)/opt/nvm/nvm.sh
 }

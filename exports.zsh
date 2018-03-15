@@ -1,62 +1,47 @@
-#!/usr/bin/env zsh
 join_by () {
   local IFS="${1}"
   shift
   print "${*}"
 }
 
-set_env () {
-  BONESKULL+=("${1}" "${2}")
-}
-
-get_env () {
-  print "${BONESKULL[$1]}"
-}
-
-set_executable_env_flag () {
+set-executable-env-flag () {
   local cmd="${1}"
   local key="${2}"
   local exec_path=$(whence "${cmd}")
   [[ ${exec_path} ]] && {
-    set_env "${key}" "${exec_path}"
+    set-env "${key}" "${exec_path}"
   }
 }
 
-set_env_flags () {
+set-env-flags () {
   [[ $(uname) == Darwin ]] && {
-    set_env 'os' 'darwin'
+    set-env 'os' 'darwin'
   } || {
-    set_env 'os' 'linux'
+    set-env 'os' 'linux'
   }
 
-  [[ $(get_env os) == darwin ]] && {
-    set_executable_env_flag 'brew' 'homebrew'
+  [[ $(get-env os) == darwin ]] && {
+    set-executable-env-flag 'brew' 'homebrew'
   } || {
-    set_executable_env_flag 'apt-get' 'debian'
-    set_executable_env_flag 'systemctl' 'systemd'
+    set-executable-env-flag 'apt-get' 'debian'
+    set-executable-env-flag 'systemctl' 'systemd'
   }
 
   # config if aws_cli is present
-  set_executable_env_flag 'aws' 'aws'
+  set-executable-env-flag 'aws' 'aws'
 
   # github's hub cmd
-  set_executable_env_flag 'hub' 'github'
-
-  # config if atom is present
-  set_executable_env_flag 'atom' 'atom'
-  [[ $(get_env atom) ]] && {
-    export EDITOR="/usr/bin/env atom -w"
-  }
+  set-executable-env-flag 'hub' 'github'
 
   # config for go
   [[ -d ${HOME}/.go ]] && {
-    set_env 'go' "${HOME}/.go"
+    set-env 'go' "${HOME}/.go"
     export PATH="${GOPATH}/bin:${PATH}"
   }
 
   # config if source-highlighter is present
-  set_executable_env_flag 'src-hilite-lesspipe.sh' 'source-highlighter'
-  [[ $(get_env source-highlighter) ]] && {
+  set-executable-env-flag 'src-hilite-lesspipe.sh' 'source-highlighter'
+  [[ $(get-env source-highlighter) ]] && {
     export LESSOPEN="| /usr/bin/env src-hilite-lesspipe.sh %s 2>/dev/null"
     export LESS=" -R"
   }
@@ -66,17 +51,13 @@ export PATH="./node_modules/.bin:${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/s
 
 typeset -x -A BONESKULL
 
-set_env_flags
+set-env-flags
 
-# overridden elsewhere
-export ANTIGEN_HOME="${HOME}/.antigen/"
+# potentially overridden elsewhere
+export ANTIGEN_HOME="${HOME}/.antigen"
 
 # default is vim
-export EDITOR='/usr/bin/env vim'
-
-# Prefer US English and use UTF_8
-#export LANG='en_US.UTF_8'
-#export LC_ALL='en_US.UTF_8'
+export EDITOR="/usr/bin/env vim"
 
 export PAGER=less
 export MANPAGER="${PAGER}"
@@ -93,6 +74,4 @@ export COMPLETION_WAITING_DOTS='true'
 export NVM_DIR="${HOME}/.nvm"
 
 # load config for OS
-[[ -f ${HOME}/.exports.$(get_env os).zsh ]] && {
-  source "${HOME}/.exports.$(get_env os).zsh"
-}
+trysource "${HOME}/.exports.$(get-env os).zsh"

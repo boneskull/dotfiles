@@ -1,8 +1,8 @@
 
-[[ $(get_env debian) ]] && {
+[[ $(get-env debian) ]] && {
   antigen bundle debian # apt integration
 }
 
-[[ $(get_env systemd) ]] && {
+[[ $(get-env systemd) ]] && {
   antigen bundle systemd
 }

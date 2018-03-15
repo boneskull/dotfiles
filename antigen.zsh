@@ -1,22 +1,7 @@
 # antigen config
 
-boneskull_install_antigen () {
-  [[ ! -d ${ANTIGEN_HOME} ]] && {
-    local ANTIGEN_REMOTE="https://github.com/zsh-users/antigen"
-    echo "Installing antigen via ${ANTIGEN_REMOTE} into ${ANTIGEN_HOME}"
-    git clone https://github.com/zsh-users/antigen "${ANTIGEN_HOME}"
-  }
-}
-
-# updates antigen if ANTIGEN_HOME is a working copy
-boneskull_update_antigen () {
-  [[ -d ${ANTIGEN_HOME}/.git/ ]] && {
-    GIT_WORK_TREE="${ANTIGEN_HOME}" git pull --rebase
-  }
-}
-
 [[ ! -f ${ANTIGEN_HOME}/antigen.zsh ]] && {
-  boneskull_install_antigen
+  install-antigen
 }
 
 source "${ANTIGEN_HOME}/antigen.zsh"
@@ -50,12 +35,11 @@ antigen bundle bundler
 # mkdir & cd
 antigen bundle Tarrasch/zsh-mcd
 
-[[ $(get_env aws) ]] && {
+[[ $(get-env aws) ]] && {
   antigen bundle aws
 }
 
-[[ -f ${HOME}/.antigen.$(get_env os).zsh ]] && {
-  source "${HOME}/.antigen.$(get_env os).zsh"
+trysource "${HOME}/.antigen.$(get-env os).zsh"
 }
 
 antigen theme bureau

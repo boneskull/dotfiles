@@ -1,29 +1,13 @@
-[[ -f ${HOME}/.exports.zsh ]] && \
-  source "${HOME}/.exports.zsh"
+FPATH="${HOME}/.zshfunctions:${FPATH}"
 
-[[ -f ${HOME}/.aliases.zsh ]] && \
-  source "${HOME}/.aliases.zsh"
+autoload trysource get-env set-env install-antigen update-antigen install-vundle
 
-[[ -f ${NVM_DIR}/nvm.sh ]] && \
-  source "${NVM_DIR}/nvm.sh"
-
-[[ -f ${ANTIGEN_HOME}/antigen.zsh ]] && \
-  source "${ANTIGEN_HOME}/antigen.zsh"
-
-[[ -f ${HOME}/.antigen.zsh ]] && \
-  source "${HOME}/.antigen.zsh"
-
-[[ -f ${HOME}/.$(get_env os).zshrc.zsh ]] && \
-  source "${HOME}/.$(get_env os).zshrc.zsh"
-
-[[ -f ${HOME}/.extra.zsh ]] && \
-  source "${HOME}/.extra.zsh"
-
-[[ -f ${HOME}/.iterm2_shell_integration.zsh ]] && \
-  source "${HOME}/.iterm2_shell_integration.zsh"
-
-[[ -f /usr/local/Bluemix/bx/zsh_autocomplete ]] && \
- source "/usr/local/Bluemix/bx/zsh_autocomplete"
-
-[[ -f ${HOME}/.travis/travis.sh ]] && \
- source "${HOME}/.travis/travis.sh"
+trysource "${HOME}/.exports.zsh"
+trysource "${HOME}/.aliases.zsh"
+trysource "${NVM_DIR}/nvm.sh"
+trysource "${HOME}/.antigen.zsh"
+trysource "${HOME}/.extra.zsh"
+trysource "${HOME}/.iterm2_shell_integration.zsh"
+trysource /usr/local/Bluemix/bx/zsh_autocomplete
+trysource ${HOME}/.travis/travis.sh
+trysource "${HOME}/.$(get-env os).zshrc.zsh"
