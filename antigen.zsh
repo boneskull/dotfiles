@@ -20,12 +20,14 @@ antigen bundle denolfe/zsh-travis
 antigen bundle mollifier/cd-gitroot
 
 # programming related
-antigen bundle node # provides node-docs cmd
-antigen bundle nvm # auto nvm behavior
+[[ $(get-env node) ]] && {
+  antigen bundle node # provides node-docs cmd
+  antigen bundle nvm # not sure anymore
+  antigen bundle npm # npm completion
+  antigen bundle tomsquest/nvm-auto-use.zsh # use .nvmrc automatically
+}
 antigen bundle pip # pip completion
 antigen bundle python # python completion
-antigen bundle npm # npm autocompletion
-antigen bundle tomsquest/nvm-auto-use.zsh # use .nvmrc automatically
 antigen bundle sudo # ESC 2x: prefix w sudo
 antigen bundle vagrant # vagrant autocompletion
 

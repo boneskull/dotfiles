@@ -33,6 +33,8 @@ set-env-flags () {
   # github's hub cmd
   set-executable-env-flag 'hub' 'github'
 
+  set-executable-env-flag 'node' 'node'
+
   # config for go
   [[ -d ${HOME}/.go ]] && {
     set-env 'go' "${HOME}/.go"
