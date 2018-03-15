@@ -40,7 +40,6 @@ antigen bundle Tarrasch/zsh-mcd
 }
 
 trysource "${HOME}/.antigen.$(get-env os).zsh"
-}
 
 antigen theme bureau
 antigen apply
