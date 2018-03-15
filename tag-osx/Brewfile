@@ -20,6 +20,7 @@ brew certbot
 brew clang-format
 brew cmake
 brew coreutils
+brew cppcheck
 brew cuetools
 brew curl
 brew ddclient
@@ -67,11 +68,14 @@ brew icu4c
 brew imagemagick
 brew jpeg
 brew jq
+brew kafka
 brew lame
 brew libassuan
 brew libdvdcss
 brew libelf
 brew libepoxy
+brew libev
+brew libevent
 brew libffi
 brew libftdi0
 brew libgcrypt
@@ -88,21 +92,25 @@ brew libtool
 brew libunistring
 brew libusb
 brew libusb-compat
+brew libuv
 brew libvorbis
 brew libwebsockets
 brew libxml2
 brew libyaml
 brew libzip
 brew little-cms
+brew llvm
 brew logentries
 brew mad
 brew mas
+brew maven
 brew media-info
 brew mercurial
 brew mp3splt
 brew mpfr
 brew mypy
 brew nettle
+brew ninja
 brew nmap
 brew node
 brew npth
@@ -125,7 +133,6 @@ brew povray
 brew pth
 brew pwgen
 brew python
-brew python3
 brew qt --with-qt3support
 brew rabbitmq
 brew readline
@@ -151,6 +158,7 @@ brew uncrustify
 brew unixodbc
 brew unrar
 brew upx
+brew vagrant-completion
 brew wakeonlan
 brew watchman
 brew webp
@@ -163,11 +171,10 @@ brew xz
 brew yarn
 brew yubico-piv-tool
 brew z
+brew zookeeper
 brew zsh
 
 tap homebrew/science
-brew libsigrokdecode
-brew sigrok-cli
 
 tap homebrew/science
 
@@ -179,21 +186,27 @@ tap homebrew/x11
 
 tap caskroom/cask
 cask fritzing
-cask atom
+cask sketch
+cask sketchup
 cask arduino
 cask launchcontrol
 cask yakyak
 cask virtualbox
+cask visual-studio-code
 cask kitematic
 cask mqttfx
 cask marked
+cask ghost
 cask vlc
 cask skype
 cask jing
 cask handbrake
 cask intellij-idea
+cask osxfuse
+cask camtasia
 cask the-unarchiver
 cask keybase
+cask eagle
 cask db-browser-for-sqlite
 cask dropbox
 cask free-ruler
@@ -213,13 +226,14 @@ cask bartender
 cask google-chrome
 cask xquartz
 cask sauce-connect
-cask bluemix-cli
+cask lego-digital-designer
 cask java
 cask sourcetree
 cask alfred
 cask anaconda
 cask bettertouchtool
 cask tad
+cask stay
 cask calibre
 
 tap caskroom/fonts
@@ -260,9 +274,14 @@ brew cask-repair
 
 # Other Homebrew packages
 brew gpg
+brew kubectl
+brew libsigrokdecode
+brew python3
+brew sigrok-cli
 
-# Cask applications
+# Other Cask applications
 cask Gitter
+cask bluemix-cli
 
 # App Store applications
 appstore 411643860 DaisyDisk (4.2)
