@@ -1,0 +1,5 @@
+# updates antigen if ANTIGEN_HOME is a working copy
+[[ -d ${ANTIGEN_HOME}/.git/ ]] && {
+  local GIT_WORK_TREE="${ANTIGEN_HOME}"
+  git pull --rebase
+}

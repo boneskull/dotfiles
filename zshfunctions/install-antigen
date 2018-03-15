@@ -1,0 +1,6 @@
+ANTIGEN_REMOTE="https://github.com/zsh-users/antigen"
+ANTIGEN_HOME=${ANTIGEN_HOME:-$HOME/.antigen}
+[[ ! -d ${ANTIGEN_HOME} ]] && {
+  echo "Installing antigen via ${ANTIGEN_REMOTE} into ${ANTIGEN_HOME}..."
+  git clone https://github.com/zsh-users/antigen "${ANTIGEN_HOME}"
+}

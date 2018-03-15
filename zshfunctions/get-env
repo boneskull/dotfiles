@@ -1,0 +1,1 @@
+print "${BONESKULL[$1]}"
