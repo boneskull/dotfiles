@@ -8973,9 +8973,9 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>650 517 620 392 0 0 1920 1080 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>652 576 796 473 0 0 1920 1080 </string>
+	<string>2396 546 918 512 1920 73 1680 1050 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>-1920 57 1920 1080 -1920 57 1920 1080 </string>
+	<string>0 0 1920 1080 0 0 1920 1080 </string>
 	<key>NeverWarnAboutShortLivedSessions_355115B3-25E4-46FE-A4E9-E9E325780A54</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_355115B3-25E4-46FE-A4E9-E9E325780A54_selection</key>
@@ -14913,7 +14913,7 @@
 			<key>Columns</key>
 			<integer>80</integer>
 			<key>Command</key>
-			<string>ssh boneskull@thing.local</string>
+			<string>ssh -A boneskull@thing.local</string>
 			<key>Cursor Boost</key>
 			<real>0.0</real>
 			<key>Cursor Color</key>
@@ -15611,7 +15611,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-02-16T22:49:13Z</date>
+	<date>2018-03-15T18:52:56Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -17254,7 +17254,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.1.5.beta.2</string>
+	<string>3.1.6beta4</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>7</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
