@@ -4,9 +4,9 @@ join_by () {
   print "${*}"
 }
 
-set-executable-env-flag () {
+set-env-flag-if-executable () {
   local cmd="${1}"
-  local key="${2}"
+  local key="${2:-1}"
   local exec_path=$(whence "${cmd}")
   [[ ${exec_path} ]] && {
     set-env "${key}" "${exec_path}"
@@ -14,26 +14,23 @@ set-executable-env-flag () {
 }
 
 set-env-flags () {
-  [[ $(uname) == Darwin ]] && {
-    set-env 'os' 'darwin'
-  } || {
-    set-env 'os' 'linux'
-  }
+  local os=$(uname)
+  set-env 'os' $(os:l)
 
   [[ $(get-env os) == darwin ]] && {
-    set-executable-env-flag 'brew' 'homebrew'
+    set-env-flag-if-executable 'brew' 'homebrew'
   } || {
-    set-executable-env-flag 'apt-get' 'debian'
-    set-executable-env-flag 'systemctl' 'systemd'
+    set-env-flag-if-executable 'apt-get' 'debian'
+    set-env-flag-if-executable 'systemctl' 'systemd'
   }
 
   # config if aws_cli is present
-  set-executable-env-flag 'aws' 'aws'
+  set-env-flag-if-executable 'aws'
 
   # github's hub cmd
-  set-executable-env-flag 'hub' 'github'
+  set-env-flag-if-executable 'hub' 'github'
 
-  set-executable-env-flag 'node' 'node'
+  set-env-flag-if-executable 'node'
 
   # config for go
   [[ -d ${HOME}/.go ]] && {
@@ -42,7 +39,7 @@ set-env-flags () {
   }
 
   # config if source-highlighter is present
-  set-executable-env-flag 'src-hilite-lesspipe.sh' 'source-highlighter'
+  set-env-flag-if-executable 'src-hilite-lesspipe.sh' 'source-highlighter'
   [[ $(get-env source-highlighter) ]] && {
     export LESSOPEN="| /usr/bin/env src-hilite-lesspipe.sh %s 2>/dev/null"
     export LESS=" -R"
