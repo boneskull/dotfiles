@@ -14,8 +14,8 @@ set-env-flag-if-executable () {
 }
 
 set-env-flags () {
-  local os=$(uname)
-  set-env 'os' $(os:l)
+  local OS=$(uname)
+  set-env 'os' ${OS:l}
 
   [[ $(get-env os) == darwin ]] && {
     set-env-flag-if-executable 'brew' 'homebrew'
