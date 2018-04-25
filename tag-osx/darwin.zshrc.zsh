@@ -4,5 +4,4 @@
   # setup for brew-file
   trysource $(brew --prefix)/etc/brew-wrap
   trysource $(brew --prefix)/etc/profile.d/z.sh
-  trysource $(brew --prefix)/opt/nvm/nvm.sh
 }
