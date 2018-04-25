@@ -11,7 +11,7 @@ macOS or Debian-based Linux distro
 1. Install `git`, `vim`, `zsh`, and `curl` via package manager (`apt`, `brew`, etc.)
 1. `chsh` to `zsh` if you haven't already
 1. Execute `./install-rcm.sh` to install [rcm](https://github.com/thoughtbot/rcm)
-1. Copy `linux.rcrc` or `osx.rcrc` (as appropriate) to `$HOME/.rcrc`
+1. **Copy** `linux.rcrc` or `osx.rcrc` (as appropriate) to `$HOME/.rcrc`
 1. Execute `rcup`
 1. Re-login
 
