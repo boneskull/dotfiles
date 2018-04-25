@@ -1,11 +1,10 @@
 FPATH="${HOME}/.zshfunctions:${FPATH}"
 
-autoload trysource get-env set-env install-antigen update-antigen install-vundle
-
-trysource "${HOME}/.exports.zsh"
-trysource "${HOME}/.aliases.zsh"
+source "${HOME}/.functions.zsh"
+source "${HOME}/.exports.zsh"
+source "${HOME}/.aliases.zsh"
 trysource "${NVM_DIR}/nvm.sh"
-trysource "${HOME}/.antigen.zsh"
+source "${HOME}/.antigen.zsh"
 trysource "${HOME}/.extra.zsh"
 trysource "${HOME}/.iterm2_shell_integration.zsh"
 trysource /usr/local/Bluemix/bx/zsh_autocomplete
