@@ -189,6 +189,7 @@ cask alfred
 cask arduino
 cask backblaze
 cask bartender
+cask battle-net
 cask bettertouchtool
 cask calibre
 cask camtasia
@@ -204,6 +205,7 @@ cask firefox
 cask free-ruler
 cask fritzing
 cask ghost
+cask godot
 cask google-chrome
 cask graphiql
 cask handbrake
@@ -222,6 +224,7 @@ cask powermate
 cask pullover
 cask sauce-connect
 cask sketch
+cask sketchpacks
 cask sketchup
 cask skype
 cask sourcetree
