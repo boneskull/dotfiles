@@ -82,7 +82,6 @@
 
   quotepath = false
   precomposeUnicode = true
-	hooksPath = /Users/boneskull/.git-hooks
 
 [branch]
   autoSetupRebase = remote
