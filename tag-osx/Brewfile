@@ -198,6 +198,7 @@ cask dash
 cask db-browser-for-sqlite
 cask discord
 cask docker
+cask dotnet-sdk
 cask dropbox
 cask eagle
 cask filebot
@@ -228,6 +229,7 @@ cask sketchpacks
 cask sketchup
 cask skype
 cask sourcetree
+cask steam
 cask the-unarchiver
 cask vagrant
 cask virtualbox
