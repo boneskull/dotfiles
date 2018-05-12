@@ -1,228 +1,58 @@
-
 # tap repositories and their packages
 
 tap homebrew/core
-brew adns
 brew ansible
-brew antigen
-brew asciinema
-brew atk
-brew augeas
-brew avrdude
-brew awscli
-brew base64
-brew bash
-brew binutils
-brew boost
-brew c-ares
 brew cairo
-brew certbot
 brew clang-format
-brew cmake
-brew coreutils
 brew cppcheck
-brew cuetools
 brew curl
-brew ddclient
-brew dialog
 brew dos2unix
-brew erlang
-brew erlang@19
-brew ffmpeg
-brew findutils
-brew flac
-brew fontconfig
-brew freetype
-brew gawk
-brew gd
-brew gdbm
-brew gdk-pixbuf
-brew gettext
 brew git
 brew git-extras
-brew git-flow
-brew glew
-brew glib
-brew glibmm
-brew gmp
-brew gnu-sed
-brew gnu-tar
-brew gnutls
-brew go
-brew gobject-introspection
-brew gource
-brew graphicsmagick
-brew grep
-brew gsettings-desktop-schemas
-brew gsl
-brew gtk+
-brew gtk+3
-brew gtksourceview3
-brew gzip
-brew harfbuzz
-brew heroku
-brew hr
 brew hub
-brew hugo
-brew icu4c
-brew imagemagick
-brew jpeg
-brew jq
-brew kafka
-brew lame
-brew libassuan
-brew libdvdcss
-brew libelf
-brew libepoxy
-brew libev
-brew libevent
-brew libffi
-brew libftdi0
-brew libgcrypt
-brew libgpg-error
-brew libid3tag
-brew libksba
-brew libmp3splt
-brew libogg
-brew libpng
-brew libsigc++
-brew libtasn1
-brew libtiff
-brew libtool
-brew libunistring
-brew libusb
-brew libusb-compat
-brew libuv
-brew libvorbis
-brew libwebsockets
-brew libxml2
-brew libyaml
-brew libzip
-brew little-cms
-brew llvm
-brew logentries
-brew mad
 brew mas
 brew maven
 brew media-info
-brew mercurial
-brew mp3splt
-brew mpfr
-brew mypy
-brew nettle
-brew ninja
 brew nmap
 brew node
-brew npth
-brew oniguruma
-brew openssl
-brew openssl@1.1
-brew p11-kit
 brew p7zip
-brew pango
-brew pcre
-brew pcre2
-brew picocom
-brew pinentry
-brew pinentry-mac
-brew pixman
-brew pkg-config
 brew platformio
-brew portaudio
-brew povray
-brew pth
-brew pwgen
+brew python3
 brew python
-brew qt --with-qt3support
-brew rabbitmq
-brew readline
-brew rename
-brew rsync
-brew ruby --force
-brew sdl2
-brew sdl2_image
-brew shared-mime-info
 brew socat
 brew source-highlight
-brew sox
-brew speex
-brew sphinx-doc
-brew sqlite
 brew ssh-copy-id
-brew subversion
 brew terminal-notifier
-brew theora
-brew tree
-brew ucl
 brew uncrustify
-brew unixodbc
 brew unrar
-brew upx
 brew vagrant-completion
-brew wakeonlan
-brew watchman
-brew webp
 brew wget
-brew wmctrl
-brew wxmac
-brew x264
-brew xvid
-brew xz
 brew yarn
-brew yubico-piv-tool
 brew z
-brew zookeeper
 brew zsh
-
-tap homebrew/science
-
-tap homebrew/science
-
-tap homebrew/services
-
-tap homebrew/versions
-
-tap homebrew/x11
 
 tap caskroom/cask
 cask alfred
-cask arduino
-cask backblaze
 cask bartender
 cask battle-net
 cask bettertouchtool
 cask calibre
-cask camtasia
 cask coolterm
 cask dash
-cask db-browser-for-sqlite
 cask discord
-cask docker
-cask dotnet-sdk
 cask dropbox
-cask eagle
-cask filebot
-cask firefox
-cask free-ruler
-cask fritzing
 cask ghost
-cask godot
 cask google-chrome
 cask graphiql
 cask handbrake
-cask intellij-idea
 cask java
 cask jing
 cask keybase
-cask kitematic
 cask lastfm
 cask launchcontrol
-cask lego-digital-designer
 cask marked
 cask mqttfx
-cask osxfuse
 cask powermate
-cask pullover
 cask sauce-connect
 cask sketch
 cask sketchpacks
@@ -238,6 +68,9 @@ cask vlc
 cask wireshark
 cask xquartz
 cask yakyak
+cask iterm2-beta
+cask gitter
+cask bluemix-cli
 
 tap caskroom/fonts
 cask font-fira-mono-for-powerline
@@ -250,42 +83,6 @@ cask font-roboto-mono-for-powerline
 cask font-roboto-slab
 cask font-source-code-pro
 
-tap caskroom/fonts
-
-tap caskroom/versions
-cask iterm2-beta
-
-tap cloudfoundry/tap
-brew cf-cli
-
-tap git-time-metric/gtm
-brew gtm
-
-tap https://github.com/mengbo/ch340g-ch34g-ch34x-mac-os-x-driver
-
-tap mengbo/ch340g-ch34g-ch34x-mac-os-x-driver
-cask wch-ch34x-usb-serial-driver
-
-tap rcmdnk/file
-brew brew-file
-
-tap thoughtbot/formulae
-brew rcm
-
-tap vitorgalvao/tiny-scripts
-brew cask-repair
-
-# Other Homebrew packages
-brew gpg
-brew kubectl
-brew libsigrokdecode
-brew python3
-brew sigrok-cli
-
-# Other Cask applications
-cask Gitter
-cask bluemix-cli
-
 # App Store applications
 appstore 411643860 DaisyDisk (4.2)
 appstore 562184107 LanScan Pro (4.0)
@@ -294,4 +91,3 @@ appstore 915542151 Monity (1.4.1)
 appstore 639968404 Parcel (2.1)
 appstore 880001334 Reeder (3.0.1)
 appstore 926319434 Stars by Karelia
-appstore 485812721 TweetDeck (3.9.889)
