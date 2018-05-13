@@ -1,32 +1,68 @@
+
 # tap repositories and their packages
 
 tap homebrew/core
-brew ansible
+brew adns
+brew boost
 brew cairo
 brew clang-format
 brew cppcheck
 brew curl
 brew dos2unix
+brew fontconfig
+brew freetype
+brew gdbm
+brew gettext
 brew git
 brew git-extras
+brew glib
+brew gmp
+brew gnutls
 brew hub
+brew icu4c
+brew libassuan
+brew libffi
+brew libgcrypt
+brew libgpg-error
+brew libidn2
+brew libksba
+brew libpng
+brew libtasn1
+brew libunistring
+brew libusb
+brew libyaml
 brew mas
 brew maven
 brew media-info
+brew nettle
 brew nmap
 brew node
+brew npth
+brew openssl
+brew p11-kit
 brew p7zip
+brew pcre
+brew perl
+brew pinentry
+brew pixman
+brew pkg-config
 brew platformio
-brew python3
 brew python
+brew python@2
+brew readline
+brew ruby
 brew socat
 brew source-highlight
+brew sphinx-doc
+brew sqlite
 brew ssh-copy-id
 brew terminal-notifier
 brew uncrustify
 brew unrar
 brew vagrant-completion
+brew vim
 brew wget
+brew xz
 brew yarn
 brew z
 brew zsh
@@ -42,9 +78,11 @@ cask dash
 cask discord
 cask dropbox
 cask ghost
+cask gitter
 cask google-chrome
 cask graphiql
 cask handbrake
+cask iterm2
 cask java
 cask jing
 cask keybase
@@ -68,9 +106,6 @@ cask vlc
 cask wireshark
 cask xquartz
 cask yakyak
-cask iterm2-beta
-cask gitter
-cask bluemix-cli
 
 tap caskroom/fonts
 cask font-fira-mono-for-powerline
@@ -83,11 +118,21 @@ cask font-roboto-mono-for-powerline
 cask font-roboto-slab
 cask font-source-code-pro
 
+tap rcmdnk/file
+brew brew-file
+
+tap thoughtbot/formulae
+brew rcm
+
+# Other Homebrew packages
+brew gpg
+
 # App Store applications
-appstore 411643860 DaisyDisk (4.2)
-appstore 562184107 LanScan Pro (4.0)
-appstore 926036361 LastPass (3.16.0)
+appstore 411643860 DaisyDisk (4.6)
+appstore 562184107 LanScan Pro (5.0)
+appstore 926036361 LastPass (3.25.0)
 appstore 915542151 Monity (1.4.1)
-appstore 639968404 Parcel (2.1)
-appstore 880001334 Reeder (3.0.1)
-appstore 926319434 Stars by Karelia
+appstore 639968404 Parcel (3.2)
+appstore 880001334 Reeder (3.1.2)
+appstore 926319434 Stars (5.1.2)
+appstore 497799835 Xcode (9.3.1)
