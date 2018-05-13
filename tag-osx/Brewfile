@@ -80,11 +80,13 @@ cask dropbox
 cask ghost
 cask gitter
 cask google-chrome
+cask gpg-suite
 cask graphiql
 cask handbrake
 cask iterm2
 cask java
 cask jing
+cask karabiner-elements
 cask keybase
 cask lastfm
 cask launchcontrol
@@ -99,6 +101,7 @@ cask skype
 cask sourcetree
 cask steam
 cask the-unarchiver
+cask unity
 cask vagrant
 cask virtualbox
 cask visual-studio-code
@@ -123,9 +126,6 @@ brew brew-file
 
 tap thoughtbot/formulae
 brew rcm
-
-# Other Homebrew packages
-brew gpg
 
 # App Store applications
 appstore 411643860 DaisyDisk (4.6)
