@@ -171,7 +171,7 @@
 [user]
 	name = Christopher Hiller
 	email = boneskull@boneskull.com
-	signingkey = FA1529CB136A9E8A
+	signingkey = 306C3B99B4FABEF5BBF18E1C517E44D4799F10A6
 
 [difftool "Kaleidoscope"]
   cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
