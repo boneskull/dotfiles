@@ -5,6 +5,7 @@ tap homebrew/core
 brew adns
 brew boost
 brew cairo
+brew ccache
 brew clang-format
 brew cppcheck
 brew curl
@@ -68,15 +69,35 @@ brew z
 brew zsh
 
 tap caskroom/cask
+
+tap caskroom/fonts
+
+tap jesseduffield/lazygit
+
+# Other Homebrew packages
+brew python3
+
+# Other Cask applications
 cask alfred
 cask bartender
 cask battle-net
 cask bettertouchtool
+cask bluemix-cli
 cask calibre
 cask coolterm
 cask dash
 cask discord
 cask dropbox
+cask font-fira-mono-for-powerline
+cask font-hasklig
+cask font-inconsolata-for-powerline
+cask font-raleway
+cask font-roboto
+cask font-roboto-condensed
+cask font-roboto-mono
+cask font-roboto-mono-for-powerline
+cask font-roboto-slab
+cask font-source-code-pro
 cask ghost
 cask gitter
 cask google-chrome
@@ -92,6 +113,7 @@ cask lastfm
 cask launchcontrol
 cask marked
 cask mqttfx
+cask openttd
 cask powermate
 cask sauce-connect
 cask sketch
@@ -101,7 +123,7 @@ cask skype
 cask sourcetree
 cask steam
 cask the-unarchiver
-cask unity
+cask twitch
 cask vagrant
 cask virtualbox
 cask visual-studio-code
