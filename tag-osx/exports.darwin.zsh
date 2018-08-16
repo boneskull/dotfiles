@@ -7,6 +7,10 @@
   export PATH="${PATH}:/Applications/Server.app/Contents/ServerRoot/usr/bin:/Applications/Server.app/Contents/ServerRoot/usr/sbin:"
 }
 
+[[ -d /usr/local/opt/ccache/libexec ]] && {
+    export PATH="/usr/local/opt/ccache/libexec:${PATH}"
+}
+
 [[ $(get-env homebrew) ]] && {
   [[ -d $(brew --prefix)/share/antigen/ ]] && {
     export ANTIGEN_HOME="$(brew --prefix)/share/antigen/"
