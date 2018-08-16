@@ -20,6 +20,9 @@ Plugin 'elzr/vim-json'
 " systemd syntax
 Plugin 'Matt-Deacalion/vim-systemd-syntax'
 
+" theme
+Plugin 'morhetz/gruvbox'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -39,3 +42,5 @@ set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 set expandtab
+
+colorscheme gruvbox
