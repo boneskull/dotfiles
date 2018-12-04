@@ -11,6 +11,13 @@
     export PATH="/usr/local/opt/ccache/libexec:${PATH}"
 }
 
+[[ -d /usr/local/opt/ruby/bin ]] && {
+  export PATH="/usr/local/opt/ruby/bin:${PATH}"
+  export LDFLAGS="-L/usr/local/opt/ruby/lib"
+  export CPPFLAGS="-I/usr/local/opt/ruby/include"
+  export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
+}
+
 [[ $(get-env homebrew) ]] && {
   [[ -d $(brew --prefix)/share/antigen/ ]] && {
     export ANTIGEN_HOME="$(brew --prefix)/share/antigen/"
