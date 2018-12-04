@@ -1,4 +1,10 @@
-autoload trysource get-env set-env install-antigen update-antigen install-vundle
+autoload \
+  get-env \
+  install-antigen \
+  install-vundle \
+  set-env \
+  trysource \
+  update-antigen
 
 local OS=$(uname)
 trysource "${HOME}/.functions.${OS:l}.zsh"

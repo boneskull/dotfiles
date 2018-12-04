@@ -1,12 +1,6 @@
-join_by () {
-  local IFS="${1}"
-  shift
-  print "${*}"
-}
-
 set-env-flag-if-executable () {
   local cmd="${1}"
-  local key="${2:-1}"
+  local key="${2:-$1}"
   local exec_path=$(whence "${cmd}")
   [[ ${exec_path} ]] && {
     set-env "${key}" "${exec_path}"
@@ -17,11 +11,12 @@ set-env-flags () {
   local OS=$(uname)
   set-env 'os' ${OS:l}
 
+  # XXX this is bonkers
   [[ $(get-env os) == darwin ]] && {
     set-env-flag-if-executable 'brew' 'homebrew'
   } || {
     set-env-flag-if-executable 'apt-get' 'debian'
-    set-env-flag-if-executable 'systemctl' 'systemd'
+    set-env-flag-if-executable 'systemd'
   }
 
   # config if aws_cli is present
@@ -30,7 +25,14 @@ set-env-flags () {
   # github's hub cmd
   set-env-flag-if-executable 'hub' 'github'
 
+  # we have node
   set-env-flag-if-executable 'node'
+
+  # we have nnn
+  set-env-flag-if-executable 'nnn'
+
+  # VSCode
+  set-env-flag-if-executable 'code'
 
   # config for go
   [[ -d ${HOME}/.go ]] && {
@@ -48,6 +50,7 @@ set-env-flags () {
 
 export PATH="./node_modules/.bin:${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:${PATH}"
 
+# this is where env flags are stored, but I don't recall what this does
 typeset -x -A BONESKULL
 
 set-env-flags
@@ -55,8 +58,12 @@ set-env-flags
 # potentially overridden elsewhere
 export ANTIGEN_HOME="${HOME}/.antigen"
 
-# default is vim
-export EDITOR="/usr/bin/env vim"
+# default is vim)
+[[ $(get-env code) ]] && {
+  export EDITOR="code -w"
+} || {
+  export EDITOR="vim -xR"
+}
 
 export PAGER=less
 export MANPAGER="${PAGER}"
@@ -71,6 +78,10 @@ export DISABLE_AUTO_UPDATE='true'
 export HYPHEN_INSENSITIVE='true'
 export COMPLETION_WAITING_DOTS='true'
 export NVM_DIR="${HOME}/.nvm"
+
+[[ $(get-env nnn) ]] && {
+  export NNN_USE_EDITOR=1
+}
 
 # load config for OS
 trysource "${HOME}/.exports.$(get-env os).zsh"

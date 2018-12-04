@@ -8,7 +8,7 @@
 }
 
 [[ -d /usr/local/opt/ccache/libexec ]] && {
-    export PATH="/usr/local/opt/ccache/libexec:${PATH}"
+  export PATH="/usr/local/opt/ccache/libexec:${PATH}"
 }
 
 [[ -d /usr/local/opt/ruby/bin ]] && {
@@ -29,3 +29,6 @@
   export HOMEBREW_BREWFILE="${HOME}/.Brewfile"
 }
 
+[[ $(get-env nnn) ]] && {
+  export NNN_BMS="d:${HOME}/downloads;p:${HOME}/projects"
+}
