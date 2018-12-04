@@ -108,3 +108,7 @@ cache/
 # node-core-utils
 .ncu/
 .ncurc
+
+# istanbul
+coverage/
+.nyc_output/
