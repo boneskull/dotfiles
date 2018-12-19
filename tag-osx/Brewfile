@@ -3,6 +3,7 @@
 
 tap homebrew/core
 brew adns
+brew antigen
 brew boost
 brew cairo
 brew ccache
@@ -10,6 +11,7 @@ brew clang-format
 brew cppcheck
 brew curl
 brew dos2unix
+brew doxygen
 brew fontconfig
 brew freetype
 brew gdbm
@@ -22,12 +24,14 @@ brew gnutls
 brew hub
 brew icu4c
 brew libassuan
+brew libevent
 brew libffi
 brew libgcrypt
 brew libgpg-error
 brew libidn2
 brew libksba
 brew libpng
+brew librtlsdr
 brew libtasn1
 brew libunistring
 brew libusb
@@ -37,6 +41,7 @@ brew maven
 brew media-info
 brew nettle
 brew nmap
+brew nnn
 brew node
 brew npth
 brew openssl
@@ -48,9 +53,11 @@ brew pinentry
 brew pixman
 brew pkg-config
 brew platformio
+brew postgresql
 brew python
 brew python@2
 brew readline
+brew redis
 brew ruby
 brew socat
 brew source-highlight
@@ -58,13 +65,13 @@ brew sphinx-doc
 brew sqlite
 brew ssh-copy-id
 brew terminal-notifier
+brew tmux
 brew uncrustify
 brew unrar
 brew vagrant-completion
 brew vim
 brew wget
 brew xz
-brew yarn
 brew z
 brew zsh
 
@@ -72,36 +79,60 @@ tap caskroom/cask
 
 tap caskroom/fonts
 
+tap caskroom/fonts
+
 tap jesseduffield/lazygit
+
+tap pothosware/homebrew-pothos
+
+tap rcmdnk/file
+brew brew-file
+
+tap thoughtbot/formulae
+brew rcm
 
 # Other Homebrew packages
 brew python3
+brew soapyrtlsdr
+brew soapysdr
 
 # Other Cask applications
 cask alfred
+cask authy
 cask bartender
 cask battle-net
 cask bettertouchtool
 cask bluemix-cli
 cask calibre
 cask coolterm
+cask cubicsdr
 cask dash
 cask discord
 cask dropbox
 cask font-fira-mono-for-powerline
+cask font-fira-mono-for-powerline
 cask font-hasklig
+cask font-hasklig
+cask font-inconsolata-for-powerline
 cask font-inconsolata-for-powerline
 cask font-raleway
 cask font-roboto
+cask font-roboto
+cask font-roboto-condensed
 cask font-roboto-condensed
 cask font-roboto-mono
+cask font-roboto-mono
+cask font-roboto-mono-for-powerline
 cask font-roboto-mono-for-powerline
 cask font-roboto-slab
+cask font-roboto-slab
+cask font-source-code-pro
 cask font-source-code-pro
 cask ghost
 cask gitter
 cask google-chrome
 cask gpg-suite
+cask gqrx
 cask graphiql
 cask handbrake
 cask iterm2
@@ -122,32 +153,16 @@ cask sketchup
 cask skype
 cask sourcetree
 cask steam
+cask sweet-home3d
 cask the-unarchiver
 cask twitch
 cask vagrant
 cask virtualbox
 cask visual-studio-code
+cask vivaldi
 cask vlc
 cask wireshark
 cask xquartz
-cask yakyak
-
-tap caskroom/fonts
-cask font-fira-mono-for-powerline
-cask font-hasklig
-cask font-inconsolata-for-powerline
-cask font-roboto
-cask font-roboto-condensed
-cask font-roboto-mono
-cask font-roboto-mono-for-powerline
-cask font-roboto-slab
-cask font-source-code-pro
-
-tap rcmdnk/file
-brew brew-file
-
-tap thoughtbot/formulae
-brew rcm
 
 # App Store applications
 appstore 411643860 DaisyDisk (4.6)
