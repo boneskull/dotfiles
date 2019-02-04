@@ -1,10 +1,6 @@
-autoload \
-  get-env \
-  install-antigen \
-  install-vundle \
-  set-env \
-  trysource \
-  update-antigen
+for file in ${HOME}/.zshfunctions/^*.zwc; do
+  autoload ${file}
+done;
 
-local OS=$(uname)
-trysource "${HOME}/.functions.${OS:l}.zsh"
+local os=$(uname)
+trysource "${HOME}/.functions.${os:l}.zsh"
