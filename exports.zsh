@@ -67,7 +67,6 @@ export ANTIGEN_HOME="${HOME}/.antigen"
 
 export PAGER=less
 export MANPAGER="${PAGER}"
-export MORE="${LESS}"
 
 # Always enable colored `grep` output
 export GREP_OPTIONS='--color=auto'
