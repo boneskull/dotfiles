@@ -2,7 +2,7 @@
 alias reload="exec $SHELL -l"
 
 [[ $(get-env github) ]] && {
-  alias git="$(get-env github)"
+  eval "$(hub alias -s)"
 }
 
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
