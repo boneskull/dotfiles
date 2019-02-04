@@ -4,10 +4,15 @@
 tap homebrew/core
 brew adns
 brew antigen
+brew autoconf
+brew autoconf-archive
+brew automake
 brew boost
 brew cairo
 brew ccache
+brew check
 brew clang-format
+brew cmake
 brew cppcheck
 brew curl
 brew dos2unix
@@ -19,23 +24,29 @@ brew gettext
 brew git
 brew git-extras
 brew glib
+brew glibmm
 brew gmp
 brew gnutls
+brew gputils
 brew hub
 brew icu4c
 brew libassuan
 brew libevent
 brew libffi
+brew libftdi
 brew libgcrypt
 brew libgpg-error
 brew libidn2
 brew libksba
 brew libpng
 brew librtlsdr
+brew libsigc++
 brew libtasn1
+brew libtool
 brew libunistring
 brew libusb
 brew libyaml
+brew libzip
 brew mas
 brew maven
 brew media-info
@@ -56,14 +67,18 @@ brew platformio
 brew postgresql
 brew python
 brew python@2
+brew qt
 brew readline
 brew redis
 brew ruby
+brew sdcc
+brew shfmt
 brew socat
 brew source-highlight
 brew sphinx-doc
 brew sqlite
 brew ssh-copy-id
+brew swig
 brew terminal-notifier
 brew tmux
 brew uncrustify
@@ -93,6 +108,7 @@ brew rcm
 
 # Other Homebrew packages
 brew python3
+brew qt5
 brew soapyrtlsdr
 brew soapysdr
 
@@ -146,6 +162,7 @@ cask marked
 cask mqttfx
 cask openttd
 cask powermate
+cask qgroundcontrol
 cask sauce-connect
 cask sketch
 cask sketchpacks
