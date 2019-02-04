@@ -1,5 +1,8 @@
 FPATH="${HOME}/.zshfunctions:${FPATH}"
 
+# extglob support
+setopt extendedglob
+
 source "${HOME}/.functions.zsh"
 source "${HOME}/.exports.zsh"
 source "${HOME}/.aliases.zsh"
