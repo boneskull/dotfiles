@@ -1,1 +1,3 @@
-[[ -f $1 ]] && source "$1"
+# attempts to execute a source file if it exists
+
+[[ -f ${1} ]] && source "${1}"

@@ -1,0 +1,34 @@
+# outputs the github org of the appropriate remote for some path
+
+[[ ! -d ${1}/.git ]] && {
+  err "${1} not a working copy!"
+  exit 1
+}
+
+export GIT_DIR="${1}/.git"
+export GIT_WORK_TREE="${1}"
+
+local upstream="$(git config --get remote.upstream.url)"
+local origin="$(git config --get remote.origin.url)"
+local regex="github\.(ibm\.)?com[/:]([^/]+)/"
+
+# prefer upstream
+if [[ ${upstream} =~ ${regex} ]]; then
+  echo "${BASH_REMATCH[2]}"
+elif [[ ${origin} =~ ${regex} ]]; then
+  if [[ ${BASH_REMATCH[2]} != ${GITHUB_USER} ]]; then
+    echo "${BASH_REMATCH[2]}"
+  else
+    # TODO: use GitHub API to determine if this is a fork
+    err "${GIT_WORK_TREE} -> needs manual check"
+  fi
+elif [[ -z ${origin} ]]; then
+  # no remote
+  echo "${GITHUB_USER}"
+else
+  # probably not from GitHub
+  err "${GIT_WORK_TREE} -> not hosted on GitHub"
+fi
+
+export -n GIT_DIR
+export -n GIT_WORK_TREE

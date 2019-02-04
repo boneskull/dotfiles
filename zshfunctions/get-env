@@ -1,1 +1,4 @@
+# outputs the value of some key in the BONESKULL assoc array.
+# I don't remember why "print" is used here; maybe no reason.
+
 print "${BONESKULL[$1]}"

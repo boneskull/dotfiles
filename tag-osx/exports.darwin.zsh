@@ -25,7 +25,7 @@
   [[ -d $(brew --prefix)/share/zsh/help ]] && {
     export HELPDIR=$(brew --prefix)/share/zsh/help
   }
-  export HOMEBREW_CASK_OPTS="--appdir=${HOME}/Applications";
+  export HOMEBREW_CASK_OPTS="--appdir=${HOME}/Applications"
   export HOMEBREW_BREWFILE="${HOME}/.Brewfile"
 }
 

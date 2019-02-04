@@ -1,4 +1,4 @@
-set-env-flag-if-executable () {
+set-env-flag-if-executable() {
   local cmd="${1}"
   local key="${2:-$1}"
   local exec_path=$(whence "${cmd}")
@@ -7,41 +7,43 @@ set-env-flag-if-executable () {
   }
 }
 
-set-env-flags () {
-  local OS=$(uname)
-  set-env 'os' ${OS:l}
+set-env-flags() {
+  typeset -x -A BONESKULL
+
+  local os=$(uname)
+  set-env "os" "${os:l}"
 
   # XXX this is bonkers
   [[ $(get-env os) == darwin ]] && {
-    set-env-flag-if-executable 'brew' 'homebrew'
+    set-env-flag-if-executable "brew" "homebrew"
   } || {
-    set-env-flag-if-executable 'apt-get' 'debian'
-    set-env-flag-if-executable 'systemd'
+    set-env-flag-if-executable "apt-get" "debian"
+    set-env-flag-if-executable "systemd"
   }
 
   # config if aws_cli is present
-  set-env-flag-if-executable 'aws'
+  set-env-flag-if-executable "aws"
 
-  # github's hub cmd
-  set-env-flag-if-executable 'hub' 'github'
+  # github"s hub cmd
+  set-env-flag-if-executable "hub" "github"
 
   # we have node
-  set-env-flag-if-executable 'node'
+  set-env-flag-if-executable "node"
 
   # we have nnn
-  set-env-flag-if-executable 'nnn'
+  set-env-flag-if-executable "nnn"
 
   # VSCode
-  set-env-flag-if-executable 'code'
+  set-env-flag-if-executable "code"
 
   # config for go
   [[ -d ${HOME}/.go ]] && {
-    set-env 'go' "${HOME}/.go"
+    set-env "go" "${HOME}/.go"
     export PATH="${GOPATH}/bin:${PATH}"
   }
 
   # config if source-highlighter is present
-  set-env-flag-if-executable 'src-hilite-lesspipe.sh' 'source-highlighter'
+  set-env-flag-if-executable "src-hilite-lesspipe.sh" "source-highlighter"
   [[ $(get-env source-highlighter) ]] && {
     export LESSOPEN="| /usr/bin/env src-hilite-lesspipe.sh %s 2>/dev/null"
     export LESS=" -R"
@@ -49,9 +51,6 @@ set-env-flags () {
 }
 
 export PATH="./node_modules/.bin:${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:${PATH}"
-
-# this is where env flags are stored, but I don't recall what this does
-typeset -x -A BONESKULL
 
 set-env-flags
 
@@ -65,17 +64,18 @@ export ANTIGEN_HOME="${HOME}/.antigen"
   export EDITOR="vim -xR"
 }
 
-export PAGER=less
+export PAGER="less"
 export MANPAGER="${PAGER}"
 
 # Always enable colored `grep` output
-export GREP_OPTIONS='--color=auto'
+export GREP_OPTIONS="--color=auto"
 
-export DISABLE_UNTRACKED_FILES_DIRTY='true'
-export ENABLE_CORRECTION='true'
-export DISABLE_AUTO_UPDATE='true'
-export HYPHEN_INSENSITIVE='true'
-export COMPLETION_WAITING_DOTS='true'
+export DISABLE_UNTRACKED_FILES_DIRTY="true"
+export ENABLE_CORRECTION="true"
+export DISABLE_AUTO_UPDATE="true"
+export HYPHEN_INSENSITIVE="true"
+export COMPLETION_WAITING_DOTS="true"
+
 export NVM_DIR="${HOME}/.nvm"
 
 [[ $(get-env nnn) ]] && {
@@ -84,4 +84,5 @@ export NVM_DIR="${HOME}/.nvm"
 
 # load config for OS
 trysource "${HOME}/.exports.$(get-env os).zsh"
+
 export GITHUB_USER=boneskull

@@ -1,0 +1,24 @@
+# sorts working copies into subdir by GH org
+
+local src="${1:-.}"
+[[ ! -d ${src} ]] && {
+  err "${src} not a directory!"
+  exit 1
+}
+
+for dir in ${src}/*; do
+  if [[ -d ${dir} && -d ${dir}/.git ]]; then
+    local dest=$(get_org "$(realpath ${dir})" | tr '[:upper:]' '[:lower:]')
+    if [[ -n ${dest} ]]; then
+      if [[ ${dest} == ${dir} ]]; then
+        # name collision
+        mv "${dir}" "${dir}.tmp"
+        mkdir -p "${dest}"
+        mv -v "${dir}.tmp" "${dest}/${dir}"
+      else
+        mkdir -p "${dest}"
+        mv -v "${dir}" "${dest}"
+      fi
+    fi
+  fi
+done

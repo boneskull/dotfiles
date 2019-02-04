@@ -1,1 +1,3 @@
+# sets a key/value pair in BONESKULL assoc array
+
 BONESKULL+=("${1}" "${2}")

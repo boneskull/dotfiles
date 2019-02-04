@@ -22,20 +22,19 @@ antigen bundle mollifier/cd-gitroot
 
 # programming related
 [[ $(get-env node) ]] && {
-  antigen bundle node # provides node-docs cmd
-  antigen bundle nvm # not sure anymore
-  antigen bundle npm # npm completion
+  antigen bundle node                       # provides node-docs cmd
+  antigen bundle nvm                        # not sure anymore
+  antigen bundle npm                        # npm completion
   antigen bundle tomsquest/nvm-auto-use.zsh # use .nvmrc automatically
 }
-antigen bundle pip # pip completion
-antigen bundle python # python completion
-antigen bundle sudo # ESC 2x: prefix w sudo
+antigen bundle pip     # pip completion
+antigen bundle python  # python completion
 antigen bundle vagrant # vagrant autocompletion
 
 antigen bundle history
 
 antigen bundle bundler
-# mkdir & cd
+# mkdir + cd = mcd
 antigen bundle Tarrasch/zsh-mcd
 
 [[ $(get-env aws) ]] && {
