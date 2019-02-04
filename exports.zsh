@@ -84,3 +84,4 @@ export NVM_DIR="${HOME}/.nvm"
 
 # load config for OS
 trysource "${HOME}/.exports.$(get-env os).zsh"
+export GITHUB_USER=boneskull
