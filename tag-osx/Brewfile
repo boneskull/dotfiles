@@ -13,11 +13,13 @@ brew ccache
 brew check
 brew clang-format
 brew cmake
+brew cowsay
 brew cppcheck
 brew curl
 brew dos2unix
 brew doxygen
 brew fontconfig
+brew fortune
 brew freetype
 brew gdbm
 brew gettext
@@ -86,6 +88,7 @@ brew unrar
 brew vagrant-completion
 brew vim
 brew wget
+brew wmctrl
 brew xz
 brew z
 brew zsh
@@ -113,6 +116,7 @@ brew soapyrtlsdr
 brew soapysdr
 
 # Other Cask applications
+cask 1password
 cask alfred
 cask authy
 cask bartender
@@ -151,6 +155,7 @@ cask gpg-suite
 cask gqrx
 cask graphiql
 cask handbrake
+cask inkscape
 cask iterm2
 cask java
 cask jing
