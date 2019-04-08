@@ -48,6 +48,8 @@ set-env-flags() {
     export LESSOPEN="| /usr/bin/env src-hilite-lesspipe.sh %s 2>/dev/null"
     export LESS=" -R"
   }
+
+  set-env-flag-if-executable "bat" "bat"
 }
 
 export PATH="./node_modules/.bin:${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:${PATH}"
