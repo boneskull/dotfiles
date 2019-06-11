@@ -1,4 +1,4 @@
-FPATH="${HOME}/.zshfunctions:${FPATH}"
+#FPATH="${HOME}/.zshfunctions:${FPATH}"
 
 # extglob support
 setopt extendedglob

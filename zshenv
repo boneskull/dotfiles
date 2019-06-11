@@ -1,0 +1,2 @@
+fpath=(${HOME}/.zshfunctions ${fpath})
+
