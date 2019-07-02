@@ -112,3 +112,11 @@ cache/
 # istanbul
 coverage/
 .nyc_output/
+
+# vscode local history extension
+.history/
+
+# vscode "favorites" extension
+.favorites.json
+
+*.code-workspace
