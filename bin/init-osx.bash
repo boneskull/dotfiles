@@ -6,7 +6,11 @@
 sudo -v
 
 # Keep-alive: update existing `sudo` time stamp until `.osx` has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+while true; do
+  sudo -n true
+  sleep 60
+  kill -0 "$$" || exit
+done 2>/dev/null &
 
 ###############################################################################
 # General UI/UX                                                               #
@@ -32,13 +36,13 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 #	defaults write "${domain}" dontAutoLoad -array \
 #		"/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
 #		"/System/Library/CoreServices/Menu Extras/Volume.menu" \
-		#"/System/Library/CoreServices/Menu Extras/User.menu"
+#"/System/Library/CoreServices/Menu Extras/User.menu"
 #done
 #defaults write com.apple.systemuiserver menuExtras -array \
 #	"/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
-	#"/System/Library/CoreServices/Menu Extras/AirPort.menu" \
-	#"/System/Library/CoreServices/Menu Extras/Battery.menu" \
-	#"/System/Library/CoreServices/Menu Extras/Clock.menu"
+#"/System/Library/CoreServices/Menu Extras/AirPort.menu" \
+#"/System/Library/CoreServices/Menu Extras/Battery.menu" \
+#"/System/Library/CoreServices/Menu Extras/Clock.menu"
 
 # Set highlight color to whatever this is
 defaults write NSGlobalDomain AppleHighlightColor -string "1.000000 0.694100 0.549000"
@@ -186,13 +190,13 @@ defaults write NSGlobalDomain KeyRepeat -int 0
 # Set language and text formats
 # Note: if you’re in the US, replace `EUR` with `USD`, `Centimeters` with
 # `Inches`, `en_GB` with `en_US`, and `true` with `false`.
-defaults write NSGlobalDomain AppleLanguages -array "en" 
+defaults write NSGlobalDomain AppleLanguages -array "en"
 defaults write NSGlobalDomain AppleLocale -string "en_US"
 defaults write NSGlobalDomain AppleMeasurementUnits -string "Inches"
 defaults write NSGlobalDomain AppleMetricUnits -bool false
 
 # Set the timezone; see `sudo systemsetup -listtimezones` for other values
-sudo systemsetup -settimezone "America/Los_Angeles" > /dev/null
+sudo systemsetup -settimezone "America/Los_Angeles" >/dev/null
 
 # Disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
@@ -336,9 +340,9 @@ chflags nohidden ~/Library
 # Expand the following File Info panes:
 # “General”, “Open with”, and “Sharing & Permissions”
 defaults write com.apple.finder FXInfoPanesExpanded -dict \
-	General -bool true \
-	OpenWith -bool true \
-	Privileges -bool true
+  General -bool true \
+  OpenWith -bool true \
+  Privileges -bool true
 
 ###############################################################################
 # Dock, Dashboard, and hot corners                                            #
@@ -551,7 +555,7 @@ defaults write com.apple.terminal StringEncodings -array 4
 #defaults write org.x.X11 wm_ffm -bool true
 
 # Don’t display the annoying prompt when quitting iTerm
-#defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 
 ###############################################################################
 # Time Machine                                                                #
@@ -643,9 +647,8 @@ defaults write com.google.Chrome.canary ExtensionInstallSources -array "https://
 ###############################################################################
 
 for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
-	"Dock" "Finder" "Mail" "Messages" "Safari" "SizeUp" "SystemUIServer" \
-	"Terminal" "Transmission" "Twitter" "iCal"; do
-	killall "${app}" > /dev/null 2>&1
+  "Dock" "Finder" "Mail" "Messages" "Safari" "SizeUp" "SystemUIServer" \
+  "Terminal" "Transmission" "Twitter" "iCal"; do
+  killall "${app}" >/dev/null 2>&1
 done
 echo "Done. Note that some of these changes require a logout/restart to take effect."
-
