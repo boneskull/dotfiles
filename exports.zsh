@@ -88,3 +88,7 @@ export NVM_DIR="${HOME}/.nvm"
 trysource "${HOME}/.exports.$(get-env os).zsh"
 
 export GITHUB_USER=boneskull
+
+[[ $(get-env bat) ]] && {
+  export BAT_STYLE="changes,header"
+}
