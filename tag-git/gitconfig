@@ -62,6 +62,9 @@
   # commit
   ci = commit
 
+  # fork
+  frk = "!f() { git fork --remote-name=origin; }; f"
+
 [apply]
 
   # Detect whitespace errors when applying a patch
@@ -162,7 +165,7 @@
   insteadOf = "gist:"
 
 [credential]
-	helper = store
+	helper = osxkeychain
 
 [filter "media"]
   clean = git-media-clean %f
