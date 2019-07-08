@@ -63,7 +63,7 @@
   ci = commit
 
   # fork
-  frk = "!f() { git fork --remote-name=origin; }; f"
+  frk = "!hub fork --remote-name=origin"
 
 [apply]
 
