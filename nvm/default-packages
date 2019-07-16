@@ -7,10 +7,9 @@ ghost-cli
 graphql-cli
 lebab
 lerna
+lerna-jsconfig
 node-core-utils
 nodemon
-pxt
-pxt-microbit
 remove-github-forks
 semantic-release-cli
 serve
