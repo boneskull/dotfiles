@@ -23,6 +23,10 @@ Plugin 'Matt-Deacalion/vim-systemd-syntax'
 " theme
 Plugin 'morhetz/gruvbox'
 
+" toml support
+Plugin 'cespare/vim-toml'
+Plugin 'maralla/vim-toml-enhance'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
