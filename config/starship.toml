@@ -1,0 +1,5 @@
+[character]
+symbol = '$'
+
+[package]
+disabled = true

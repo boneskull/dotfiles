@@ -43,7 +43,14 @@ antigen bundle Tarrasch/zsh-mcd
 
 trysource "${HOME}/.antigen.$(get-env os).zsh"
 
+# use starship theme, if it is present
+[[ $(get-env starship) ]] && {
+  antigen apply
+  eval "$(starship init zsh)"
+} || {
 antigen theme bureau
 antigen apply
+}
 
+# can't remember what this is for
 unsetopt correct_all

@@ -36,6 +36,9 @@ set-env-flags() {
   # VSCode
   set-env-flag-if-executable "code"
 
+  # starship
+  set-env-flag-if-executable "starship"
+
   # config for go
   [[ -d ${HOME}/.go ]] && {
     set-env "go" "${HOME}/.go"

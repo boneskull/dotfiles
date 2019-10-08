@@ -85,6 +85,7 @@ brew source-highlight
 brew sphinx-doc
 brew sqlite
 brew ssh-copy-id
+brew starship
 brew swig
 brew terminal-notifier
 brew tmux
