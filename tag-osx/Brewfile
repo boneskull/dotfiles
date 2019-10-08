@@ -33,6 +33,7 @@ brew glibmm
 brew gmp
 brew gnutls
 brew gputils
+brew grep
 brew hub
 brew icu4c
 brew kaitai-struct-compiler
@@ -165,6 +166,7 @@ cask font-roboto-mono-for-powerline
 cask font-roboto-slab
 cask font-source-code-pro
 cask font-victor-mono
+cask fork
 cask ghost
 cask gitter
 cask google-chrome
@@ -178,7 +180,6 @@ cask iterm2
 cask java
 cask jing
 cask karabiner-elements
-cask keybase
 cask lastfm
 cask launchcontrol
 cask marked
