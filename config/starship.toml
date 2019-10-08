@@ -1,5 +1,23 @@
 [character]
 symbol = '$'
 
-[package]
+[dotnet]
+disabled = true
+
+[golang]
+disabled = true
+
+[kubernetes]
+disabled = true
+
+[nix_shell]
+disabled = true
+
+[java]
+disabled = true
+
+[ruby]
+disabled = true
+
+[rust]
 disabled = true
