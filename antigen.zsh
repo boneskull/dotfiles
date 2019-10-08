@@ -27,9 +27,11 @@ antigen bundle mollifier/cd-gitroot
   antigen bundle npm                        # npm completion
   antigen bundle tomsquest/nvm-auto-use.zsh # use .nvmrc automatically
 }
-antigen bundle pip     # pip completion
-antigen bundle python  # python completion
-antigen bundle vagrant # vagrant autocompletion
+antigen bundle pip    # pip completion
+antigen bundle python # python completion
+
+# not using vagrant atm, so f it
+#antigen bundle vagrant # vagrant autocompletion
 
 antigen bundle history
 
@@ -48,8 +50,8 @@ trysource "${HOME}/.antigen.$(get-env os).zsh"
   antigen apply
   eval "$(starship init zsh)"
 } || {
-antigen theme bureau
-antigen apply
+  antigen theme bureau
+  antigen apply
 }
 
 # can't remember what this is for
