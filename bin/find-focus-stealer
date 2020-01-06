@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+# vim: set syntax=python:
+
+from AppKit import NSWorkspace
+from time import sleep
+
+RUN_TIME_S = 60
+
+lastAppName = ''
+for _ in range(1, RUN_TIME_S):
+    sleep(1)
+    activeAppName = NSWorkspace.sharedWorkspace().activeApplication()[
+        'NSApplicationName']
+    if activeAppName != lastAppName:
+        print(activeAppName)
+    lastAppName = activeAppName
