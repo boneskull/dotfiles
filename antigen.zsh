@@ -44,6 +44,7 @@ antigen bundle Tarrasch/zsh-mcd
 }
 
 trysource "${HOME}/.antigen.$(get-env os).zsh"
+trysource "${HOME}/.cargo/env"
 
 # use starship theme, if it is present
 [[ $(get-env starship) ]] && {
