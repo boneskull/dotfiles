@@ -25,6 +25,7 @@ brew fortune
 brew freetype
 brew gdbm
 brew gettext
+brew gifsicle
 brew git
 brew git-extras
 brew glances
@@ -48,12 +49,16 @@ brew libksba
 brew libpng
 brew librtlsdr
 brew libsigc++
+brew libssh2
 brew libtasn1
 brew libtool
 brew libunistring
 brew libusb
 brew libyaml
 brew libzip
+brew llvm
+brew lua
+brew luarocks
 brew mas
 brew maven
 brew media-info
@@ -62,7 +67,7 @@ brew nmap
 brew nnn
 brew node
 brew npth
-brew openssl
+brew onefetch
 brew openssl@1.1
 brew p11-kit
 brew p7zip
@@ -90,6 +95,7 @@ brew starship
 brew swig
 brew terminal-notifier
 brew tmux
+brew unbound
 brew uncrustify
 brew unrar
 brew vagrant-completion
@@ -115,6 +121,7 @@ cask font-roboto-mono
 cask font-roboto-mono-for-powerline
 cask font-roboto-slab
 cask font-source-code-pro
+cask font-victor-mono
 
 tap caskroom/cask
 
@@ -138,8 +145,11 @@ tap thoughtbot/formulae
 brew rcm
 
 # Other Homebrew packages
+brew gpg
+brew openssl
 brew python3
 brew qt5
+brew rustup
 brew soapyrtlsdr
 brew soapysdr
 
@@ -155,17 +165,6 @@ cask coolterm
 cask cubicsdr
 cask dash
 cask discord
-cask dropbox
-cask font-fira-mono-for-powerline
-cask font-hasklig
-cask font-inconsolata-for-powerline
-cask font-roboto
-cask font-roboto-condensed
-cask font-roboto-mono
-cask font-roboto-mono-for-powerline
-cask font-roboto-slab
-cask font-source-code-pro
-cask font-victor-mono
 cask fork
 cask ghost
 cask gitter
@@ -174,6 +173,7 @@ cask gpg-suite
 cask gqrx
 cask graphiql
 cask handbrake
+cask imageoptim
 cask inkscape
 cask irccloud
 cask iterm2
@@ -184,7 +184,10 @@ cask lastfm
 cask launchcontrol
 cask marked
 cask mqttfx
+cask nfov
+cask nordvpn
 cask openttd
+cask pinta
 cask powermate
 cask qgroundcontrol
 cask sauce-connect
