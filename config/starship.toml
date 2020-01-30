@@ -11,7 +11,7 @@ disabled = true
 disabled = true
 
 [nix_shell]
-disabled = true
+disabled = false
 
 [java]
 disabled = true
@@ -20,4 +20,4 @@ disabled = true
 disabled = true
 
 [rust]
-disabled = true
+disabled = false
