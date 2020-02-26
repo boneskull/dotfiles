@@ -25,10 +25,11 @@ brew fortune
 brew freetype
 brew gdbm
 brew gettext
+brew gh
 brew gifsicle
 brew git
 brew git-extras
-brew glances
+brew git-lfs
 brew glib
 brew glibmm
 brew gmp
@@ -36,6 +37,7 @@ brew gnutls
 brew gputils
 brew grep
 brew hub
+brew hyperfine
 brew icu4c
 brew kaitai-struct-compiler
 brew libassuan
@@ -79,7 +81,6 @@ brew pkg-config
 brew platformio
 brew postgresql
 brew python
-brew python@2
 brew qt
 brew readline
 brew redis
@@ -129,6 +130,8 @@ tap caskroom/fonts
 
 tap caskroom/fonts
 
+tap github/gh
+
 tap jesseduffield/lazygit
 
 tap nektos/tap
@@ -148,6 +151,7 @@ brew rcm
 brew gpg
 brew openssl
 brew python3
+brew python@2
 brew qt5
 brew rustup
 brew soapyrtlsdr
