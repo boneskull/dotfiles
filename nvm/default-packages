@@ -1,22 +1,9 @@
-core-validate-commit
-flamebearer
 generator-generator
 generator-license
 generator-standard-readme
-ghost-cli
-graphql-cli
-lebab
-lerna
-lerna-jsconfig
 node-core-utils
-nodemon
-remove-github-forks
 semantic-release-cli
 serve
 slug
-snyk
-t2-cli
-vue-cli
-wtfnode
 yo
 
