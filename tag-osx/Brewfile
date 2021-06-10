@@ -2,222 +2,241 @@
 # tap repositories and their packages
 
 tap homebrew/core
-brew adns
-brew antigen
-brew autoconf
-brew autoconf-archive
-brew automake
+brew aom
+brew apr
+brew apr-util
+brew assimp
 brew bat
+brew bdw-gc
+brew berkeley-db
 brew boost
+brew brotli
+brew c-ares
 brew cairo
 brew ccache
-brew check
+brew ceres-solver
 brew clang-format
 brew cmake
 brew cowsay
-brew cppcheck
 brew curl
-brew dfu-util
-brew dos2unix
-brew doxygen
+brew dash
+brew dav1d
+brew dbus
+brew double-conversion
+brew eigen
+brew ffmpeg
+brew flac
 brew fontconfig
 brew fortune
 brew freetype
+brew frei0r
+brew fribidi
+brew gcc
 brew gdbm
 brew gettext
+brew gflags
 brew gh
-brew gifsicle
+brew giflib
 brew git
 brew git-extras
 brew git-lfs
+brew gl2ps
+brew glew
 brew glib
-brew glibmm
+brew glog
 brew gmp
 brew gnutls
-brew gputils
+brew gobject-introspection
+brew graphite2
 brew grep
+brew guile
+brew harfbuzz
+brew hdf5
 brew hub
-brew hyperfine
+brew hugo
 brew icu4c
-brew kaitai-struct-compiler
+brew imath
+brew isl
+brew jasper
+brew jemalloc
+brew jpeg
+brew jsoncpp
+brew krb5
+brew lame
+brew leptonica
+brew libass
 brew libassuan
+brew libb2
+brew libbluray
+brew libev
 brew libevent
 brew libffi
-brew libftdi
-brew libgcrypt
 brew libgpg-error
 brew libidn2
-brew libksba
+brew libmetalink
+brew libmpc
+brew libogg
 brew libpng
-brew librtlsdr
-brew libsigc++
+brew libproxy
+brew libpthread-stubs
+brew libsamplerate
+brew libsass
+brew libsndfile
+brew libsodium
+brew libsoxr
 brew libssh2
 brew libtasn1
+brew libtiff
 brew libtool
 brew libunistring
-brew libusb
+brew libuv
+brew libvidstab
+brew libvorbis
+brew libvpx
+brew libx11
+brew libxau
+brew libxcb
+brew libxdmcp
+brew libxext
+brew libxrender
 brew libyaml
-brew libzip
+brew little-cms2
 brew llvm
 brew lua
 brew luarocks
+brew lz4
+brew lzo
+brew m4
+brew marked
 brew mas
 brew maven
-brew media-info
+brew metis
+brew mpdecimal
+brew mpfr
+brew ncurses
+brew netcdf
 brew nettle
+brew nghttp2
 brew nmap
-brew nnn
 brew node
-brew npth
-brew onefetch
+brew numpy
+brew openblas
+brew opencore-amr
+brew opencv
+brew openexr
+brew openjdk
+brew openjpeg
+brew openldap
 brew openssl@1.1
+brew opus
 brew p11-kit
-brew p7zip
 brew pcre
+brew pcre2
 brew perl
 brew pinentry
 brew pixman
 brew pkg-config
-brew platformio
 brew postgresql
-brew python
+brew protobuf
+brew pugixml
+brew pyqt@5
+brew python@3.9
 brew qt
+brew qt@5
+brew rav1e
+brew rcm
 brew readline
-brew redis
+brew rtmpdump
+brew rubberband
 brew ruby
-brew sdcc
-brew shfmt
-brew socat
+brew rustup-init
+brew sdl2
+brew six
+brew snappy
 brew source-highlight
-brew sphinx-doc
+brew speex
 brew sqlite
+brew srt
 brew ssh-copy-id
 brew starship
-brew swig
+brew subversion
+brew suite-sparse
+brew szip
+brew tbb
 brew terminal-notifier
-brew tmux
+brew tesseract
+brew theora
 brew unbound
 brew uncrustify
-brew unrar
-brew vagrant-completion
+brew utf8cpp
+brew utf8proc
 brew vim
+brew vtk
+brew webp
 brew wget
-brew wmctrl
+brew x264
+brew x265
+brew xorgproto
+brew xvid
 brew xz
-brew yarn
 brew z
+brew zeromq
+brew zimg
 brew zsh
+brew zstd
 
 tap homebrew/cask-drivers
-cask wch-ch34x-usb-serial-driver
 
 tap homebrew/cask-fonts
+cask font-fira-code-nerd-font
 cask font-fira-mono-for-powerline
 cask font-hasklig
+cask font-hasklug-nerd-font
 cask font-inconsolata-for-powerline
 cask font-raleway
 cask font-roboto
-cask font-roboto-condensed
 cask font-roboto-mono
 cask font-roboto-mono-for-powerline
 cask font-roboto-slab
 cask font-source-code-pro
 cask font-victor-mono
 
-tap caskroom/cask
-
-tap caskroom/fonts
-
-tap caskroom/fonts
+tap homebrew/cask
+cask alfred
+cask android-studio
+cask audacity
+cask fellow
+cask fork
+cask gitter
+cask gpg-suite-no-mail
+cask graphiql
+cask hazel
+cask irccloud
+cask iterm2
+cask kaleidoscope
+cask launchcontrol
+cask obs
+cask sauce-connect
+cask sip
+cask the-unarchiver
+cask twitch
+cask visual-studio-code
+cask vivaldi
 
 tap github/gh
-
-tap jesseduffield/lazygit
-
-tap nektos/tap
-brew act
-
-tap pothosware/homebrew-pothos
 
 tap rcmdnk/file
 brew brew-file
 
-tap rene-dev/homebrew-sigrok
-
 tap thoughtbot/formulae
-brew rcm
-
-# Other Homebrew packages
-brew gpg
-brew openssl
-brew python3
-brew python@2
-brew qt5
-brew rustup
-brew soapyrtlsdr
-brew soapysdr
-
-# Other Cask applications
-cask 1password
-cask authy
-cask bartender
-cask battle-net
-cask bettertouchtool
-cask bluemix-cli
-cask calibre
-cask coolterm
-cask cubicsdr
-cask dash
-cask discord
-cask fork
-cask ghost
-cask gitter
-cask google-chrome
-cask gpg-suite
-cask gqrx
-cask graphiql
-cask handbrake
-cask imageoptim
-cask inkscape
-cask irccloud
-cask iterm2
-cask java
-cask jing
-cask karabiner-elements
-cask lastfm
-cask launchcontrol
-cask marked
-cask mqttfx
-cask nfov
-cask nordvpn
-cask openttd
-cask pinta
-cask powermate
-cask qgroundcontrol
-cask sauce-connect
-cask sketch
-cask sketchpacks
-cask sketchup
-cask skype
-cask sourcetree
-cask steam
-cask sweet-home3d
-cask the-unarchiver
-cask twitch
-cask vagrant
-cask virtualbox
-cask visual-studio-code
-cask vivaldi
-cask vlc
-cask wireshark
-cask xquartz
 
 # App Store applications
-appstore 411643860 DaisyDisk (4.6)
-appstore 562184107 LanScan Pro (5.0)
-appstore 926036361 LastPass (3.25.0)
-appstore 915542151 Monity (1.4.1)
-appstore 639968404 Parcel (3.2)
-appstore 880001334 Reeder (3.1.2)
-appstore 926319434 Stars (5.1.2)
-appstore 497799835 Xcode (9.3.1)
+appstore 1333542190 1Password 7 (7.8.5)
+appstore 1091189122 Bear (1.8.4)
+appstore 682658836 GarageBand (10.4.3)
+appstore 408981434 iMovie (10.2.3)
+appstore 409183694 Keynote (11.1)
+appstore 409203825 Numbers (11.1)
+appstore 1439967473 Okta Extension App (5.45.0)
+appstore 409201541 Pages (11.1)
+appstore 497799835 Xcode (12.5)
