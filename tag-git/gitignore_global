@@ -120,3 +120,4 @@ coverage/
 .favorites.json
 
 *.code-workspace
+.vscode/settings.json
