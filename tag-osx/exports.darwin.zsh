@@ -27,6 +27,7 @@
   }
   export HOMEBREW_CASK_OPTS="--appdir=${HOME}/Applications"
   export HOMEBREW_BREWFILE="${HOME}/.Brewfile"
+  export HOMEBREW_NO_AUTO_UPDATE=1
 }
 
 [[ $(get-env nnn) ]] && {
