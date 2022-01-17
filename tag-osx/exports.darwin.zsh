@@ -42,3 +42,6 @@
 [[ -d ${HOME}/projects/moddable/moddable ]] && {
   export MODDABLE="${HOME}/projects/moddable/moddable"
 }
+
+# Always enable colored `grep` output (bsd grep, I guess)
+export GREP_OPTIONS="--color=auto"

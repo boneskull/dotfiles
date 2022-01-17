@@ -72,9 +72,6 @@ export ANTIGEN_HOME="${HOME}/.antigen"
 export PAGER="less"
 export MANPAGER="${PAGER}"
 
-# Always enable colored `grep` output
-export GREP_OPTIONS="--color=auto"
-
 export DISABLE_UNTRACKED_FILES_DIRTY="true"
 export ENABLE_CORRECTION="true"
 export DISABLE_AUTO_UPDATE="true"
@@ -95,3 +92,4 @@ export GITHUB_USER=boneskull
 [[ $(get-env bat) ]] && {
   export BAT_STYLE="changes,header"
 }
+
