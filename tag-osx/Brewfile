@@ -2,6 +2,7 @@
 # tap repositories and their packages
 
 tap homebrew/core
+brew abseil
 brew aom
 brew apr
 brew apr-util
@@ -12,25 +13,32 @@ brew berkeley-db
 brew boost
 brew brotli
 brew c-ares
+brew ca-certificates
 brew cairo
 brew ccache
 brew ceres-solver
+brew cjson
 brew clang-format
 brew cmake
+brew cmocka
+brew cocoapods
 brew cowsay
 brew curl
-brew dash
 brew dav1d
 brew dbus
 brew double-conversion
 brew eigen
+brew exa
 brew ffmpeg
+brew ffmpeg@4
+brew findutils
 brew flac
 brew fontconfig
 brew fortune
 brew freetype
 brew frei0r
 brew fribidi
+brew fx
 brew gcc
 brew gdbm
 brew gettext
@@ -49,21 +57,28 @@ brew gnutls
 brew gobject-introspection
 brew graphite2
 brew grep
+brew grpc
 brew guile
 brew harfbuzz
 brew hdf5
+brew hiredis
 brew hub
 brew hugo
+brew hunspell
 brew icu4c
 brew imath
 brew isl
 brew jasper
 brew jemalloc
 brew jpeg
+brew jpeg-xl
+brew jq
 brew jsoncpp
 brew krb5
 brew lame
 brew leptonica
+brew libaec
+brew libarchive
 brew libass
 brew libassuan
 brew libb2
@@ -74,11 +89,14 @@ brew libffi
 brew libgpg-error
 brew libidn2
 brew libmetalink
+brew libmng
 brew libmpc
+brew libnghttp2
 brew libogg
 brew libpng
 brew libproxy
 brew libpthread-stubs
+brew librist
 brew libsamplerate
 brew libsass
 brew libsndfile
@@ -91,6 +109,7 @@ brew libtool
 brew libunistring
 brew libuv
 brew libvidstab
+brew libvmaf
 brew libvorbis
 brew libvpx
 brew libx11
@@ -110,6 +129,8 @@ brew m4
 brew marked
 brew mas
 brew maven
+brew mbedtls
+brew md4c
 brew metis
 brew mpdecimal
 brew mpfr
@@ -120,6 +141,7 @@ brew nghttp2
 brew nmap
 brew node
 brew numpy
+brew oniguruma
 brew openblas
 brew opencore-amr
 brew opencv
@@ -130,6 +152,7 @@ brew openldap
 brew openssl@1.1
 brew opus
 brew p11-kit
+brew pandoc
 brew pcre
 brew pcre2
 brew perl
@@ -140,12 +163,15 @@ brew postgresql
 brew protobuf
 brew pugixml
 brew pyqt@5
+brew python@3.10
 brew python@3.9
 brew qt
 brew qt@5
 brew rav1e
 brew rcm
+brew re2
 brew readline
+brew ripgrep
 brew rtmpdump
 brew rubberband
 brew ruby
@@ -159,7 +185,6 @@ brew sqlite
 brew srt
 brew ssh-copy-id
 brew starship
-brew subversion
 brew suite-sparse
 brew szip
 brew tbb
@@ -198,14 +223,17 @@ cask font-roboto
 cask font-roboto-mono
 cask font-roboto-mono-for-powerline
 cask font-roboto-slab
-cask font-source-code-pro
 cask font-victor-mono
 
 tap homebrew/cask
 cask alfred
 cask android-studio
 cask audacity
+cask dash
+cask discord
+cask docker
 cask fellow
+cask figma
 cask fork
 cask gitter
 cask gpg-suite-no-mail
@@ -215,28 +243,45 @@ cask irccloud
 cask iterm2
 cask kaleidoscope
 cask launchcontrol
+cask monodraw
 cask obs
+cask obsidian
 cask sauce-connect
 cask sip
 cask the-unarchiver
 cask twitch
 cask visual-studio-code
 cask vivaldi
+cask vlc
+
+tap facebook/fb
+brew idb-companion
 
 tap github/gh
+
+tap grain-lang/tap
+cask grain
 
 tap rcmdnk/file
 brew brew-file
 
+tap screenplaydev/tap
+brew graphite
+
 tap thoughtbot/formulae
 
+tap withgraphite/tap
+
+tap wix/brew
+brew applesimutils
+
 # App Store applications
-appstore 1333542190 1Password 7 (7.8.5)
-appstore 1091189122 Bear (1.8.4)
-appstore 682658836 GarageBand (10.4.3)
-appstore 408981434 iMovie (10.2.3)
-appstore 409183694 Keynote (11.1)
-appstore 409203825 Numbers (11.1)
-appstore 1439967473 Okta Extension App (5.45.0)
-appstore 409201541 Pages (11.1)
-appstore 497799835 Xcode (12.5)
+appstore 1333542190  1Password 7         (7.9.3)
+appstore 1091189122  Bear                (1.9.6)
+appstore 682658836   GarageBand          (10.4.6)
+appstore 408981434   iMovie              (10.3.1)
+appstore 409183694   Keynote             (11.2)
+appstore 409203825   Numbers             (11.2)
+appstore 1439967473  Okta Extension App  (6.9.0)
+appstore 409201541   Pages               (11.2)
+appstore 497799835   Xcode               (13.2.1)
