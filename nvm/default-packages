@@ -1,9 +1,5 @@
 generator-generator
 generator-license
 generator-standard-readme
-node-core-utils
-semantic-release-cli
 serve
-slug
 yo
-
