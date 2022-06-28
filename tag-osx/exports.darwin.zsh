@@ -18,17 +18,14 @@
   export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
 }
 
-[[ $(get-env homebrew) ]] && {
+[[ -d /opt/homebrew ]] && {
+  eval "$(/opt/homebrew/bin/brew shellenv)"
   [[ -d $(brew --prefix)/share/antigen/ ]] && {
     export ANTIGEN_HOME="$(brew --prefix)/share/antigen/"
   }
   [[ -d $(brew --prefix)/share/zsh/help ]] && {
     export HELPDIR=$(brew --prefix)/share/zsh/help
   }
-  export HOMEBREW_CASK_OPTS="--appdir=${HOME}/Applications"
-  export HOMEBREW_BREWFILE="${HOME}/.Brewfile"
-  export HOMEBREW_NO_AUTO_UPDATE=1
-}
 
 [[ $(get-env nnn) ]] && {
   export NNN_BMS="d:${HOME}/downloads;p:${HOME}/projects"
