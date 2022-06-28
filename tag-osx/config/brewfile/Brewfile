@@ -53,6 +53,7 @@ brew glew
 brew glib
 brew glog
 brew gmp
+brew gnu-sed
 brew gnutls
 brew gobject-introspection
 brew graphite2
@@ -71,6 +72,7 @@ brew isl
 brew jasper
 brew jemalloc
 brew jpeg
+brew jpeg-turbo
 brew jpeg-xl
 brew jq
 brew jsoncpp
@@ -88,6 +90,7 @@ brew libevent
 brew libffi
 brew libgpg-error
 brew libidn2
+brew liblinear
 brew libmetalink
 brew libmng
 brew libmpc
@@ -122,6 +125,7 @@ brew libyaml
 brew little-cms2
 brew llvm
 brew lua
+brew lua@5.3
 brew luarocks
 brew lz4
 brew lzo
@@ -140,6 +144,7 @@ brew nettle
 brew nghttp2
 brew nmap
 brew node
+brew node@16
 brew numpy
 brew oniguruma
 brew openblas
@@ -186,7 +191,6 @@ brew srt
 brew ssh-copy-id
 brew starship
 brew suite-sparse
-brew szip
 brew tbb
 brew terminal-notifier
 brew tesseract
@@ -214,15 +218,10 @@ tap homebrew/cask-drivers
 
 tap homebrew/cask-fonts
 cask font-fira-code-nerd-font
-cask font-fira-mono-for-powerline
 cask font-hasklig
 cask font-hasklug-nerd-font
 cask font-inconsolata-for-powerline
 cask font-raleway
-cask font-roboto
-cask font-roboto-mono
-cask font-roboto-mono-for-powerline
-cask font-roboto-slab
 cask font-victor-mono
 
 tap homebrew/cask
@@ -231,15 +230,12 @@ cask android-studio
 cask audacity
 cask dash
 cask discord
-cask docker
-cask fellow
 cask figma
 cask fork
 cask gitter
 cask gpg-suite-no-mail
 cask graphiql
 cask hazel
-cask irccloud
 cask iterm2
 cask kaleidoscope
 cask launchcontrol
@@ -248,8 +244,8 @@ cask obs
 cask obsidian
 cask sauce-connect
 cask sip
+cask slack
 cask the-unarchiver
-cask twitch
 cask visual-studio-code
 cask vivaldi
 cask vlc
@@ -260,7 +256,6 @@ brew idb-companion
 tap github/gh
 
 tap grain-lang/tap
-cask grain
 
 tap rcmdnk/file
 brew brew-file
@@ -276,12 +271,12 @@ tap wix/brew
 brew applesimutils
 
 # App Store applications
-appstore 1333542190  1Password 7         (7.9.3)
+appstore 1333542190  1Password 7         (7.9.5)
 appstore 1091189122  Bear                (1.9.6)
 appstore 682658836   GarageBand          (10.4.6)
-appstore 408981434   iMovie              (10.3.1)
-appstore 409183694   Keynote             (11.2)
-appstore 409203825   Numbers             (11.2)
-appstore 1439967473  Okta Extension App  (6.9.0)
-appstore 409201541   Pages               (11.2)
-appstore 497799835   Xcode               (13.2.1)
+appstore 408981434   iMovie              (10.3.3)
+appstore 409183694   Keynote             (12.1)
+appstore 409203825   Numbers             (12.1)
+appstore 1439967473  Okta Extension App  (6.10.0)
+appstore 409201541   Pages               (12.1)
+appstore 497799835   Xcode               (13.4.1)
