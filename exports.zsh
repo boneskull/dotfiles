@@ -62,17 +62,16 @@ set-env-flags
 # potentially overridden elsewhere
 export ANTIGEN_HOME="${HOME}/.antigen"
 
-# default is vim)
+# EDITOR
 [[ $(get-env code) ]] && {
   export EDITOR="code -w"
 } || {
   export EDITOR="vim -xR"
 }
 
-export PAGER="less"
-export MANPAGER="${PAGER}"
 
 export DISABLE_UNTRACKED_FILES_DIRTY="true"
+
 export ENABLE_CORRECTION="true"
 export DISABLE_AUTO_UPDATE="true"
 export HYPHEN_INSENSITIVE="true"
@@ -82,6 +81,12 @@ export GITHUB_USER=boneskull
 
 [[ $(get-env bat) ]] && {
   export BAT_STYLE="changes,header"
+  export PAGER="bat"
+} || {
+  export PAGER="less"
+}
+export MANPAGER="${PAGER}"
+
 # cargo defaults
 [[ $(get-env rust) ]] && {
   trysource "${HOME}/.cargo/env"
