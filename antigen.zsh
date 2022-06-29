@@ -43,8 +43,6 @@ antigen bundle Tarrasch/zsh-mcd
   antigen bundle aws
 }
 
-trysource "${HOME}/.cargo/env"
-
 # use starship theme, if it is present
 [[ $(get-env starship) ]] && {
   antigen apply

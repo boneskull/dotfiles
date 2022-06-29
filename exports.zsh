@@ -42,6 +42,8 @@ set-env-flags() {
   }
 
   set-env-flag-if-executable "bat" "bat"
+
+  set-env-flag-if-executable "rust"
 }
 
 export PATH="./node_modules/.bin:${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:${PATH}"
@@ -73,5 +75,8 @@ export GITHUB_USER=boneskull
 
 [[ $(get-env bat) ]] && {
   export BAT_STYLE="changes,header"
+# cargo defaults
+[[ $(get-env rust) ]] && {
+  trysource "${HOME}/.cargo/env"
 }
 
