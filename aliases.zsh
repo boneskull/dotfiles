@@ -13,6 +13,5 @@ alias reload="exec $SHELL -l"
 }
 
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias miniterm="python3 -m serial.tools.miniterm"
 
 trysource "${HOME}/.aliases.$(get-env os).zsh"
