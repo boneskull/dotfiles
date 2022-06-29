@@ -43,12 +43,21 @@ set-env-flags() {
 
   set-env-flag-if-executable "bat" "bat"
 
+  [[ -d ${HOME}/.nvm ]] && {
+    export NVM_DIR="${HOME}/.nvm"
+    set-env "nvm" "${NVM_DIR}"
+  }
+
   set-env-flag-if-executable "rust"
 }
 
 export PATH="./node_modules/.bin:${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:${PATH}"
 
 set-env-flags
+
+[[ $(get-env nvm) ]] && {
+  trysource "$(get-env nvm)/nvm.sh"
+}
 
 # potentially overridden elsewhere
 export ANTIGEN_HOME="${HOME}/.antigen"
@@ -68,8 +77,6 @@ export ENABLE_CORRECTION="true"
 export DISABLE_AUTO_UPDATE="true"
 export HYPHEN_INSENSITIVE="true"
 export COMPLETION_WAITING_DOTS="true"
-
-export NVM_DIR="${HOME}/.nvm"
 
 export GITHUB_USER=boneskull
 
