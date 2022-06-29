@@ -22,9 +22,6 @@ set-env-flags() {
   # we have node
   set-env-flag-if-executable "node"
 
-  # we have nnn
-  set-env-flag-if-executable "nnn"
-
   # VSCode
   set-env-flag-if-executable "code"
 
@@ -72,9 +69,6 @@ export COMPLETION_WAITING_DOTS="true"
 
 export NVM_DIR="${HOME}/.nvm"
 
-[[ $(get-env nnn) ]] && {
-  export NNN_USE_EDITOR=1
-}
 export GITHUB_USER=boneskull
 
 [[ $(get-env bat) ]] && {
