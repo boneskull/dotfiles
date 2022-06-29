@@ -13,14 +13,6 @@ set-env-flags() {
   local os=$(uname)
   set-env "os" "${os:l}"
 
-  # XXX this is bonkers
-  [[ $(get-env os) == darwin ]] && {
-    set-env-flag-if-executable "brew" "homebrew"
-  } || {
-    set-env-flag-if-executable "apt-get" "debian"
-    set-env-flag-if-executable "systemd"
-  }
-
   # config if aws_cli is present
   set-env-flag-if-executable "aws"
 

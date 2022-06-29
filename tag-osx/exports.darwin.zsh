@@ -17,6 +17,12 @@
   [[ -d $(brew --prefix)/share/zsh/help ]] && {
     export HELPDIR=$(brew --prefix)/share/zsh/help
   }
+
+  set-env-flag-if-executable "brew" "homebrew"
+
+  # setup for nvm and homebrew
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 }
 
 # Always enable colored `grep` output (bsd grep, I guess)
