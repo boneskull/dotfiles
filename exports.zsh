@@ -83,10 +83,6 @@ export NVM_DIR="${HOME}/.nvm"
 [[ $(get-env nnn) ]] && {
   export NNN_USE_EDITOR=1
 }
-
-# load config for OS
-trysource "${HOME}/.exports.$(get-env os).zsh"
-
 export GITHUB_USER=boneskull
 
 [[ $(get-env bat) ]] && {
