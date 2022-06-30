@@ -237,12 +237,11 @@ cask gpg-suite-no-mail
 cask graphiql
 cask hazel
 cask iterm2
-cask kaleidoscope
+cask kaleidoscope2
 cask launchcontrol
 cask monodraw
 cask obs
 cask obsidian
-cask sauce-connect
 cask sip
 cask slack
 cask the-unarchiver
