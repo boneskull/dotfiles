@@ -53,6 +53,12 @@ set-env-flags() {
 
 export PATH="./node_modules/.bin:${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:${PATH}"
 
+[[ -d /opt/homebrew ]] && {
+  set-env "/opt/homebrew" "homebrew"
+  export HOMEBREW_NO_AUTO_UPDATE=1
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+}
+
 set-env-flags
 
 [[ $(get-env nvm) ]] && {

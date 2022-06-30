@@ -2,20 +2,19 @@
   export PATH="/opt/X11/bin:${PATH}"
 }
 
-[[ -d /opt/homebrew ]] && {
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-  [[ -d $(brew --prefix)/share/antigen/ ]] && {
-    export ANTIGEN_HOME="$(brew --prefix)/share/antigen/"
+[[ $(get-env homebrew) ]] && {
+  [[ -d $(get-env homebrew)/share/antigen/ ]] && {
+    export ANTIGEN_HOME="$(get-env homebrew)/share/antigen/"
   }
-  [[ -d $(brew --prefix)/share/zsh/help ]] && {
-    export HELPDIR=$(brew --prefix)/share/zsh/help
+  [[ -d $(get-env homebrew)/share/zsh/help ]] && {
+    export HELPDIR=$(get-env homebrew)/share/zsh/help
   }
 
   set-env-flag-if-executable "brew" "homebrew"
 
   # setup for nvm and homebrew
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+  [ -s "$(get-env homebrew)/opt/nvm/nvm.sh" ] && \. "$(get-env homebrew)/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "$(get-env homebrew)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(get-env homebrew)/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 }
 
 # uncomment if ruby needed?
