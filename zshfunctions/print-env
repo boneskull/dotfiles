@@ -1,0 +1,3 @@
+for key value in ${(kv)BONESKULL}; do
+    echo "$key -> $value"
+done
