@@ -1,5 +1,3 @@
-#FPATH="${HOME}/.zshfunctions:${FPATH}"
-
 # extglob support
 setopt extendedglob
 
@@ -18,6 +16,6 @@ trysource "${HOME}/.antigen.$(get-env os).zsh"
 source "${HOME}/.completions.zsh"
 trysource "${HOME}/.completions.$(get-env os).zsh"
 
-trysource "${HOME}/.$(get-env os).zshrc.zsh"
+trysource "${HOME}/.zshrc.$(get-env os).zsh"
 
 trysource "${HOME}/.extra.zsh"
