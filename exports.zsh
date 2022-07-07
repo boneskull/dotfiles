@@ -13,6 +13,12 @@ set-env-flags() {
   local os=$(uname)
   set-env "os" "${os:l}"
 
+  [[ -d /opt/homebrew ]] && {
+    set-env "homebrew" "/opt/homebrew"
+    export HOMEBREW_NO_AUTO_UPDATE=1
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  }
+
   # config if aws_cli is present
   set-env-flag-if-executable "aws"
 
@@ -52,12 +58,6 @@ set-env-flags() {
 }
 
 export PATH="./node_modules/.bin:${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:${PATH}"
-
-[[ -d /opt/homebrew ]] && {
-  set-env "/opt/homebrew" "homebrew"
-  export HOMEBREW_NO_AUTO_UPDATE=1
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-}
 
 set-env-flags
 
