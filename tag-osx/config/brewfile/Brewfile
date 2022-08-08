@@ -6,7 +6,10 @@ brew abseil
 brew aom
 brew apr
 brew apr-util
+brew argon2
+brew aspell
 brew assimp
+brew autoconf
 brew bat
 brew bdw-gc
 brew berkeley-db
@@ -22,6 +25,7 @@ brew clang-format
 brew cmake
 brew cmocka
 brew cocoapods
+brew coreutils
 brew cowsay
 brew curl
 brew dav1d
@@ -35,17 +39,20 @@ brew findutils
 brew flac
 brew fontconfig
 brew fortune
+brew freetds
 brew freetype
 brew frei0r
 brew fribidi
 brew fx
 brew gcc
+brew gd
 brew gdbm
 brew gettext
 brew gflags
 brew gh
 brew giflib
 brew git
+brew git-crypt
 brew git-extras
 brew git-lfs
 brew gl2ps
@@ -54,6 +61,7 @@ brew glib
 brew glog
 brew gmp
 brew gnu-sed
+brew gnupg
 brew gnutls
 brew gobject-introspection
 brew graphite2
@@ -78,18 +86,24 @@ brew jq
 brew jsoncpp
 brew krb5
 brew lame
+brew ldns
 brew leptonica
 brew libaec
 brew libarchive
 brew libass
 brew libassuan
+brew libavif
 brew libb2
 brew libbluray
+brew libcbor
 brew libev
 brew libevent
 brew libffi
+brew libfido2
+brew libgcrypt
 brew libgpg-error
 brew libidn2
+brew libksba
 brew liblinear
 brew libmetalink
 brew libmng
@@ -97,6 +111,7 @@ brew libmpc
 brew libnghttp2
 brew libogg
 brew libpng
+brew libpq
 brew libproxy
 brew libpthread-stubs
 brew librist
@@ -110,6 +125,7 @@ brew libtasn1
 brew libtiff
 brew libtool
 brew libunistring
+brew libusb
 brew libuv
 brew libvidstab
 brew libvmaf
@@ -122,6 +138,7 @@ brew libxdmcp
 brew libxext
 brew libxrender
 brew libyaml
+brew libzip
 brew little-cms2
 brew llvm
 brew lua
@@ -145,7 +162,9 @@ brew nghttp2
 brew nmap
 brew node
 brew node@16
+brew npth
 brew numpy
+brew nvm
 brew oniguruma
 brew openblas
 brew opencore-amr
@@ -154,6 +173,7 @@ brew openexr
 brew openjdk
 brew openjpeg
 brew openldap
+brew openssh
 brew openssl@1.1
 brew opus
 brew p11-kit
@@ -161,12 +181,15 @@ brew pandoc
 brew pcre
 brew pcre2
 brew perl
+brew php
 brew pinentry
 brew pixman
 brew pkg-config
 brew postgresql
 brew protobuf
 brew pugixml
+brew pyenv
+brew pyenv-virtualenv
 brew pyqt@5
 brew python@3.10
 brew python@3.9
@@ -182,6 +205,7 @@ brew rubberband
 brew ruby
 brew rustup-init
 brew sdl2
+brew shfmt
 brew six
 brew snappy
 brew source-highlight
@@ -195,8 +219,10 @@ brew tbb
 brew terminal-notifier
 brew tesseract
 brew theora
+brew tidy-html5
 brew unbound
 brew uncrustify
+brew unixodbc
 brew utf8cpp
 brew utf8proc
 brew vim
@@ -224,12 +250,18 @@ cask font-inconsolata-for-powerline
 cask font-raleway
 cask font-victor-mono
 
+tap homebrew/cask-versions
+cask kaleidoscope2
+
 tap homebrew/cask
 cask alfred
+cask android-ndk
+cask android-platform-tools
 cask android-studio
 cask audacity
 cask dash
 cask discord
+cask dropbox
 cask figma
 cask fork
 cask gitter
@@ -237,14 +269,15 @@ cask gpg-suite-no-mail
 cask graphiql
 cask hazel
 cask iterm2
-cask kaleidoscope2
 cask launchcontrol
 cask monodraw
 cask obs
 cask obsidian
+cask sauce-connect
 cask sip
 cask slack
 cask the-unarchiver
+cask tunnelblick
 cask visual-studio-code
 cask vivaldi
 cask vlc
@@ -260,7 +293,6 @@ tap rcmdnk/file
 brew brew-file
 
 tap screenplaydev/tap
-brew graphite
 
 tap thoughtbot/formulae
 
@@ -270,7 +302,6 @@ tap wix/brew
 brew applesimutils
 
 # App Store applications
-appstore 1333542190  1Password 7         (7.9.5)
 appstore 1091189122  Bear                (1.9.6)
 appstore 682658836   GarageBand          (10.4.6)
 appstore 408981434   iMovie              (10.3.3)
