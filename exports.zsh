@@ -57,7 +57,7 @@ set-env-flags() {
   set-env-flag-if-executable "rust"
 }
 
-export PATH="./node_modules/.bin:${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:${PATH}"
+export PATH="${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:${PATH}"
 
 set-env-flags
 
