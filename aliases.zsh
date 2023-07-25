@@ -14,6 +14,3 @@ alias reload="exec $SHELL -l"
 
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 
-[[ $(get-env nvm) ]] && {
-  alias npm="$(dirname $(nvm which current))/npm"
-}
