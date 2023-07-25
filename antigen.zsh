@@ -16,7 +16,6 @@ antigen bundle git
 antigen bundle smallhadroncollider/antigen-git-rebase
 antigen bundle git-extras
 antigen bundle gitignore
-antigen bundle github
 antigen bundle denolfe/zsh-travis
 antigen bundle mollifier/cd-gitroot
 
