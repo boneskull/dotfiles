@@ -10,37 +10,37 @@ antigen use oh-my-zsh
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-history-substring-search
 antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-autosuggestions
 
 # vcs related
 antigen bundle git
 antigen bundle smallhadroncollider/antigen-git-rebase
+antigen bundle gh
 antigen bundle git-extras
 antigen bundle gitignore
-antigen bundle denolfe/zsh-travis
+antigen bundle git-autofetch
 antigen bundle mollifier/cd-gitroot
 
 # programming related
-[[ $(get-env node) ]] && {
-  antigen bundle node                       # provides node-docs cmd
-  antigen bundle nvm                        # not sure anymore
-  antigen bundle npm                        # npm completion
-  antigen bundle tomsquest/nvm-auto-use.zsh # use .nvmrc automatically
-}
-antigen bundle pip    # pip completion
-antigen bundle python # python completion
 
-# not using vagrant atm, so f it
-#antigen bundle vagrant # vagrant autocompletion
-
-antigen bundle history
-
+antigen bundle node                       # provides node-docs cmd
+antigen bundle nvm                        # completions
+antigen bundle npm                        # npm completion
+antigen bundle tomsquest/nvm-auto-use.zsh # use .nvmrc automatically
+antigen bundle pip                        # pip completion
+antigen bundle python                     # python completion
+antigen bundle vscode
 antigen bundle bundler
-# mkdir + cd = mcd
-antigen bundle Tarrasch/zsh-mcd
+antigen bundle yarn
 
-[[ $(get-env aws) ]] && {
-  antigen bundle aws
+# more shell utils
+[[ $(get-env atuin) ]] && {
+  antigen bundle ellie/atuin@main
 }
+antigen bundle Tarrasch/zsh-mcd # mkdir + cd = mcd
+antigen bundle z
+antigen bundle ripgrep
+antigen bundle rust
 
 # use starship theme, if it is present
 [[ $(get-env starship) ]] && {
