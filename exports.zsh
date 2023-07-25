@@ -22,9 +22,6 @@ set-env-flags() {
   # config if aws_cli is present
   set-env-flag-if-executable "aws"
 
-  # github"s hub cmd
-  set-env-flag-if-executable "hub" "github"
-
   # we have node
   set-env-flag-if-executable "node"
 
