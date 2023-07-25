@@ -1,0 +1,209 @@
+[alias]
+# a nice log
+l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+
+# fetch
+fet = fetch
+
+# View the current working tree status using the short format
+s = status -s
+
+# Show the diff between the latest commit and the current state
+d = !"git diff --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+
+# `git di $number` shows the diff between the state `$number` revisions ago and the current state
+di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
+
+# Pull in remote changes for the current repository and all its submodules
+p = !"git pull; git submodule foreach git pull origin master"
+
+# Clone a repository including all submodules
+c = clone --recursive
+
+# Commit all changes
+ca = !"git add -A && git commit -av"
+
+g = !"git checkout -b \"$1\""
+
+# Switch to a branch, creating it if necessary
+go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+
+# Show verbose output about tags, branches or remotes
+tags = tag -l
+branches = branch -a
+remotes = remote -v
+
+# Amend the currently staged files to the latest commit
+amend = commit --amend --reuse-message=HEAD
+
+# Credit an author on the latest commit
+credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
+
+# Interactive rebase with the given number of latest commits
+reb = "!r() { git rebase -i HEAD~$1; }; r"
+
+# Find branches containing commit
+fb = "!f() { git branch -a --contains $1; }; f"
+
+# Find tags containing commit
+ft = "!f() { git describe --always --contains $1; }; f"
+
+# Find commits by source code
+fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
+
+# Find commits by commit message
+fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
+
+# removes local branches that have been rebased into [target] on [remote]
+# ignores branches: master, main, dev, gh-pages
+# usage: git cleanup-local-rebased [remote] [target]
+# example: git cleanup-local-rebased origin master
+cleanup-local-rebased = "!f() { REMOTE=${1:-origin}; TARGET=${2:-master}; for B in $(git branch --format='%(refname:short)' | grep -vE '(master|main|dev|gh-pages)'); do if [[ ! $(git cherry ${REMOTE}/${TARGET} $B | grep '^+') ]]; then git branch -D $B; fi; done }; f"
+
+# removes branches on [remote] that have been rebased into [target], optionally filtering on branch [prefix]
+# usage: git cleanup-remote-rebased [remote] [target] [prefix]
+# example: git cleanup-remote-rebased origin main boneskull/
+cleanup-remote-rebased = "!f() { REMOTE=${1:-origin}; TARGET=${2:-master}; PREFIX=${3:-''}; git fetch \"$REMOTE\"; git show-branch \"remotes/${REMOTE}/${TARGET}\" || { echo \"no such branch: ${REMOTE}/${TARGET}\"; return 1; }; for B in $(git branch -r --format='%(refname:lstrip=3)' | grep -vE \"${TARGET}\" | grep -E \"^${PREFIX}\"); do if [[ ! $(git cherry ${REMOTE}/${TARGET} ${REMOTE}/${B} | grep '^+') ]]; then git push \"${REMOTE}\" --delete \"${B}\"; fi; done }; f"
+
+# https://www.erikschierboom.com/2020/02/17/cleaning-up-local-git-branches-deleted-on-a-remote/
+# removes local tracked branches that have been deleted on the remote.
+# hint: run this after "cleanup-remote-rebased"
+cleanup-tracked = ! "git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -D"
+
+# List contributors with number of commits
+contributors = shortlog --summary --numbered
+
+# commit
+ci = commit
+
+# fork
+fork = "!gh repo fork --remote"
+
+[apply]
+
+# Detect whitespace errors when applying a patch
+whitespace = fix
+
+[core]
+
+# Use custom `.gitignore` and `.gitattributes`
+excludesfile = ~/.gitignore_global
+attributesfile = ~/.gitattributes
+
+# Treat spaces before tabs and all kinds of trailing whitespace as an error
+# [default] trailing-space: looks for spaces at the end of a line
+# [default] space-before-tab: looks for spaces before tabs at the beginning of a line
+whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+
+trustctime = false
+
+quotepath = false
+precomposeUnicode = true
+
+[branch]
+autoSetupRebase = remote
+
+[fetch]
+prune = true
+
+[rebase]
+autoStash = true
+stat = true
+
+[color]
+
+# Use colors in Git commands that are capable of colored output when
+# outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
+ui = auto
+
+[color "branch"]
+
+current = yellow reverse
+local = yellow
+remote = green
+
+[color "diff"]
+
+meta = yellow bold
+frag = magenta bold # line info
+old = red           # deletions
+new = green         # additions
+
+[color "status"]
+
+added = yellow
+changed = green
+untracked = cyan
+
+[diff]
+# Detect copies as well as renames
+renames = copies
+tool = opendiff
+[difftool]
+prompt = false
+[merge]
+tool = opendiff
+# Include summaries of merged commits in newly created merge commit messages
+log = true
+[mergetool]
+prompt = false
+
+[help]
+# Automatically correct and execute mistyped commands
+autocorrect = 1
+
+[push]
+
+default = current
+
+[credential]
+helper = osxkeychain
+
+[filter "media"]
+clean = git-media-clean %f
+smudge = git-media-smudge %f
+
+[user]
+name = Christopher Hiller
+email = boneskull@boneskull.com
+signingkey = 362F2068120949CE
+
+[difftool "Kaleidoscope"]
+cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[difftool]
+prompt = false
+[diff]
+tool = Kaleidoscope
+
+[mergetool "Kaleidoscope"]
+cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" \"$REMOTE\"
+
+[mergetool]
+prompt = false
+keepBackup = false
+[merge]
+tool = Kaleidoscope
+
+[difftool "sourcetree"]
+cmd = /usr/local/bin/ksdiff -w \"$LOCAL\" \"$REMOTE\"
+path =
+[mergetool "sourcetree"]
+cmd = /usr/local/bin/ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+trustExitCode = true
+[commit]
+template = ~/.stCommitMsg
+gpgsign = true
+[filter "lfs"]
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
+required = true
+clean = git-lfs clean -- %f
+
+[gpg]
+program = /usr/local/bin/gpg
+
+[init]
+defaultBranch = main
+
+[advice]
+skippedCherryPicks = false
