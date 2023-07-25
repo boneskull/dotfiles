@@ -37,6 +37,11 @@ set-env-flags() {
   [[ -d ${HOME}/.go ]] && {
     set-env "go" "${HOME}/.go"
     export PATH="${GOPATH}/bin:${PATH}"
+  } || {
+    [[ -d ${HOME}/go ]] && {
+      set-env "go" "${HOME}/go"
+      export PATH="${GOPATH}/bin:${PATH}"
+    }
   }
 
   # config if source-highlighter is present
@@ -74,7 +79,6 @@ export ANTIGEN_HOME="${HOME}/.antigen"
   export EDITOR="vim -xR"
 }
 
-
 export DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 export ENABLE_CORRECTION="true"
@@ -96,4 +100,3 @@ export MANPAGER="${PAGER}"
 [[ $(get-env rust) ]] && {
   trysource "${HOME}/.cargo/env"
 }
-
