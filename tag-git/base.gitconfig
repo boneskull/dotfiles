@@ -156,9 +156,6 @@ autocorrect = 1
 
 default = current
 
-[credential]
-helper = osxkeychain
-
 [filter "media"]
 clean = git-media-clean %f
 smudge = git-media-smudge %f
@@ -168,28 +165,6 @@ name = Christopher Hiller
 email = boneskull@boneskull.com
 signingkey = 362F2068120949CE
 
-[difftool "Kaleidoscope"]
-cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
-[difftool]
-prompt = false
-[diff]
-tool = Kaleidoscope
-
-[mergetool "Kaleidoscope"]
-cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" \"$REMOTE\"
-
-[mergetool]
-prompt = false
-keepBackup = false
-[merge]
-tool = Kaleidoscope
-
-[difftool "sourcetree"]
-cmd = /usr/local/bin/ksdiff -w \"$LOCAL\" \"$REMOTE\"
-path =
-[mergetool "sourcetree"]
-cmd = /usr/local/bin/ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-trustExitCode = true
 [commit]
 template = ~/.stCommitMsg
 gpgsign = true
@@ -198,9 +173,6 @@ smudge = git-lfs smudge -- %f
 process = git-lfs filter-process
 required = true
 clean = git-lfs clean -- %f
-
-[gpg]
-program = /usr/local/bin/gpg
 
 [init]
 defaultBranch = main

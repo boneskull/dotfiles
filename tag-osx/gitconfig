@@ -1,0 +1,17 @@
+[include]
+path = .base.gitconfig
+
+[user]
+signingkey = 306C3B99B4FABEF5BBF18E1C517E44D4799F10A6
+
+[gpg]
+program = /usr/local/bin/gpg
+
+[credential]
+helper = osxkeychain
+
+[credential "https://github.com"]
+helper = !/usr/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+helper = !/usr/bin/gh auth git-credential
