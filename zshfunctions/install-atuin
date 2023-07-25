@@ -1,0 +1,1 @@
+bash <(curl https://raw.githubusercontent.com/ellie/atuin/a0f95ad7b1faf368c8bb05ce09a52989dac94774/install.sh)

@@ -34,6 +34,8 @@ set-env-flags() {
   # starship
   set-env-flag-if-executable "starship"
 
+  set-env-flag-if-executable "atuin"
+
   # config for go
   [[ -d ${HOME}/.go ]] && {
     set-env "go" "${HOME}/.go"
