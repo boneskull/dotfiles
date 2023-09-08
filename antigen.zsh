@@ -23,12 +23,12 @@ antigen bundle mollifier/cd-gitroot
 
 # programming related
 
-antigen bundle node                       # provides node-docs cmd
-antigen bundle nvm                        # completions
-antigen bundle npm                        # npm completion
-antigen bundle tomsquest/nvm-auto-use.zsh # use .nvmrc automatically
-antigen bundle pip                        # pip completion
-antigen bundle python                     # python completion
+antigen bundle node # provides node-docs cmd
+antigen bundle nvm  # completions
+antigen bundle npm  # npm completion
+# antigen bundle tomsquest/nvm-auto-use.zsh # use .nvmrc automatically
+antigen bundle pip    # pip completion
+antigen bundle python # python completion
 antigen bundle vscode
 antigen bundle bundler
 antigen bundle yarn
