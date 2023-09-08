@@ -25,4 +25,4 @@ Based on [Mathias's dotfiles](https://github.com/mathiasbynens/dotfiles), but su
 
 ## License
 
-Copyright (c) 2014-2018 [Christopher Hiller](https://boneskull.com).  Licensed MIT
+Copyright (c) 2014 [Christopher Hiller](https://boneskull.com).  Licensed MIT
