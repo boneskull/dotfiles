@@ -121,3 +121,5 @@ coverage/
 
 *.code-workspace
 .vscode/settings.json
+
+wallaby.js
