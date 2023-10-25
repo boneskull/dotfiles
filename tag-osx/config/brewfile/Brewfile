@@ -2,32 +2,53 @@
 # tap repositories and their packages
 
 tap homebrew/core
+brew antigen
+brew atuin
 brew bat
+brew berkeley-db
+brew ca-certificates
 brew coreutils
 brew findutils
+brew gdbm
+brew gettext
+brew gh
+brew gmp
 brew hub
 brew jq
+brew libgit2
+brew libidn2
+brew libsodium
+brew libssh2
+brew libunistring
+brew libyaml
+brew lua
 brew mas
+brew mpdecimal
+brew ncurses
 brew nvm
+brew oniguruma
+brew openssl@3
+brew pcre
+brew pcre2
+brew perl
+brew python@3.12
 brew rcm
+brew readline
+brew ripgrep
+brew ruby
+brew sqlite
 brew starship
 brew terminal-notifier
 brew vim
 brew wget
+brew xz
 brew z
-
-tap homebrew/cask-fonts
-cask font-fira-code-nerd-font
-cask font-hasklig
-cask font-hasklug-nerd-font
-cask font-inconsolata-for-powerline
-cask font-raleway
-cask font-victor-mono
-
-tap homebrew/cask-versions
-cask kaleidoscope2
+brew zsh
 
 tap homebrew/cask
+cask 1password
+cask 1password-cli
+cask activitywatch
 cask alfred
 cask audacity
 cask dash
@@ -45,6 +66,24 @@ cask the-unarchiver
 cask visual-studio-code
 cask vivaldi
 
+tap homebrew/cask-fonts
+cask font-bitstream-vera-sans-mono-nerd-font
+cask font-blex-mono-nerd-font
+cask font-caskaydia-cove-nerd-font
+cask font-envy-code-r-nerd-font
+cask font-fira-code-nerd-font
+cask font-hasklig
+cask font-hasklug-nerd-font
+cask font-inconsolata-for-powerline
+cask font-jetbrains-mono-nerd-font
+cask font-raleway
+cask font-roboto-mono-nerd-font
+cask font-unifrakturcook
+cask font-victor-mono
+
+tap homebrew/cask-versions
+cask kaleidoscope2
+
 tap github/gh
 
 tap rcmdnk/file
@@ -53,3 +92,10 @@ brew brew-file
 tap thoughtbot/formulae
 
 tap withgraphite/tap
+
+# App Store applications
+appstore 682658836 GarageBand (10.4.8)
+appstore 408981434 iMovie (10.3.6)
+appstore 409183694 Keynote (13.1)
+appstore 409203825 Numbers (13.1)
+appstore 409201541 Pages (13.1)
