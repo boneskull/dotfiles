@@ -12,6 +12,9 @@
 
   set-env-flag-if-executable "brew" "homebrew"
 
+  # leaving this enabled makes everything slow af
+  export HOMEBREW_NO_INSTALL_CLEANUP=1
+
   # setup for nvm and homebrew
   [ -s "$(get-env homebrew)/opt/nvm/nvm.sh" ] && \. "$(get-env homebrew)/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "$(get-env homebrew)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(get-env homebrew)/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
