@@ -31,5 +31,7 @@
 # Always enable colored `grep` output (bsd grep, I guess)
 export GREP_OPTIONS="--color=auto"
 
-# for android sdk
-export ANDROID_HOME="${HOME}/Library/Android/sdk"
+[[ -d ${HOME}/Library/Android ]] && {
+  # for android sdk
+  export ANDROID_HOME="${HOME}/Library/Android/sdk"
+}
