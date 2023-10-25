@@ -15,7 +15,7 @@ antigen bundle zsh-users/zsh-autosuggestions
 # vcs related
 antigen bundle git
 antigen bundle smallhadroncollider/antigen-git-rebase
-antigen bundle gh
+#antigen bundle gh
 antigen bundle git-extras
 antigen bundle gitignore
 antigen bundle git-autofetch
