@@ -5,25 +5,17 @@ l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s 
 # fetch
 fet = fetch
 
+# checkout
+g = checkout
+
 # View the current working tree status using the short format
 s = status -s
-
-# Show the diff between the latest commit and the current state
-d = !"git diff --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
-
-# `git di $number` shows the diff between the state `$number` revisions ago and the current state
-di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
-
-# Pull in remote changes for the current repository and all its submodules
-p = !"git pull; git submodule foreach git pull origin master"
 
 # Clone a repository including all submodules
 c = clone --recursive
 
 # Commit all changes
 ca = !"git add -A && git commit -av"
-
-g = !"git checkout -b \"$1\""
 
 # Switch to a branch, creating it if necessary
 go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
@@ -36,38 +28,21 @@ remotes = remote -v
 # Amend the currently staged files to the latest commit
 amend = commit --amend --reuse-message=HEAD
 
-# Credit an author on the latest commit
-credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
-
-# Interactive rebase with the given number of latest commits
-reb = "!r() { git rebase -i HEAD~$1; }; r"
-
-# Find branches containing commit
-fb = "!f() { git branch -a --contains $1; }; f"
-
-# Find tags containing commit
-ft = "!f() { git describe --always --contains $1; }; f"
-
-# Find commits by source code
-fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
-
-# Find commits by commit message
-fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
-
 # removes local branches that have been rebased into [target] on [remote]
 # ignores branches: master, main, dev, gh-pages
-# usage: git cleanup-local-rebased [remote] [target]
+# usage: git cleanup-local-rebased [remote=origin] [target=main]
 # example: git cleanup-local-rebased origin master
-cleanup-local-rebased = "!f() { REMOTE=${1:-origin}; TARGET=${2:-master}; for B in $(git branch --format='%(refname:short)' | grep -vE '(master|main|dev|gh-pages)'); do if [[ ! $(git cherry ${REMOTE}/${TARGET} $B | grep '^+') ]]; then git branch -D $B; fi; done }; f"
+cleanup-local-rebased = "!f() { REMOTE=${1:-origin}; TARGET=${2:-main}; git fetch \"$REMOTE\" && for B in $(git branch --format='%(refname:short)' | grep -vE '(master|main|dev|gh-pages)'); do if [[ ! $(git cherry ${REMOTE}/${TARGET} $B | grep '^+') ]]; then git branch -D $B; fi; done }; f"
 
 # removes branches on [remote] that have been rebased into [target], optionally filtering on branch [prefix]
-# usage: git cleanup-remote-rebased [remote] [target] [prefix]
+# usage: git cleanup-remote-rebased [remote=origin] [target=main] [prefix=boneskull/]
 # example: git cleanup-remote-rebased origin main boneskull/
-cleanup-remote-rebased = "!f() { REMOTE=${1:-origin}; TARGET=${2:-master}; PREFIX=${3:-''}; git fetch \"$REMOTE\"; git show-branch \"remotes/${REMOTE}/${TARGET}\" || { echo \"no such branch: ${REMOTE}/${TARGET}\"; return 1; }; for B in $(git branch -r --format='%(refname:lstrip=3)' | grep -vE \"${TARGET}\" | grep -E \"^${PREFIX}\"); do if [[ ! $(git cherry ${REMOTE}/${TARGET} ${REMOTE}/${B} | grep '^+') ]]; then git push \"${REMOTE}\" --delete \"${B}\"; fi; done }; f"
+cleanup-remote-rebased = "!f() { REMOTE=${1:-origin}; TARGET=${2:-main}; PREFIX=${3:-'boneskull/'}; git fetch \"$REMOTE\" && git show-branch \"remotes/${REMOTE}/${TARGET}\" || { echo \"no such branch: ${REMOTE}/${TARGET}\"; return 1; }; for B in $(git branch -r --format='%(refname:lstrip=3)' | grep -vE \"${TARGET}\" | grep -E \"^${PREFIX}\"); do if [[ ! $(git cherry ${REMOTE}/${TARGET} ${REMOTE}/${B} | grep '^+') ]]; then git push \"${REMOTE}\" --delete \"${B}\"; fi; done }; f"
 
 # https://www.erikschierboom.com/2020/02/17/cleaning-up-local-git-branches-deleted-on-a-remote/
 # removes local tracked branches that have been deleted on the remote.
 # hint: run this after "cleanup-remote-rebased"
+# TODO: use xargs to force confirmation
 cleanup-tracked = ! "git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -D"
 
 # List contributors with number of commits
@@ -77,26 +52,32 @@ contributors = shortlog --summary --numbered
 ci = commit
 
 # fork
-fork = "!gh repo fork --remote"
+fork = !"gh repo fork --remote"
+
+# new pr
+pr = !"gh pr create --fill"
+
+# checkout pr by number
+checkout-pr = "!f() { gh pr checkout $1 }; f"
+
+# sync via graphite
+sync = !"gt sync && gt restack --branch ${1:-main}"
+
+up = !"gt submit --stack --update-only --branch ${1:-main}"
 
 [apply]
-
 # Detect whitespace errors when applying a patch
 whitespace = fix
 
 [core]
-
 # Use custom `.gitignore` and `.gitattributes`
 excludesfile = ~/.gitignore_global
 attributesfile = ~/.gitattributes
-
 # Treat spaces before tabs and all kinds of trailing whitespace as an error
 # [default] trailing-space: looks for spaces at the end of a line
 # [default] space-before-tab: looks for spaces before tabs at the beginning of a line
 whitespace = space-before-tab,-indent-with-non-tab,trailing-space
-
 trustctime = false
-
 quotepath = false
 precomposeUnicode = true
 
@@ -111,26 +92,22 @@ autoStash = true
 stat = true
 
 [color]
-
 # Use colors in Git commands that are capable of colored output when
 # outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
 ui = auto
 
 [color "branch"]
-
 current = yellow reverse
 local = yellow
 remote = green
 
 [color "diff"]
-
 meta = yellow bold
 frag = magenta bold # line info
 old = red           # deletions
 new = green         # additions
 
 [color "status"]
-
 added = yellow
 changed = green
 untracked = cyan
@@ -139,12 +116,15 @@ untracked = cyan
 # Detect copies as well as renames
 renames = copies
 tool = opendiff
+
 [difftool]
 prompt = false
+
 [merge]
 tool = opendiff
 # Include summaries of merged commits in newly created merge commit messages
 log = true
+
 [mergetool]
 prompt = false
 
@@ -153,7 +133,6 @@ prompt = false
 autocorrect = 1
 
 [push]
-
 default = current
 
 [filter "media"]
@@ -168,6 +147,7 @@ signingkey = 362F2068120949CE
 [commit]
 template = ~/.stCommitMsg
 gpgsign = true
+
 [filter "lfs"]
 smudge = git-lfs smudge -- %f
 process = git-lfs filter-process
