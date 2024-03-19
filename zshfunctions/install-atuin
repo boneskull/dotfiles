@@ -1,1 +1,3 @@
-bash <(curl https://raw.githubusercontent.com/ellie/atuin/a0f95ad7b1faf368c8bb05ce09a52989dac94774/install.sh)
+# do not run this as root, root will be asked for if required
+
+bash <(curl https://raw.githubusercontent.com/atuinsh/atuin/main/install.sh)

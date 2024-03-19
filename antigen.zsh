@@ -35,7 +35,7 @@ antigen bundle yarn
 
 # more shell utils
 [[ $(get-env atuin) ]] && {
-  antigen bundle ellie/atuin@main
+  antigen bundle atuinsh/atuin@main
 }
 antigen bundle Tarrasch/zsh-mcd # mkdir + cd = mcd
 antigen bundle z
