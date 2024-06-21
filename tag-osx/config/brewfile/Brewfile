@@ -13,7 +13,6 @@ brew atuin
 brew autoconf
 brew awk
 brew bat
-brew berkeley-db
 brew berkeley-db@5
 brew brotli
 brew ca-certificates
@@ -21,6 +20,7 @@ brew cairo
 brew coreutils
 brew curl
 brew dprint
+brew erlang
 brew findutils
 brew fontconfig
 brew freetds
@@ -34,9 +34,9 @@ brew gh
 brew giflib
 brew git
 brew git-absorb
+brew gleam
 brew glib
 brew gmp
-brew gnutls
 brew graphite2
 brew graphviz
 brew grep
@@ -45,7 +45,6 @@ brew harfbuzz
 brew highway
 brew hub
 brew icu4c
-brew imap-uw
 brew imath
 brew jasper
 brew jpeg-turbo
@@ -53,10 +52,7 @@ brew jpeg-xl
 brew jq
 brew krb5
 brew libavif
-brew libevent
-brew libgcrypt
 brew libgit2
-brew libgpg-error
 brew libidn2
 brew libnghttp2
 brew libpng
@@ -64,7 +60,6 @@ brew libpq
 brew librsvg
 brew libsodium
 brew libssh2
-brew libtasn1
 brew libtiff
 brew libtool
 brew libunistring
@@ -86,13 +81,11 @@ brew mas
 brew mpdecimal
 brew ncurses
 brew netpbm
-brew nettle
 brew nvm
 brew oniguruma
 brew openexr
 brew openldap
 brew openssl@3
-brew p11-kit
 brew pango
 brew pcre
 brew pcre2
@@ -103,6 +96,7 @@ brew python-setuptools
 brew python@3.12
 brew rcm
 brew readline
+brew rebar3
 brew ripgrep
 brew rtmpdump
 brew ruby
@@ -111,11 +105,11 @@ brew starship
 brew terminal-notifier
 brew tidy-html5
 brew trash
-brew unbound
 brew unixodbc
 brew vim
 brew webp
 brew wget
+brew wxwidgets
 brew xorgproto
 brew xz
 brew z
@@ -132,11 +126,32 @@ cask daisydisk
 cask discord
 cask docker
 cask element
+cask font-0xproto-nerd-font
+cask font-3270-nerd-font
+cask font-bigblue-terminal-nerd-font
+cask font-bitstream-vera-sans-mono-nerd-font
+cask font-blex-mono-nerd-font
+cask font-caskaydia-cove-nerd-font
+cask font-envy-code-r-nerd-font
+cask font-fira-code-nerd-font
+cask font-geist-mono-nerd-font
+cask font-hasklig
+cask font-hasklug-nerd-font
+cask font-inconsolata-for-powerline
+cask font-jetbrains-mono-nerd-font
+cask font-lilex-nerd-font
+cask font-profont-nerd-font
+cask font-raleway
+cask font-roboto-mono-nerd-font
+cask font-unifrakturcook
+cask font-victor-mono
+cask font-victor-mono-nerd-font
 cask fork
 cask google-chrome
 cask gpg-suite-no-mail
 cask hazel
 cask iterm2
+cask keet
 cask launchcontrol
 cask marked
 cask notion
@@ -151,23 +166,8 @@ cask vivaldi
 cask zoom
 
 tap homebrew/cask-fonts
-cask font-bitstream-vera-sans-mono-nerd-font
-cask font-blex-mono-nerd-font
-cask font-caskaydia-cove-nerd-font
-cask font-envy-code-r-nerd-font
-cask font-fira-code-nerd-font
-cask font-hasklig
-cask font-hasklug-nerd-font
-cask font-inconsolata-for-powerline
-cask font-jetbrains-mono-nerd-font
-cask font-profont-nerd-font
-cask font-raleway
-cask font-roboto-mono-nerd-font
-cask font-unifrakturcook
-cask font-victor-mono
 
 tap homebrew/cask-versions
-cask kaleidoscope2
 
 tap github/gh
 
@@ -178,13 +178,16 @@ tap thoughtbot/formulae
 
 tap withgraphite/tap
 
+# Other Cask applications
+cask kaleidoscope2
+
 # App Store applications
-appstore 1470584107 Dato (5.2.4)
+appstore 1470584107 Dato (5.3.0)
 appstore 682658836 GarageBand (10.4.8)
 appstore 408981434 iMovie (10.3.6)
 appstore 409183694 Keynote (13.1)
 appstore 409203825 Numbers (13.1)
-appstore 490179405 Okta Verify (9.10.0)
+appstore 490179405 Okta Verify (9.17.2)
 appstore 409201541 Pages (13.1)
-appstore 639968404 Parcel (7.10)
-appstore 585829637 Todoist (8.15.0)
+appstore 639968404 Parcel (7.11)
+appstore 585829637 Todoist (9.3.3)
