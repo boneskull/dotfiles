@@ -105,3 +105,7 @@ export MANPAGER="${PAGER}"
   # https://github.com/nodejs/corepack#environment-variables
   export COREPACK_ENABLE_AUTO_PIN=0
 }
+
+[[ -d ${HOME}/.console-ninja ]] && {
+  export PATH="${PATH}:${HOME}/.console-ninja/.bin"
+}
