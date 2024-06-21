@@ -100,3 +100,8 @@ export MANPAGER="${PAGER}"
 [[ $(get-env rust) ]] && {
   trysource "${HOME}/.cargo/env"
 }
+
+[[ $(which corepack) ]] && {
+  # https://github.com/nodejs/corepack#environment-variables
+  export COREPACK_ENABLE_AUTO_PIN=0
+}
