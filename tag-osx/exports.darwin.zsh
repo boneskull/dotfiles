@@ -16,8 +16,8 @@
   export HOMEBREW_NO_INSTALL_CLEANUP=1
 
   # setup for nvm and homebrew
-  [ -s "$(get-env homebrew)/opt/nvm/nvm.sh" ] && \. "$(get-env homebrew)/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "$(get-env homebrew)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(get-env homebrew)/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+  [ -s "$(get-env homebrew)/opt/nvm/nvm.sh" ] && \. "$(get-env homebrew)/opt/nvm/nvm.sh"                                       # This loads nvm
+  [ -s "$(get-env homebrew)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(get-env homebrew)/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
 }
 
 # uncomment if ruby needed?
@@ -34,4 +34,9 @@ export GREP_OPTIONS="--color=auto"
 [[ -d ${HOME}/Library/Android ]] && {
   # for android sdk
   export ANDROID_HOME="${HOME}/Library/Android/sdk"
+}
+
+# use gnu make if available
+[[ -d /opt/homebrew/opt/make ]] && {
+  PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
 }
