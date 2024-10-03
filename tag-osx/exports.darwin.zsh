@@ -40,3 +40,7 @@ export GREP_OPTIONS="--color=auto"
 [[ -d /opt/homebrew/opt/make ]] && {
   PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
 }
+
+[[ -d /opt/homebrew/opt/coreutils ]] && {
+  PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+}
