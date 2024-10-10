@@ -18,7 +18,6 @@ trysource "${HOME}/.completions.$(get-env os).zsh"
 
 trysource "${HOME}/.zshrc.$(get-env os).zsh"
 
-# this must always be at the start of PATH
-export PATH="./node_modules/.bin:${PATH}"
+export PATH="${PATH}:./node_modules/.bin"
 
 trysource "${HOME}/.extra.zsh"
