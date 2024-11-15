@@ -13,30 +13,29 @@ brew atuin
 brew autoconf
 brew awk
 brew bat
-brew berkeley-db@5
+brew blake3
 brew brotli
 brew c-ares
 brew ca-certificates
 brew cairo
+brew ccache
 brew cmake
 brew coreutils
 brew curl
 brew dprint
-brew erlang
 brew findutils
+brew fmt
 brew fontconfig
 brew freetds
 brew freetype
 brew fribidi
 brew gd
-brew gdbm
 brew gdk-pixbuf
 brew gettext
 brew gh
 brew giflib
 brew git
 brew git-absorb
-brew gleam
 brew glib
 brew gmp
 brew graphite2
@@ -45,6 +44,7 @@ brew grep
 brew gts
 brew harfbuzz
 brew highway
+brew hiredis
 brew hub
 brew icu4c
 brew imath
@@ -96,14 +96,13 @@ brew openssl@3
 brew pango
 brew pcre
 brew pcre2
-brew perl
 brew php
 brew pixman
+brew python-packaging
 brew python-setuptools
 brew python@3.12
 brew rcm
 brew readline
-brew rebar3
 brew ripgrep
 brew rtmpdump
 brew ruby
@@ -115,8 +114,8 @@ brew unixodbc
 brew vim
 brew webp
 brew wget
-brew wxwidgets
 brew xorgproto
+brew xxhash
 brew xz
 brew z
 brew zsh
@@ -163,6 +162,7 @@ cask kaleidoscope@2
 cask keet
 cask launchcontrol
 cask marked
+cask nordvpn
 cask notion
 cask obsidian
 cask orion
@@ -178,6 +178,8 @@ tap homebrew/cask-fonts
 
 tap homebrew/cask-versions
 
+tap bufbuild/buf
+
 tap github/gh
 
 tap rcmdnk/file
@@ -191,9 +193,9 @@ tap withgraphite/tap
 cask kaleidoscope2
 
 # App Store applications
-appstore 1569813296 1Password for Safari (8.10.44)
-appstore 918858936 Airmail (5.7.7)
-appstore 1091189122 Bear (2.2.2)
+appstore 1569813296 1Password for Safari (8.10.50)
+appstore 918858936 Airmail (5.8.13)
+appstore 1091189122 Bear (2.3.5)
 appstore 1470584107 Dato (5.3.7)
 appstore 682658836 GarageBand (10.4.8)
 appstore 408981434 iMovie (10.3.6)
@@ -201,7 +203,7 @@ appstore 409183694 Keynote (13.1)
 appstore 409203825 Numbers (13.1)
 appstore 490179405 Okta Verify (9.23.0)
 appstore 409201541 Pages (13.1)
-appstore 639968404 Parcel (7.12)
-appstore 1448648921 Seashore (3.37)
-appstore 585829637 Todoist (9.7.0)
-appstore 497799835 Xcode (15.4)
+appstore 639968404 Parcel (7.14)
+appstore 1448648921 Seashore (3.38)
+appstore 585829637 Todoist (9.7.7)
+appstore 497799835 Xcode (16.1)
