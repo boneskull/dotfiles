@@ -159,3 +159,4 @@ defaultBranch = main
 
 [advice]
 skippedCherryPicks = false
+mergeConflict = false
