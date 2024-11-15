@@ -17,3 +17,16 @@ helper = !$(which gh) auth git-credential
 
 [credential "https://gist.github.com"]
 helper = !$(which gh) auth git-credential
+
+[diff]
+# Detect copies as well as renames
+# renames = copies
+tool = ksdiff
+
+[difftool]
+prompt = false
+
+[merge]
+tool = ksdiff
+# Include summaries of merged commits in newly created merge commit messages
+log = true
