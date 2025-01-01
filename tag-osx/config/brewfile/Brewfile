@@ -46,7 +46,6 @@ brew harfbuzz
 brew highway
 brew hiredis
 brew hub
-brew icu4c
 brew imath
 brew jasper
 brew jpeg-turbo
@@ -54,6 +53,7 @@ brew jpeg-xl
 brew jq
 brew krb5
 brew libavif
+brew libdeflate
 brew libgit2
 brew libgit2@1.7
 brew libidn2
@@ -66,6 +66,7 @@ brew libssh2
 brew libtiff
 brew libtool
 brew libunistring
+brew libusb
 brew libuv
 brew libvmaf
 brew libx11
@@ -101,16 +102,19 @@ brew pixman
 brew python-packaging
 brew python-setuptools
 brew python@3.12
+brew python@3.13
 brew rcm
 brew readline
 brew ripgrep
 brew rtmpdump
 brew ruby
+brew rustup
 brew sqlite
 brew starship
 brew terminal-notifier
 brew tidy-html5
 brew unixodbc
+brew uv
 brew vim
 brew webp
 brew wget
@@ -172,6 +176,7 @@ cask slack
 cask the-unarchiver
 cask visual-studio-code
 cask vivaldi
+cask wireshark
 cask zoom
 
 tap homebrew/cask-fonts
@@ -189,21 +194,21 @@ tap thoughtbot/formulae
 
 tap withgraphite/tap
 
-# Other Cask applications
-cask kaleidoscope2
+# Other Homebrew packages
+brew icu4c
 
 # App Store applications
-appstore 1569813296 1Password for Safari (8.10.50)
-appstore 918858936 Airmail (5.8.13)
-appstore 1091189122 Bear (2.3.5)
-appstore 1470584107 Dato (5.3.7)
+appstore 1569813296 1Password for Safari (8.10.56)
+appstore 918858936 Airmail (5.8.14)
+appstore 1091189122 Bear (2.3.9)
+appstore 1470584107 Dato (5.4.3)
 appstore 682658836 GarageBand (10.4.8)
 appstore 408981434 iMovie (10.3.6)
 appstore 409183694 Keynote (13.1)
 appstore 409203825 Numbers (13.1)
 appstore 490179405 Okta Verify (9.23.0)
 appstore 409201541 Pages (13.1)
-appstore 639968404 Parcel (7.14)
-appstore 1448648921 Seashore (3.38)
-appstore 585829637 Todoist (9.7.7)
-appstore 497799835 Xcode (16.1)
+appstore 639968404 Parcel (7.14.2)
+appstore 1448648921 Seashore (3.40)
+appstore 585829637 Todoist (9.9.5)
+appstore 497799835 Xcode (16.2)
