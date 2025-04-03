@@ -58,7 +58,7 @@ set-env-flags() {
     set-env "nvm" "${NVM_DIR}"
   }
 
-  set-env-flag-if-executable "rust"
+  set-env-flag-if-executable "rustup"
 }
 
 export PATH="${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:${PATH}"
@@ -97,7 +97,7 @@ export GITHUB_USER=boneskull
 export MANPAGER="${PAGER}"
 
 # cargo defaults
-[[ $(get-env rust) ]] && {
+[[ $(get-env rustup) ]] && {
   trysource "${HOME}/.cargo/env"
 }
 
