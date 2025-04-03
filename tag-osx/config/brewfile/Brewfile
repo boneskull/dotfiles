@@ -84,6 +84,7 @@ brew lzo
 brew m4
 brew make
 brew mas
+brew moreutils
 brew mpdecimal
 brew ncurses
 brew netpbm
@@ -159,18 +160,17 @@ cask font-unifrakturcook
 cask font-victor-mono
 cask font-victor-mono-nerd-font
 cask fork
-cask google-chrome
 cask gpg-suite-no-mail
 cask hazel
 cask iterm2
 cask kaleidoscope@2
-cask keet
 cask launchcontrol
 cask marked
 cask nordvpn
 cask notion
 cask obsidian
 cask orion
+cask raycast
 cask sip
 cask sketch
 cask slack
@@ -199,17 +199,19 @@ tap withgraphite/tap
 brew icu4c
 
 # App Store applications
-appstore 1569813296 1Password for Safari (8.10.56)
+appstore 1569813296 1Password for Safari (8.10.70)
 appstore 918858936 Airmail (5.8.14)
-appstore 1091189122 Bear (2.3.10)
-appstore 1470584107 Dato (5.4.3)
+appstore 1091189122 Bear (2.3.12)
+appstore 1584423325 BloonsTD6+ (48.0)
+appstore 1470584107 Dato (5.5.4)
 appstore 682658836 GarageBand (10.4.8)
 appstore 408981434 iMovie (10.3.6)
 appstore 409183694 Keynote (13.1)
+appstore 1610130712 Kingdom Rush Vengeance+ (1.16.02)
 appstore 409203825 Numbers (13.1)
-appstore 490179405 Okta Verify (9.23.0)
+appstore 490179405 Okta Verify (9.35.0)
 appstore 409201541 Pages (13.1)
-appstore 639968404 Parcel (7.14.3)
+appstore 639968404 Parcel (7.15.1)
 appstore 1448648921 Seashore (3.40)
-appstore 585829637 Todoist (9.9.6)
-appstore 497799835 Xcode (16.2)
+appstore 585829637 Todoist (9.13.0)
+appstore 497799835 Xcode (16.3)
