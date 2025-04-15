@@ -30,5 +30,3 @@ prompt = false
 tool = ksdiff
 # Include summaries of merged commits in newly created merge commit messages
 log = true
-[absorb]
-	autoStageIfNothingStaged = =

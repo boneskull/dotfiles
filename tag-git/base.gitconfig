@@ -32,12 +32,12 @@ amend = commit --amend --reuse-message=HEAD
 # ignores branches: master, main, dev, gh-pages
 # usage: git cleanup-local-rebased [remote=origin] [target=main]
 # example: git cleanup-local-rebased origin master
-cleanup-local-rebased = "!f() { REMOTE=${1:-origin}; TARGET=${2:-main}; git fetch \"$REMOTE\" && for B in $(git branch --format='%(refname:short)' | grep -vE '(master|main|dev|gh-pages)'); do if [[ ! $(git cherry ${REMOTE}/${TARGET} $B | grep '^+') ]]; then git branch -D $B; fi; done }; f"
+cleanup-local-rebased = "!f() { REMOTE=${1:-origin}; TARGET=${2:-$(git default-branch)}; git fetch \"$REMOTE\" && for B in $(git branch --format='%(refname:short)' | grep -vE '(master|main|dev|gh-pages)'); do if [[ ! $(git cherry ${REMOTE}/${TARGET} $B | grep '^+') ]]; then git branch -D \"${B}\"; fi; done }; f"
 
 # removes branches on [remote] that have been rebased into [target], optionally filtering on branch [prefix]
 # usage: git cleanup-remote-rebased [remote=origin] [target=main] [prefix=boneskull/]
 # example: git cleanup-remote-rebased origin main boneskull/
-cleanup-remote-rebased = "!f() { REMOTE=${1:-origin}; TARGET=${2:-main}; PREFIX=${3:-'boneskull/'}; git fetch \"$REMOTE\" && git show-branch \"remotes/${REMOTE}/${TARGET}\" || { echo \"no such branch: ${REMOTE}/${TARGET}\"; return 1; }; for B in $(git branch -r --format='%(refname:lstrip=3)' | grep -vE \"${TARGET}\" | grep -E \"^${PREFIX}\"); do if [[ ! $(git cherry ${REMOTE}/${TARGET} ${REMOTE}/${B} | grep '^+') ]]; then git push \"${REMOTE}\" --delete \"${B}\"; fi; done }; f"
+cleanup-remote-rebased = "!f() { REMOTE=${1:-origin}; TARGET=${2:-$(git default-branch)}; PREFIX=${3:-'boneskull/'}; git fetch \"$REMOTE\" && git show-branch \"remotes/${REMOTE}/${TARGET}\" >/dev/null 2>&1 || { echo \"no such branch: ${REMOTE}/${TARGET}\"; return 1; }; for B in $(git branch -r --format='%(refname:lstrip=3)' | grep -vE \"${TARGET}\" | grep -E \"^${PREFIX}\"); do if [[ ! $(git cherry ${REMOTE}/${TARGET} ${REMOTE}/${B} 2>/dev/null | grep '^+') ]]; then read -p \"Delete ${B}? \" -n 1 -r DELETE; echo; if [[ ${DELETE} =~ ^[Yy]$ ]]; then git push \"${REMOTE}\" --delete \"${B}\"; fi; fi; done }; f"
 
 # https://www.erikschierboom.com/2020/02/17/cleaning-up-local-git-branches-deleted-on-a-remote/
 # removes local tracked branches that have been deleted on the remote.
@@ -60,10 +60,8 @@ pr = !"gh pr create --fill"
 # checkout pr by number
 checkout-pr = "!f() { gh pr checkout $1 }; f"
 
-# sync via graphite
-sync = !"gt sync && gt restack --branch ${1:-main}"
-
-up = !"gt submit --stack --update-only --branch ${1:-main}"
+# echo default branch on origin
+default-branch = !"f() { REMOTE=${1:-origin}; git rev-parse --abbrev-ref \"${REMOTE}/HEAD\" | cut -c8-; }; f"
 
 [apply]
 # Detect whitespace errors when applying a patch
@@ -160,3 +158,6 @@ defaultBranch = main
 [advice]
 skippedCherryPicks = false
 mergeConflict = false
+
+[absorb]
+	autoStageIfNothingStaged = true
