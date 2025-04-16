@@ -18,7 +18,7 @@ c = clone --recursive
 ca = !"git add -A && git commit -av"
 
 # Switch to a branch, creating it if necessary
-go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+go = "!f() { git checkout -b \"$1\" 2> /dev/null && { echo "Created $1"; } || { git checkout \"$1\"; } }; f"
 
 # Show verbose output about tags, branches or remotes
 tags = tag -l
@@ -160,4 +160,4 @@ skippedCherryPicks = false
 mergeConflict = false
 
 [absorb]
-	autoStageIfNothingStaged = true
+autoStageIfNothingStaged = true
