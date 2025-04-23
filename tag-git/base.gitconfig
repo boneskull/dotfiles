@@ -63,6 +63,9 @@ checkout-pr = "!f() { gh pr checkout $1 }; f"
 # echo default branch on origin
 default-branch = !"f() { REMOTE=${1:-origin}; git rev-parse --abbrev-ref \"${REMOTE}/HEAD\" | cut -c8-; }; f"
 
+# deletes local renovate branches
+cleanup-renovate = !"f() { git branch --list \"renovate/*\" | xargs -r git branch -D; }; f"
+
 [apply]
 # Detect whitespace errors when applying a patch
 whitespace = fix
