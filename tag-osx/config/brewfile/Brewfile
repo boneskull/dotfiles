@@ -45,7 +45,7 @@ brew gts
 brew harfbuzz
 brew highway
 brew hiredis
-brew hub
+brew icu4c
 brew imath
 brew jasper
 brew jpeg-turbo
@@ -98,11 +98,9 @@ brew openssl@3
 brew pango
 brew pcre
 brew pcre2
-brew php
 brew pixman
 brew python-packaging
 brew python-setuptools
-brew python@3.12
 brew python@3.13
 brew rcm
 brew readline
@@ -129,10 +127,8 @@ brew zstd
 
 tap homebrew/cask
 cask 1password
-cask 1password-cli
 cask activitywatch
 cask alfred
-cask audacity
 cask daisydisk
 cask discord
 cask docker
@@ -169,20 +165,14 @@ cask marked
 cask nordvpn
 cask notion
 cask obsidian
-cask orion
 cask raycast
 cask sip
-cask sketch
 cask slack
 cask the-unarchiver
 cask visual-studio-code
 cask vivaldi
 cask wireshark
-cask zoom
-
-tap homebrew/cask-fonts
-
-tap homebrew/cask-versions
+cask zulip
 
 tap bufbuild/buf
 
@@ -193,25 +183,18 @@ brew brew-file
 
 tap thoughtbot/formulae
 
-tap withgraphite/tap
-
-# Other Homebrew packages
-brew icu4c
-
 # App Store applications
 appstore 1569813296 1Password for Safari (8.10.70)
 appstore 918858936 Airmail (5.8.14)
 appstore 1091189122 Bear (2.3.12)
-appstore 1584423325 BloonsTD6+ (48.0)
 appstore 1470584107 Dato (5.5.4)
-appstore 682658836 GarageBand (10.4.8)
-appstore 408981434 iMovie (10.3.6)
-appstore 409183694 Keynote (13.1)
-appstore 1610130712 Kingdom Rush Vengeance+ (1.16.02)
-appstore 409203825 Numbers (13.1)
-appstore 490179405 Okta Verify (9.35.0)
-appstore 409201541 Pages (13.1)
-appstore 639968404 Parcel (7.15.1)
+appstore 682658836 GarageBand (10.4.11)
+appstore 408981434 iMovie (10.4.2)
+appstore 409183694 Keynote (14.2)
+appstore 409203825 Numbers (14.2)
+appstore 490179405 Okta Verify (9.39.0)
+appstore 409201541 Pages (14.2)
+appstore 639968404 Parcel (7.15.2)
 appstore 1448648921 Seashore (3.40)
-appstore 585829637 Todoist (9.13.0)
+appstore 585829637 Todoist (9.13.1)
 appstore 497799835 Xcode (16.3)
