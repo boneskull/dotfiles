@@ -47,6 +47,7 @@ antigen bundle rust
   antigen apply
   eval "$(starship init zsh)"
 } || {
+  # note: if you see dual prompts, run `antigen reset` and relogin
   antigen theme bureau
   antigen apply
 }
