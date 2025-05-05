@@ -10076,7 +10076,7 @@
 			<key>Badge Right Margin</key>
 			<real>30</real>
 			<key>Badge Text</key>
-			<string>filth</string>
+			<string>fury</string>
 			<key>Badge Top Margin</key>
 			<real>30</real>
 			<key>Blend</key>
@@ -10601,7 +10601,7 @@
 			<key>Mouse Reporting</key>
 			<true/>
 			<key>Name</key>
-			<string>filth</string>
+			<string>fury</string>
 			<key>Non Ascii Font</key>
 			<string>FiraCodeNFM-Reg 14</string>
 			<key>Non-ASCII Anti Aliased</key>
