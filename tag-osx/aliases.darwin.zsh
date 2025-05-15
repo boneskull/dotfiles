@@ -1,6 +1,3 @@
-# SourceTree
-which stree >/dev/null && alias st="/usr/bin/env stree"
-
 # Man pages to Dash
 [[ -n $(mdfind "kMDItemFSName == 'Dash.app'" | head -n1) ]] && {
   dash_man() {
@@ -8,4 +5,8 @@ which stree >/dev/null && alias st="/usr/bin/env stree"
   }
 
   alias man=dash_man
+}
+
+[[ $(get-env gls) ]] && {
+  alias ls="gls --color"
 }

@@ -36,11 +36,10 @@ export GREP_OPTIONS="--color=auto"
   export ANDROID_HOME="${HOME}/Library/Android/sdk"
 }
 
-# use gnu make if available
-[[ -d /opt/homebrew/opt/make ]] && {
-  PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
-}
+# GNU ls
+set-env-flag-if-executable "gls"
 
-[[ -d /opt/homebrew/opt/coreutils ]] && {
-  PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+# use vivid for LS_COLORS if installed
+[[ -d /opt/homebrew/opt/vivid ]] && {
+  export LS_COLORS="$(/opt/homebrew/bin/vivid generate lava)"
 }
