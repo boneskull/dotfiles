@@ -15,6 +15,7 @@ brew awk
 brew bash
 brew bat
 brew blake3
+brew boost
 brew brotli
 brew c-ares
 brew ca-certificates
@@ -23,22 +24,33 @@ brew ccache
 brew cmake
 brew coreutils
 brew curl
+brew double-conversion
 brew dprint
+brew edencommon
+brew fb303
+brew fbthrift
+brew fd
 brew findutils
+brew fizz
 brew fmt
+brew folly
 brew fontconfig
 brew freetds
 brew freetype
 brew fribidi
 brew gd
+brew gdbm
 brew gdk-pixbuf
 brew gettext
+brew gflags
 brew gh
 brew giflib
 brew git
 brew git-absorb
 brew glib
+brew glog
 brew gmp
+brew gnu-sed
 brew graphite2
 brew graphviz
 brew grep
@@ -55,6 +67,7 @@ brew jq
 brew krb5
 brew libavif
 brew libdeflate
+brew libevent
 brew libgit2
 brew libgit2@1.7
 brew libidn2
@@ -102,6 +115,7 @@ brew pcre2
 brew pixman
 brew python-packaging
 brew python-setuptools
+brew python@3.10
 brew python@3.13
 brew rcm
 brew readline
@@ -109,6 +123,7 @@ brew ripgrep
 brew rtmpdump
 brew ruby
 brew rustup
+brew snappy
 brew sqlite
 brew starship
 brew terminal-notifier
@@ -118,6 +133,8 @@ brew unixodbc
 brew uv
 brew vim
 brew vivid
+brew wangle
+brew watchman
 brew webp
 brew wget
 brew xorgproto
@@ -195,9 +212,9 @@ appstore 682658836 GarageBand (10.4.11)
 appstore 408981434 iMovie (10.4.2)
 appstore 409183694 Keynote (14.2)
 appstore 409203825 Numbers (14.2)
-appstore 490179405 Okta Verify (9.39.0)
+appstore 490179405 Okta Verify (9.42.0)
 appstore 409201541 Pages (14.2)
-appstore 639968404 Parcel (7.15.3)
+appstore 639968404 Parcel (7.15.4)
 appstore 1448648921 Seashore (3.40)
-appstore 585829637 Todoist (9.13.1)
+appstore 585829637 Todoist (9.14.0)
 appstore 497799835 Xcode (16.3)
