@@ -18,7 +18,7 @@ set -e
 }
 
 echo "Archiving ${DIR}..."
-NOW=`date '+%Y-%m-%d %H:%M:%S'`
-SLUGGED=`${SLUG} "$(dirname ${DIR}) ${NOW}"`
+NOW=$(date '+%Y-%m-%d %H:%M:%S')
+SLUGGED=$(${SLUG} "$(dirname ${DIR}) ${NOW}")
 ${GTAR} cz --exclude-vcs-ignores --exclude-vcs -f "${BACKUP_DIR}/${SLUGGED}.tar.gz" "${DIR}"
 rm -frv "${DIR}"
