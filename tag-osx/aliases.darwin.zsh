@@ -1,7 +1,7 @@
 # Man pages to Dash
-[[ -n $(mdfind "kMDItemFSName == 'Dash.app'" | head -n1) ]] && {
+is-app-installed Dash && {
   dash_man() {
-    /usr/bin/open "dash://manpages:$(omz_urlencode ${@})"
+    /usr/bin/open "dash://?query=manpages:$(omz_urlencode ${@})"
   }
 
   alias man=dash_man
@@ -9,4 +9,8 @@
 
 [[ $(get-env gls) ]] && {
   alias ls="gls --color"
+}
+
+is-app-installed 'Visual Studio Code' && {
+  alias c=code
 }

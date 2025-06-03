@@ -1,0 +1,1 @@
+test -n "$(mdfind "kMDItemFSName == '$1.app'" | head -n1)"
