@@ -149,7 +149,7 @@ cask 1password
 cask activitywatch
 cask alfred
 cask daisydisk
-cask dash@6
+cask dash
 cask discord
 cask docker
 cask element
@@ -206,7 +206,7 @@ tap thoughtbot/formulae
 
 # App Store applications
 appstore 1569813296 1Password for Safari (8.10.76)
-appstore 1091189122 Bear (2.3.12)
+appstore 1091189122 Bear (2.4.4)
 appstore 1470584107 Dato (5.6.0)
 appstore 682658836 GarageBand (10.4.11)
 appstore 408981434 iMovie (10.4.2)
@@ -216,5 +216,5 @@ appstore 490179405 Okta Verify (9.42.0)
 appstore 409201541 Pages (14.2)
 appstore 639968404 Parcel (7.15.4)
 appstore 1448648921 Seashore (3.40)
-appstore 585829637 Todoist (9.14.0)
-appstore 497799835 Xcode (16.3)
+appstore 585829637 Todoist (9.16.1)
+appstore 497799835 Xcode (16.4)
