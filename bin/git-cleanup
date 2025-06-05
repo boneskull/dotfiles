@@ -1,0 +1,117 @@
+#!/usr/bin/env zsh
+
+# git-cleanup: A script to clean up local and remote branches in a Git
+# repository.
+#
+# Usage: git cleanup [remote] [target] [prefix]
+#
+#  - remote: The remote repository (default: 'origin').
+#  - target: The target branch to check against (default: the default branch of
+#    the remote).
+#  - prefix: The prefix for remote branches to consider (default:
+#    user.branchPrefix config value or 'boneskull'); e.g.,
+#    `boneskull/feature-branch`.
+
+# Warning: not compatible with bash.
+
+set -euo pipefail
+
+get_prefix() {
+  local prefix=$(git config get user.branchPrefix)
+  if [[ -z $prefix ]]; then
+    print -P 'boneskull'
+  else
+    print -P $prefix
+  fi
+}
+
+# Checks that the target branch exists on the remote.
+check_target() {
+  if ! git show-branch "${remote}/${target}" > /dev/null 2>&1; then
+    print -P "No such branch: ${remote}/${target}" >&2
+    exit 1
+  fi
+}
+
+# Determines the default branch of the remote repository
+default_branch() {
+  print -P $(git rev-parse --abbrev-ref "${remote}/HEAD" | cut -c8-)
+}
+
+# Prompts the user for confirmation with a default response.
+confirm() {
+  local message="${1}"
+  local default="${2:-N/y}"
+  read -q "confirm?${message} [${default}]? "
+  print -P
+  if [[ ${confirm} =~ ^[Yy]$ ]]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+# Removes local branches that have been rebased onto the target branch
+cleanup_local_rebased() {
+  local deleted=false
+  local exceptions='(master|main|dev|gh-pages)'
+  local branches=($(git branch --list "${prefix}/*" --format='%(refname:short)'))
+  if [[ -z $branches ]]; then
+    print -P "No local branches found matching ${prefix}/*." >&2
+    return
+  fi
+  for branch in $branches; do
+    if [[ -z $(git cherry "${remote}/${target}" "${branch}" 2> /dev/null | grep '^+') ]]; then
+      confirm "Delete local branch %F{red}${branch}%f that has been rebased onto ${remote}/${target}" && {
+        git branch -D "${branch}"
+        deleted=true
+      }
+    fi
+  done
+  if [[ $deleted == true ]]; then
+    print -P "Deleted local branches that have been rebased onto ${remote}/${target}." >&2
+  else
+    print -P "No local branches found which were rebased onto ${remote}/${target}." >&2
+  fi
+}
+
+# Removes remote branches that have been rebased onto the target branch
+cleanup_remote_rebased() {
+  local deleted=false
+  local branches=($(git branch -r --list "${remote}/${prefix}/*" --format='%(refname:lstrip=3)'))
+  if [[ -z $branches ]]; then
+    print -P "No remote branches found matching ${remote}/${prefix}*." >&2
+    return
+  fi
+  for branch in $branches; do
+    if [[ -z $(git cherry "${remote}/${target}" "${remote}/${branch}" 2> /dev/null | grep '^+') ]]; then
+      confirm "Delete remote branch %F{red}${remote}/${branch}%f that has been rebased onto ${remote}/${target}" && {
+        git push "${remote}" --delete "${branch}"
+        deleted=true
+      }
+    fi
+  done
+  if [[ $deleted == true ]]; then
+    print -P "Deleted remote branches that have been rebased onto ${remote}/${target}." >&2
+  else
+    print -P "No remote branches were deleted." >&2
+  fi
+}
+
+# Remote repository
+remote=${1:-origin}
+# "Trunk" branch on remote repository
+target=${2:-$(default_branch)}
+# Branch prefix
+prefix=${3:-$(get_prefix)}
+
+print -P "Using remote: %F{yellow}${remote}%f, trunk %F{yellow}${target}%f, and prefix %F{yellow}${prefix}%f." >&2
+
+# this will remove local branches that track deleted remote branches
+git fetch --prune "${remote}"
+
+check_target
+cleanup_local_rebased
+cleanup_remote_rebased
+
+print -P "Done." >&2

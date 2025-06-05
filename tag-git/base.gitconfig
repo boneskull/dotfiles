@@ -28,23 +28,6 @@ remotes = remote -v
 # Amend the currently staged files to the latest commit
 amend = commit --amend --reuse-message=HEAD
 
-# removes local branches that have been rebased into [target] on [remote]
-# ignores branches: master, main, dev, gh-pages
-# usage: git cleanup-local-rebased [remote=origin] [target=main]
-# example: git cleanup-local-rebased origin master
-cleanup-local-rebased = "!f() { REMOTE=${1:-origin}; TARGET=${2:-$(git default-branch)}; git fetch \"$REMOTE\" && for B in $(git branch --format='%(refname:short)' | grep -vE '(master|main|dev|gh-pages)'); do if [[ ! $(git cherry ${REMOTE}/${TARGET} $B | grep '^+') ]]; then git branch -D \"${B}\"; fi; done }; f"
-
-# removes branches on [remote] that have been rebased into [target], optionally filtering on branch [prefix]
-# usage: git cleanup-remote-rebased [remote=origin] [target=main] [prefix=boneskull/]
-# example: git cleanup-remote-rebased origin main boneskull/
-cleanup-remote-rebased = "!f() { REMOTE=${1:-origin}; TARGET=${2:-$(git default-branch)}; PREFIX=${3:-'boneskull/'}; git fetch \"$REMOTE\" && git show-branch \"remotes/${REMOTE}/${TARGET}\" >/dev/null 2>&1 || { echo \"no such branch: ${REMOTE}/${TARGET}\"; return 1; }; for B in $(git branch -r --format='%(refname:lstrip=3)' | grep -vE \"${TARGET}\" | grep -E \"^${PREFIX}\"); do if [[ ! $(git cherry ${REMOTE}/${TARGET} ${REMOTE}/${B} 2>/dev/null | grep '^+') ]]; then read -p \"Delete ${B}? \" -n 1 -r DELETE; echo; if [[ ${DELETE} =~ ^[Yy]$ ]]; then git push \"${REMOTE}\" --delete \"${B}\"; fi; fi; done }; f"
-
-# https://www.erikschierboom.com/2020/02/17/cleaning-up-local-git-branches-deleted-on-a-remote/
-# removes local tracked branches that have been deleted on the remote.
-# hint: run this after "cleanup-remote-rebased"
-# TODO: use xargs to force confirmation
-cleanup-tracked = ! "git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -D"
-
 # List contributors with number of commits
 contributors = shortlog --summary --numbered
 
@@ -144,6 +127,7 @@ smudge = git-media-smudge %f
 name = Christopher Hiller
 email = boneskull@boneskull.com
 signingkey = 362F2068120949CE
+branchPrefix = boneskull
 
 [commit]
 gpgsign = true
