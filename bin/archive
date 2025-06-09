@@ -1,11 +1,25 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
-GTAR=/usr/local/bin/gtar
-SLUG=/usr/local/bin/slug
-BACKUP_DIR="/media/samara/Archives/"
+set -euo pipefail
+
+# why this isn't pulled out of fpath defined in .zshenv, I don't know.
+slugify() {
+  echo "$1" | iconv -t ascii//TRANSLIT | sed -E 's/[^a-zA-Z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | tr "[:upper:]" "[:lower:]"
+}
+
+UNAME=$(uname -o)
+if [[ ${UNAME} == Darwin ]]; then
+  TAR=$(whence -p gtar)
+  if [[ -z ${TAR} ]]; then
+    echo "tar not found, please exceute 'brew install gnu-tar'"
+    exit 1
+  fi
+else
+  TAR=$(whence -p tar)
+fi
+
+BACKUP_DIR="${HOME}/project/archives"
 DIR="${1}"
-
-set -e
 
 [[ ${DIR} ]] || {
   echo "Specify target directory"
@@ -17,8 +31,12 @@ set -e
   exit 1
 }
 
+mkdir -p "${BACKUP_DIR}"
+
 echo "Archiving ${DIR}..."
 NOW=$(date '+%Y-%m-%d %H:%M:%S')
-SLUGGED=$(${SLUG} "$(dirname ${DIR}) ${NOW}")
-${GTAR} cz --exclude-vcs-ignores --exclude-vcs -f "${BACKUP_DIR}/${SLUGGED}.tar.gz" "${DIR}"
+SLUGGED=$(slugify "$(basename ${DIR}) ${NOW}")
+
+${TAR} cz --exclude-vcs-ignores --exclude-vcs -f "${BACKUP_DIR}/${SLUGGED}.tar.gz" "${DIR}"
 rm -frv "${DIR}"
+echo "Done"
