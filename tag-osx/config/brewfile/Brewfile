@@ -47,10 +47,12 @@ brew gh
 brew giflib
 brew git
 brew git-absorb
+brew git-filter-repo
 brew glib
 brew glog
 brew gmp
 brew gnu-sed
+brew gnu-tar
 brew graphite2
 brew graphviz
 brew grep
@@ -207,7 +209,7 @@ tap thoughtbot/formulae
 # App Store applications
 appstore 1569813296 1Password for Safari (8.10.76)
 appstore 1091189122 Bear (2.4.4)
-appstore 1470584107 Dato (5.6.0)
+appstore 1470584107 Dato (5.6.1)
 appstore 682658836 GarageBand (10.4.11)
 appstore 408981434 iMovie (10.4.2)
 appstore 409183694 Keynote (14.2)
