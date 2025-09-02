@@ -1,7 +1,0 @@
-#!/bin/bash
-
-set -e
-
-echo Merging package-lock.json via npm...
-npx trash-cli "node_modules" "packages/*/node_modules"
-npm install
