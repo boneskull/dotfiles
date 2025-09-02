@@ -30,3 +30,6 @@ prompt = false
 tool = ksdiff
 # Include summaries of merged commits in newly created merge commit messages
 # log = true
+[merge "package-lock-merge-driver"]
+	name = automatically merge npm lockfiles
+	driver = npx package-lock-merge-driver merge %A %O %B %P
