@@ -74,6 +74,8 @@ brew libgit2
 brew libgit2@1.7
 brew libidn2
 brew libnghttp2
+brew libnghttp3
+brew libngtcp2
 brew libpng
 brew libpq
 brew librsvg
@@ -125,6 +127,7 @@ brew ripgrep
 brew rtmpdump
 brew ruby
 brew rustup
+brew simdjson
 brew snappy
 brew sqlite
 brew starship
@@ -188,6 +191,7 @@ cask nordvpn
 cask notion
 cask obsidian
 cask raycast
+cask signal
 cask sip
 cask slack
 cask steam
@@ -195,6 +199,7 @@ cask the-unarchiver
 cask visual-studio-code
 cask vivaldi
 cask wireshark
+cask zed
 cask zulip
 
 tap bufbuild/buf
@@ -207,16 +212,20 @@ brew brew-file
 tap thoughtbot/formulae
 
 # App Store applications
-appstore 1569813296 1Password for Safari (8.10.76)
-appstore 1091189122 Bear (2.4.4)
-appstore 1470584107 Dato (5.6.1)
-appstore 682658836 GarageBand (10.4.11)
-appstore 408981434 iMovie (10.4.2)
-appstore 409183694 Keynote (14.2)
-appstore 409203825 Numbers (14.2)
-appstore 490179405 Okta Verify (9.42.0)
-appstore 409201541 Pages (14.2)
-appstore 639968404 Parcel (7.15.4)
-appstore 1448648921 Seashore (3.40)
-appstore 585829637 Todoist (9.16.1)
+appstore 1569813296 1Password for Safari (8.11.8)
+appstore 1091189122 Bear (2.5.1)
+appstore 1584423325 BloonsTD6+ (49.3)
+appstore 1470584107 Dato (5.6.2)
+appstore 682658836 GarageBand (10.4.12)
+appstore 408981434 iMovie (10.4.3)
+appstore 6449352814 KatamariLive (1.5.0)
+appstore 409183694 Keynote (14.4)
+appstore 6741771054 Kingdom Rush Alliance+ (5.01.24)
+appstore 409203825 Numbers (14.4)
+appstore 490179405 Okta Verify (9.48.0)
+appstore 409201541 Pages (14.4)
+appstore 639968404 Parcel (7.15.6)
+appstore 1448648921 Seashore (3.42)
+appstore 585829637 Todoist (9.19.0)
+appstore 6478143757 UNO Arcade Edition (1.1.5440)
 appstore 497799835 Xcode (16.4)
