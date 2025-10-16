@@ -12,6 +12,7 @@ brew aspell
 brew atuin
 brew autoconf
 brew awk
+brew awscli
 brew bash
 brew bat
 brew blake3
@@ -61,6 +62,7 @@ brew harfbuzz
 brew highway
 brew hiredis
 brew icu4c
+brew imagemagick
 brew imath
 brew jasper
 brew jpeg-turbo
@@ -68,16 +70,21 @@ brew jpeg-xl
 brew jq
 brew krb5
 brew libavif
+brew libde265
 brew libdeflate
 brew libevent
 brew libgit2
 brew libgit2@1.7
+brew libheif
 brew libidn2
+brew liblqr
 brew libnghttp2
 brew libnghttp3
 brew libngtcp2
+brew libomp
 brew libpng
 brew libpq
+brew libraw
 brew librsvg
 brew libsodium
 brew libssh2
@@ -109,8 +116,11 @@ brew netpbm
 brew ninja
 brew node
 brew nvm
+brew ollama
 brew oniguruma
 brew openexr
+brew openjpeg
+brew openjph
 brew openldap
 brew openssl@3
 brew pango
@@ -127,6 +137,7 @@ brew ripgrep
 brew rtmpdump
 brew ruby
 brew rustup
+brew shared-mime-info
 brew simdjson
 brew snappy
 brew sqlite
@@ -136,12 +147,14 @@ brew tidy-html5
 brew tree
 brew unixodbc
 brew uv
+brew uvwasi
 brew vim
 brew vivid
 brew wangle
 brew watchman
 brew webp
 brew wget
+brew x265
 brew xorgproto
 brew xxhash
 brew xz
@@ -153,11 +166,15 @@ tap homebrew/cask
 cask 1password
 cask activitywatch
 cask alfred
+cask claude
+cask claude-code
+cask cursor
 cask daisydisk
 cask dash
 cask discord
 cask docker
 cask element
+cask figma
 cask font-0xproto-nerd-font
 cask font-3270-nerd-font
 cask font-bigblue-terminal-nerd-font
@@ -181,6 +198,7 @@ cask font-unifrakturcook
 cask font-victor-mono
 cask font-victor-mono-nerd-font
 cask fork
+cask google-chrome
 cask gpg-suite-no-mail
 cask hazel
 cask iterm2
@@ -192,7 +210,6 @@ cask notion
 cask obsidian
 cask raycast
 cask signal
-cask sip
 cask slack
 cask steam
 cask the-unarchiver
@@ -212,20 +229,20 @@ brew brew-file
 tap thoughtbot/formulae
 
 # App Store applications
-appstore 1569813296 1Password for Safari (8.11.8)
-appstore 1091189122 Bear (2.5.1)
-appstore 1584423325 BloonsTD6+ (49.3)
-appstore 1470584107 Dato (5.6.2)
+appstore 1569813296 1Password for Safari (8.11.12)
+appstore 1091189122 Bear (2.6.3)
+appstore 1584423325 BloonsTD6+ (50.2.1)
+appstore 1470584107 Dato (5.6.7)
 appstore 682658836 GarageBand (10.4.12)
 appstore 408981434 iMovie (10.4.3)
-appstore 6449352814 KatamariLive (1.5.0)
+appstore 6449352814 KatamariLive (1.6.0)
 appstore 409183694 Keynote (14.4)
-appstore 6741771054 Kingdom Rush Alliance+ (5.01.24)
+appstore 6741771054 Kingdom Rush Alliance+ (6.00.112)
 appstore 409203825 Numbers (14.4)
-appstore 490179405 Okta Verify (9.48.0)
+appstore 490179405 Okta Verify (9.50.0)
 appstore 409201541 Pages (14.4)
-appstore 639968404 Parcel (7.15.6)
-appstore 1448648921 Seashore (3.42)
-appstore 585829637 Todoist (9.19.0)
+appstore 639968404 Parcel Classic (7.16)
+appstore 1448648921 Seashore (3.43)
+appstore 585829637 Todoist (9.21.0)
 appstore 6478143757 UNO Arcade Edition (1.1.5440)
-appstore 497799835 Xcode (16.4)
+appstore 497799835 Xcode (26.0.1)
