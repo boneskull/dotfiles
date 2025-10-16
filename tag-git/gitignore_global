@@ -95,4 +95,6 @@ coverage/
 *.code-workspace
 
 # wallaby
-*wallaby.js
+#*wallaby.js
+
+.claude-skills
