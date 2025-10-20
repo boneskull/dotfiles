@@ -2,7 +2,7 @@
 alias reload="exec $SHELL -l"
 
 [[ $(get-env bat) ]] && {
-  alias cat="bat"
+  alias cat="bat --paging=never"
   alias more="bat"
 } || {
   alias more="less -X"
