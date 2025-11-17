@@ -1,0 +1,23 @@
+{
+  "enabledPlugins": {
+    "superpowers@superpowers-marketplace": true,
+    "elements-of-style@superpowers-marketplace": true,
+    "claude-mem@thedotmack": true,
+    "claude-code-builder@claude-code-builder": false,
+    "explanatory-output-style@claude-code-plugins": true,
+    "essentials@nicknisi-claude-plugins": true,
+    "tools@boneskull-plugins": true,
+    "git-commit-smart@claude-code-plugins-plus": true,
+    "bupkis@boneskull-plugins": true,
+    "github@boneskull-plugins": true,
+    "spec-driven@nicknisi-claude-plugins": false,
+    "formatter@claude-code-plugins-plus": true,
+    "superpowers-developing-for-claude-code@superpowers-marketplace": true,
+    "feature-dev@claude-code-plugins": true,
+    "update-claudemd@awesome-claude-code-plugins": true,
+    "tool-evaluator@awesome-claude-code-plugins": true,
+    "ui-designer@awesome-claude-code-plugins": true,
+    "developer-experience@nicknisi-claude-plugins": true
+  },
+  "alwaysThinkingEnabled": true
+}
