@@ -11,13 +11,14 @@
     "bupkis@boneskull-plugins": true,
     "github@boneskull-plugins": true,
     "spec-driven@nicknisi-claude-plugins": false,
-    "formatter@claude-code-plugins-plus": true,
+    "formatter@claude-code-plugins-plus": false,
     "superpowers-developing-for-claude-code@superpowers-marketplace": true,
     "feature-dev@claude-code-plugins": true,
     "update-claudemd@awesome-claude-code-plugins": true,
     "tool-evaluator@awesome-claude-code-plugins": true,
     "ui-designer@awesome-claude-code-plugins": true,
-    "developer-experience@nicknisi-claude-plugins": true
+    "developer-experience@nicknisi-claude-plugins": true,
+    "refactor@boneskull-plugins": true
   },
   "alwaysThinkingEnabled": true
 }
