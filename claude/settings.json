@@ -18,7 +18,9 @@
     "tool-evaluator@awesome-claude-code-plugins": true,
     "ui-designer@awesome-claude-code-plugins": true,
     "developer-experience@nicknisi-claude-plugins": true,
-    "refactor@boneskull-plugins": true
+    "refactor@boneskull-plugins": true,
+    "zod@boneskull-plugins": true,
+    "application-performance@claude-code-workflows": true
   },
   "alwaysThinkingEnabled": true
 }

@@ -15,7 +15,7 @@ Execute commands from installed Claude plugins that aren't directly accessible i
 
 ## How It Works
 
-1. **Locate the plugin**: Read `~/.claude/claude-plugins/installed_plugins.json` to find the plugin's install path
+1. **Locate the plugin**: Read `~/.claude/plugins/installed_plugins.json` to find the plugin's install path
 2. **Find the command**: Look for the command file at `{installPath}/commands/{command-name}.md`
 3. **Execute**: Load and follow the command's instructions with any additional arguments
 
@@ -44,7 +44,7 @@ When this command is invoked:
 2. **Load plugin registry**:
 
    ```bash
-   cat ~/.claude/claude-plugins/installed_plugins.json
+   cat ~/.claude/plugins/installed_plugins.json
    ```
 
    - Extract the `installPath` for the requested plugin
@@ -113,7 +113,7 @@ When this command is executed:
 2. **Read the installed plugins file**:
 
    ```bash
-   cat ~/.claude/claude-plugins/installed_plugins.json
+   cat ~/.claude/plugins/installed_plugins.json
    ```
 
 3. **Find the plugin**:
@@ -154,14 +154,14 @@ Claude executes:
 
 ```bash
 # 1. Load plugin registry
-cat ~/.claude/claude-plugins/installed_plugins.json
-# Find: "github@boneskull-plugins" with installPath: "~/.claude/claude-plugins/marketplaces/boneskull-plugins/claude-plugins/github"
+cat ~/.claude/plugins/installed_plugins.json
+# Find: "github@boneskull-plugins" with installPath: "~/.claude/plugins/marketplaces/boneskull-plugins/plugins/github"
 
 # 2. Construct command path
-# Path: ~/.claude/claude-plugins/marketplaces/boneskull-plugins/claude-plugins/github/commands/resolve-review-comments.md
+# Path: ~/.claude/plugins/marketplaces/boneskull-plugins/plugins/github/commands/resolve-review-comments.md
 
 # 3. Load command
-cat ~/.claude/claude-plugins/marketplaces/boneskull-plugins/claude-plugins/github/commands/resolve-review-comments.md
+cat ~/.claude/plugins/marketplaces/boneskull-plugins/plugins/github/commands/resolve-review-comments.md
 
 # 4. Execute with argument "123"
 # Follow the command's instructions with PR_NUMBER=123
