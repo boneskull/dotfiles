@@ -1,7 +1,7 @@
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"
 
-[[ $(get-env bat) ]] && {
+(( $+commands[bat] )) && {
   alias cat="bat --paging=never"
   alias more="bat"
 } || {

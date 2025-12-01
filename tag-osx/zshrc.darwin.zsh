@@ -1,9 +1,9 @@
 # zshrc for darwin
 
-[[ $(get-env homebrew) ]] && {
+[[ -n "${HOMEBREW_PREFIX}" ]] && {
   # setup for brew-file
-  trysource $(brew --prefix)/etc/brew-wrap
-  trysource $(brew --prefix)/etc/profile.d/z.sh
+  trysource "${HOMEBREW_PREFIX}/etc/brew-wrap"
+  trysource "${HOMEBREW_PREFIX}/etc/profile.d/z.sh"
 }
 
 # https://stackoverflow.com/questions/45004352/error-enfile-file-table-overflow-scandir-while-run-reaction-on-mac

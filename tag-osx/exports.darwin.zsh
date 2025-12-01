@@ -1,47 +1,26 @@
-[[ -d /opt/X11/ ]] && {
-	export PATH="/opt/X11/bin:${PATH}"
-}
+# macOS-specific exports
+
+[[ -d /opt/X11/ ]] && export PATH="/opt/X11/bin:${PATH}"
 
 export PATH="${HOME}/.local/bin:${PATH}"
 
-[[ $(get-env homebrew) ]] && {
-	[[ -d $(get-env homebrew)/share/antigen/ ]] && {
-		export ANTIGEN_HOME="$(get-env homebrew)/share/antigen/"
-	}
-	[[ -d $(get-env homebrew)/share/zsh/help ]] && {
-		export HELPDIR=$(get-env homebrew)/share/zsh/help
-	}
+# Homebrew-specific setup (HOMEBREW_PREFIX set by brew shellenv in exports.zsh)
+[[ -n "${HOMEBREW_PREFIX}" ]] && {
+  # Zsh help files from homebrew
+  [[ -d "${HOMEBREW_PREFIX}/share/zsh/help" ]] && export HELPDIR="${HOMEBREW_PREFIX}/share/zsh/help"
 
-	set-env-flag-if-executable "brew" "homebrew"
+  # leaving this enabled makes everything slow af
+  export HOMEBREW_NO_INSTALL_CLEANUP=1
 
-	# leaving this enabled makes everything slow af
-	export HOMEBREW_NO_INSTALL_CLEANUP=1
-
-	# setup for nvm and homebrew
-	[ -s "$(get-env homebrew)/opt/nvm/nvm.sh" ] && \. "$(get-env homebrew)/opt/nvm/nvm.sh"                                       # This loads nvm
-	[ -s "$(get-env homebrew)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(get-env homebrew)/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
+  # NVM via homebrew (oh-my-zsh nvm plugin handles lazy loading)
+  [[ -z "${NVM_DIR}" && -d "${HOMEBREW_PREFIX}/opt/nvm" ]] && export NVM_DIR="${HOMEBREW_PREFIX}/opt/nvm"
 }
 
-# uncomment if ruby needed?
-# [[ -d /usr/local/opt/ruby/bin ]] && {
-#   export PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/2.6.0/bin:${PATH}"
-#   export LDFLAGS="-L/usr/local/opt/ruby/lib"
-#   export CPPFLAGS="-I/usr/local/opt/ruby/include"
-#   export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
-# }
-
-# Always enable colored `grep` output (bsd grep, I guess)
+# Always enable colored `grep` output
 export GREP_OPTIONS="--color=auto"
 
-[[ -d ${HOME}/Library/Android ]] && {
-	# for android sdk
-	export ANDROID_HOME="${HOME}/Library/Android/sdk"
-}
+# Android SDK
+[[ -d "${HOME}/Library/Android" ]] && export ANDROID_HOME="${HOME}/Library/Android/sdk"
 
-# GNU ls
-set-env-flag-if-executable "gls"
-
-# use vivid for LS_COLORS if installed
-[[ -d /opt/homebrew/opt/vivid ]] && {
-	export LS_COLORS="$(/opt/homebrew/bin/vivid generate lava)"
-}
+# Use vivid for LS_COLORS if installed
+(( $+commands[vivid] )) && export LS_COLORS="$(vivid generate lava)"

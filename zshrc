@@ -1,22 +1,31 @@
 # extglob support
 setopt extendedglob
 
+# Helper for OS-specific sourcing using $OSTYPE
+source-for-os() {
+  local base="${1}"
+  case "$OSTYPE" in
+    darwin*)  trysource "${base}.darwin.zsh" ;;
+    linux*)   trysource "${base}.linux.zsh" ;;
+  esac
+}
+
 source "${HOME}/.functions.zsh"
-trysource "${HOME}/.functions.$(get-env os).zsh"
+source-for-os "${HOME}/.functions"
 
 source "${HOME}/.exports.zsh"
-trysource "${HOME}/.exports.$(get-env os).zsh"
+source-for-os "${HOME}/.exports"
 
 source "${HOME}/.antigen.zsh"
-trysource "${HOME}/.antigen.$(get-env os).zsh"
+source-for-os "${HOME}/.antigen"
 
 source "${HOME}/.aliases.zsh"
-source "${HOME}/.aliases.$(get-env os).zsh"
+source-for-os "${HOME}/.aliases"
 
 source "${HOME}/.completions.zsh"
-trysource "${HOME}/.completions.$(get-env os).zsh"
+source-for-os "${HOME}/.completions"
 
-trysource "${HOME}/.zshrc.$(get-env os).zsh"
+source-for-os "${HOME}/.zshrc"
 
 export PATH="${PATH}:./node_modules/.bin"
 

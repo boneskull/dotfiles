@@ -1,4 +1,2 @@
-#!/usr/bin/env zsh
-
-set-env-flag-if-executable "apt-get" "debian"
-set-env-flag-if-executable "systemd"
+# Linux-specific exports
+# (debian/apt and systemd detection now handled by antidote plugins)

@@ -1,94 +1,38 @@
-set-env-flag-if-executable() {
-  local cmd="${1}"
-  local key="${2:-$1}"
-  local exec_path=$(whence "${cmd}")
-  [[ ${exec_path} ]] && {
-    set-env "${key}" "${exec_path}"
-  }
-}
-
-set-env-flags() {
-  typeset -x -A BONESKULL
-
-  local os=$(uname)
-  set-env "os" "${os:l}"
-
-  [[ -d /opt/homebrew ]] && {
-    set-env "homebrew" "/opt/homebrew"
-    export HOMEBREW_NO_AUTO_UPDATE=1
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-  }
-
-  # config if aws_cli is present
-  set-env-flag-if-executable "aws"
-
-  # we have node
-  set-env-flag-if-executable "node"
-
-  # VSCode
-  set-env-flag-if-executable "code"
-
-  # starship
-  set-env-flag-if-executable "starship"
-
-  set-env-flag-if-executable "atuin"
-
-  # config for go
-  [[ -d ${HOME}/.go ]] && {
-    set-env "go" "${HOME}/.go"
-    export PATH="${GOPATH}/bin:${PATH}"
-  } || {
-    [[ -d ${HOME}/go ]] && {
-      set-env "go" "${HOME}/go"
-      export PATH="${GOPATH}/bin:${PATH}"
-    }
-  }
-
-  # config if source-highlighter is present
-  set-env-flag-if-executable "src-hilite-lesspipe.sh" "source-highlighter"
-  [[ $(get-env source-highlighter) ]] && {
-    export LESSOPEN="| /usr/bin/env src-hilite-lesspipe.sh %s 2>/dev/null"
-    export LESS=" -R"
-  }
-
-  set-env-flag-if-executable "bat" "bat"
-
-  [[ -d ${HOME}/.nvm ]] && {
-    export NVM_DIR="${HOME}/.nvm"
-    set-env "nvm" "${NVM_DIR}"
-  }
-
-  set-env-flag-if-executable "rustup"
-}
-
+# Core PATH setup
 export PATH="${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:${PATH}"
 
-set-env-flags
+# Homebrew setup (must come early to populate $commands)
+# Note: brew shellenv sets HOMEBREW_PREFIX, HOMEBREW_CELLAR, HOMEBREW_REPOSITORY
+if [[ -d /opt/homebrew ]]; then
+  export HOMEBREW_NO_AUTO_UPDATE=1
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -d /home/linuxbrew/.linuxbrew ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 
-[[ $(get-env nvm) ]] && {
-  trysource "$(get-env nvm)/nvm.sh"
+# Go setup
+if [[ -d ${HOME}/.go ]]; then
+  export GOPATH="${HOME}/.go"
+  export PATH="${GOPATH}/bin:${PATH}"
+elif [[ -d ${HOME}/go ]]; then
+  export GOPATH="${HOME}/go"
+  export PATH="${GOPATH}/bin:${PATH}"
+fi
+
+# NVM setup (let oh-my-zsh nvm plugin handle lazy loading)
+[[ -d ${HOME}/.nvm ]] && export NVM_DIR="${HOME}/.nvm"
+
+# Source highlighter for less
+(( $+commands[src-hilite-lesspipe.sh] )) && {
+  export LESSOPEN="| /usr/bin/env src-hilite-lesspipe.sh %s 2>/dev/null"
+  export LESS=" -R"
 }
 
-# potentially overridden elsewhere
-export ANTIGEN_HOME="${HOME}/.antigen"
+# EDITOR - prefer vscode, fallback to vim
+(( $+commands[code] )) && export EDITOR="code -w" || export EDITOR="vim"
 
-# EDITOR
-[[ $(get-env code) ]] && {
-  export EDITOR="code -w"
-} || {
-  export EDITOR="vim -xR"
-}
-
-export DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-export ENABLE_CORRECTION="true"
-export DISABLE_AUTO_UPDATE="true"
-export HYPHEN_INSENSITIVE="true"
-export COMPLETION_WAITING_DOTS="true"
-
-export GITHUB_USER=boneskull
-
-[[ $(get-env bat) ]] && {
+# Pager - prefer bat
+(( $+commands[bat] )) && {
   export BAT_STYLE="changes,header"
   export PAGER="bat"
 } || {
@@ -96,16 +40,20 @@ export GITHUB_USER=boneskull
 }
 export MANPAGER="${PAGER}"
 
-# cargo defaults
-[[ $(get-env rustup) ]] && {
-  trysource "${HOME}/.cargo/env"
-}
+# Cargo/Rust
+(( $+commands[rustup] )) && [[ -f "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo/env"
 
-[[ $(which corepack) ]] && {
-  # https://github.com/nodejs/corepack#environment-variables
-  export COREPACK_ENABLE_AUTO_PIN=0
-}
+# Corepack (node package manager manager)
+(( $+commands[corepack] )) && export COREPACK_ENABLE_AUTO_PIN=0
 
-[[ -d ${HOME}/.console-ninja ]] && {
-  export PATH="${PATH}:${HOME}/.console-ninja/.bin"
-}
+# Console Ninja (VS Code extension)
+[[ -d ${HOME}/.console-ninja ]] && export PATH="${PATH}:${HOME}/.console-ninja/.bin"
+
+# oh-my-zsh settings
+export DISABLE_UNTRACKED_FILES_DIRTY="true"
+export ENABLE_CORRECTION="true"
+export DISABLE_AUTO_UPDATE="true"
+export HYPHEN_INSENSITIVE="true"
+export COMPLETION_WAITING_DOTS="true"
+
+export GITHUB_USER=boneskull
