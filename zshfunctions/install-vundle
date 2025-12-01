@@ -1,7 +1,0 @@
-local vundle_remote="https://github.com/gmarik/Vundle.vim.git"
-VUNDLE_HOME="${VUNDLE_HOME:-$HOME/.vim/bundle/Vundle.vim}"
-
-[[ ! -d ${HOME}/.vim/bundle/Vundle.vim ]] && {
-  err "Installing Vundle via ${vundle_remote} into ${VUNDLE_HOME}..."
-  git clone "${vundle_remote}" "${VUNDLE_HOME}"
-}

@@ -1,50 +1,42 @@
+" Auto-install vim-plug if not present
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Plugins
+call plug#begin()
+Plug 'morhetz/gruvbox'           " your beloved color scheme
+Plug 'elzr/vim-json'             " better JSON highlighting
+call plug#end()
+
 syntax on
+set nocompatible
+filetype plugin indent on
 
-set nocompatible              " be iMproved, required
-filetype off                  " required
+" Gruvbox settings
+set background=dark
+let g:gruvbox_contrast_dark = 'medium'
+silent! colorscheme gruvbox      " silent! prevents error if not yet installed
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-Plugin 'elzr/vim-json'
-
-" systemd syntax
-Plugin 'Matt-Deacalion/vim-systemd-syntax'
-
-" theme
-Plugin 'morhetz/gruvbox'
-
-" toml support
-Plugin 'cespare/vim-toml'
-Plugin 'maralla/vim-toml-enhance'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
+" Sane defaults
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 set expandtab
+set number
+set ruler
+set showcmd
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+set backspace=indent,eol,start
 
-colorscheme gruvbox
+" No annoying swap files
+set noswapfile
+set nobackup
+
+" Mouse support
+set mouse=a
