@@ -1,7 +1,12 @@
-[[ $(get-env debian) ]] && {
-  antigen bundle debian # apt integration
+# Linux-specific antidote plugin loading
+# Note: these load AFTER the main zsh-plugins.txt plugins
+
+# Debian/apt integration
+(( $+commands[apt-get] )) && {
+  antidote bundle ohmyzsh/ohmyzsh path:plugins/debian
 }
 
-[[ $(get-env systemd) ]] && {
-  antigen bundle systemd
+# Systemd integration
+(( $+commands[systemctl] )) && {
+  antidote bundle ohmyzsh/ohmyzsh path:plugins/systemd
 }

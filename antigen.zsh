@@ -1,56 +1,32 @@
-# antigen config
+# antidote config - faster than antigen!
 
-[[ ! -f ${ANTIGEN_HOME}/antigen.zsh ]] && {
-  install-antigen
+# Set antidote home
+export ANTIDOTE_HOME=${ANTIDOTE_HOME:-${XDG_DATA_HOME:-$HOME/.local/share}/antidote}
+
+# Install antidote if not present
+[[ ! -d $ANTIDOTE_HOME ]] && {
+  git clone --depth=1 https://github.com/mattmc3/antidote.git $ANTIDOTE_HOME
 }
 
-source "${ANTIGEN_HOME}/antigen.zsh"
+# Source antidote
+source $ANTIDOTE_HOME/antidote.zsh
 
-antigen use oh-my-zsh
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-history-substring-search
-antigen bundle zsh-users/zsh-completions
-antigen bundle zsh-users/zsh-autosuggestions
-
-# vcs related
-antigen bundle git
-antigen bundle smallhadroncollider/antigen-git-rebase
-#antigen bundle gh
-antigen bundle git-extras
-antigen bundle gitignore
-antigen bundle git-autofetch
-antigen bundle mollifier/cd-gitroot
-
-# programming related
-
-antigen bundle node # provides node-docs cmd
-antigen bundle nvm  # completions
-antigen bundle npm  # npm completion
-# antigen bundle tomsquest/nvm-auto-use.zsh # use .nvmrc automatically
-antigen bundle pip    # pip completion
-antigen bundle python # python completion
-antigen bundle vscode
-antigen bundle bundler
-antigen bundle yarn
-
-# more shell utils
-[[ $(get-env atuin) ]] && {
-  antigen bundle atuinsh/atuin@main
-}
-antigen bundle Tarrasch/zsh-mcd # mkdir + cd = mcd
-antigen bundle z
-antigen bundle ripgrep
-antigen bundle rust
+# Initialize plugins from zsh-plugins.txt
+# This caches the plugins for faster loading
+zsh_plugins=${ZDOTDIR:-$HOME}/.zsh_plugins.zsh
+if [[ ! ${zsh_plugins}.zsh -nt ${ZDOTDIR:-$HOME}/.zsh-plugins.txt ]]; then
+  antidote bundle <${ZDOTDIR:-$HOME}/.zsh-plugins.txt >|$zsh_plugins
+fi
+source $zsh_plugins
 
 # use starship theme, if it is present
-[[ $(get-env starship) ]] && {
-  antigen apply
+(( $+commands[starship] )) && {
   eval "$(starship init zsh)"
 } || {
-  # note: if you see dual prompts, run `antigen reset` and relogin
-  antigen theme bureau
-  antigen apply
+  # fallback to basic prompt
+  autoload -Uz promptinit && promptinit
+  prompt walters  # simple built-in prompt
 }
 
-# can't remember what this is for
+# disable "correcting" valid commands to nonsense
 unsetopt correct_all
