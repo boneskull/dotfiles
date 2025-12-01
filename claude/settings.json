@@ -1,4 +1,7 @@
 {
+  "env": {
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-5-20251101"
+  },
   "enabledPlugins": {
     "superpowers@superpowers-marketplace": true,
     "elements-of-style@superpowers-marketplace": true,
@@ -20,7 +23,10 @@
     "developer-experience@nicknisi-claude-plugins": true,
     "refactor@boneskull-plugins": true,
     "zod@boneskull-plugins": true,
-    "application-performance@claude-code-workflows": true
+    "application-performance@claude-code-workflows": true,
+    "skill-activation@boneskull-plugins": true,
+    "xstate@boneskull-plugins": true
   },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "model": "opus"
 }

@@ -1,0 +1,390 @@
+{
+  "version": "1.0",
+  "description": "Global skill activation rules for boneskull's environment",
+  "skills": {
+    "superpowers@superpowers-marketplace:test-driven-development": {
+      "type": "guardrail",
+      "enforcement": "suggest",
+      "priority": "critical",
+      "description": "Write test first, watch it fail, then implement - NO production code without failing test first",
+      "promptTriggers": {
+        "keywords": [
+          "write test",
+          "add test",
+          "test for",
+          "create test",
+          "implement feature",
+          "add feature",
+          "fix bug",
+          "bugfix",
+          "TDD"
+        ],
+        "intentPatterns": [
+          "(create|write|add|implement).*(feature|function|method|class)",
+          "(fix|repair|resolve).*(bug|issue|problem)",
+          "(create|write|add).*test",
+          "test.*(feature|function|method)"
+        ]
+      }
+    },
+
+    "superpowers@superpowers-marketplace:systematic-debugging": {
+      "type": "guardrail",
+      "enforcement": "suggest",
+      "priority": "critical",
+      "description": "Four-phase debugging framework - root cause investigation BEFORE proposing fixes",
+      "promptTriggers": {
+        "keywords": [
+          "bug",
+          "debug",
+          "error",
+          "not working",
+          "broken",
+          "failing",
+          "test fail",
+          "issue",
+          "problem",
+          "investigate"
+        ],
+        "intentPatterns": [
+          "(fix|debug|solve|investigate).*(bug|error|issue|problem|failure)",
+          "(why|what).*(not working|broken|failing|wrong)",
+          "(figure out|find out|understand).*why",
+          "test.*(fail|failing)"
+        ]
+      }
+    },
+
+    "superpowers@superpowers-marketplace:verification-before-completion": {
+      "type": "guardrail",
+      "enforcement": "suggest",
+      "priority": "critical",
+      "description": "Run verification commands BEFORE claiming anything works - evidence before assertions",
+      "promptTriggers": {
+        "keywords": [
+          "done",
+          "complete",
+          "finished",
+          "working",
+          "fixed",
+          "passing",
+          "ready",
+          "all tests pass"
+        ],
+        "intentPatterns": [
+          "(should|all|tests).*(pass|work|be.*working)",
+          "(i'?m|i'?ve).*(done|finished|completed)",
+          "(it|this).*(works|is.*working|fixed|passes)",
+          "ready.*(to|for).*(commit|merge|review)"
+        ]
+      }
+    },
+
+    "superpowers@superpowers-marketplace:brainstorming": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Refine ideas into designs through Socratic questioning BEFORE coding",
+      "promptTriggers": {
+        "keywords": [
+          "design",
+          "architecture",
+          "approach",
+          "how should",
+          "what's the best way",
+          "should I",
+          "plan feature",
+          "new feature"
+        ],
+        "intentPatterns": [
+          "(design|architect|plan).*(feature|system|approach)",
+          "(what|how).*should.*(design|implement|build|approach)",
+          "(best way|approach|strategy).*to",
+          "(let's|i want to).*(build|create|add).*new"
+        ]
+      }
+    },
+
+    "superpowers@superpowers-marketplace:writing-plans": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Create detailed implementation plans with bite-sized tasks for zero-context engineers",
+      "promptTriggers": {
+        "keywords": [
+          "write plan",
+          "create plan",
+          "implementation plan",
+          "task breakdown",
+          "plan out",
+          "let's plan"
+        ],
+        "intentPatterns": [
+          "(write|create|make).*(plan|task.*list|implementation.*plan)",
+          "break.*down.*into.*tasks",
+          "plan.*implementation"
+        ]
+      }
+    },
+
+    "superpowers@superpowers-marketplace:executing-plans": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Execute implementation plans in batches with review checkpoints",
+      "promptTriggers": {
+        "keywords": [
+          "execute plan",
+          "follow plan",
+          "implement plan",
+          "run plan"
+        ],
+        "intentPatterns": [
+          "(execute|follow|implement|run).*(plan|implementation.*plan)",
+          "let's.*implement.*from.*plan"
+        ]
+      }
+    },
+
+    "superpowers@superpowers-marketplace:requesting-code-review": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Dispatch code-reviewer subagent to review against requirements",
+      "promptTriggers": {
+        "keywords": [
+          "review this",
+          "code review",
+          "review code",
+          "check my work",
+          "review implementation"
+        ],
+        "intentPatterns": [
+          "(review|check).*(code|implementation|work)",
+          "(request|ask.*for).*review",
+          "before.*merge"
+        ]
+      }
+    },
+
+    "superpowers@superpowers-marketplace:subagent-driven-development": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "medium",
+      "description": "Execute plans with fresh subagent per task and code review between tasks",
+      "promptTriggers": {
+        "keywords": [
+          "subagent",
+          "use subagents",
+          "parallel agents",
+          "dispatch agent"
+        ],
+        "intentPatterns": [
+          "(use|dispatch|run).*subagent",
+          "subagent.*driven"
+        ]
+      }
+    },
+
+    "superpowers@superpowers-marketplace:using-git-worktrees": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "medium",
+      "description": "Create isolated git worktrees for feature work",
+      "promptTriggers": {
+        "keywords": [
+          "worktree",
+          "create worktree",
+          "new worktree",
+          "isolated workspace"
+        ],
+        "intentPatterns": [
+          "(create|setup|make).*(worktree|isolated.*workspace)",
+          "work.*in.*worktree"
+        ]
+      }
+    },
+
+    "superpowers@superpowers-marketplace:testing-anti-patterns": {
+      "type": "guardrail",
+      "enforcement": "suggest",
+      "priority": "medium",
+      "description": "Prevent testing mock behavior, test-only methods in production, and unnecessary mocking",
+      "promptTriggers": {
+        "keywords": [
+          "mock",
+          "stub",
+          "test helper",
+          "test utility"
+        ],
+        "intentPatterns": [
+          "(add|create|write).*(mock|stub)",
+          "(test|verify).*(mock|stub)"
+        ]
+      }
+    },
+
+    "superpowers@superpowers-marketplace:root-cause-tracing": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "medium",
+      "description": "Trace errors backward through call stack to find original trigger",
+      "promptTriggers": {
+        "keywords": [
+          "trace error",
+          "error source",
+          "where does this come from",
+          "root cause"
+        ],
+        "intentPatterns": [
+          "trace.*(error|bug|issue).*back",
+          "where.*(does|is).*coming.*from",
+          "find.*(root cause|source|origin)"
+        ]
+      }
+    },
+
+    "superpowers@superpowers-marketplace:condition-based-waiting": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "medium",
+      "description": "Replace arbitrary timeouts with condition polling to eliminate flaky tests",
+      "promptTriggers": {
+        "keywords": [
+          "flaky test",
+          "race condition",
+          "timing issue",
+          "sleep",
+          "wait",
+          "timeout"
+        ],
+        "intentPatterns": [
+          "(flaky|intermittent|unreliable).*(test|failure)",
+          "race.*condition",
+          "(timing|synchronization).*issue",
+          "(add|use).*(sleep|wait|timeout)"
+        ]
+      }
+    },
+
+    "superpowers@superpowers-marketplace:defense-in-depth": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "medium",
+      "description": "Validate at every layer data passes through to make bugs structurally impossible",
+      "promptTriggers": {
+        "keywords": [
+          "validation",
+          "validate input",
+          "data validation",
+          "invalid data"
+        ],
+        "intentPatterns": [
+          "(add|implement|create).*validation",
+          "validat(e|ing).*data",
+          "invalid.*data.*causing"
+        ]
+      }
+    },
+
+    "superpowers@superpowers-marketplace:finishing-a-development-branch": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "low",
+      "description": "Structured options for merge, PR, or cleanup when implementation is complete",
+      "promptTriggers": {
+        "keywords": [
+          "merge branch",
+          "create PR",
+          "finish feature",
+          "done with feature"
+        ],
+        "intentPatterns": [
+          "(merge|finish|complete).*branch",
+          "create.*(PR|pull.*request)",
+          "ready.*to.*merge"
+        ]
+      }
+    },
+
+    "superpowers@superpowers-marketplace:receiving-code-review": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "low",
+      "description": "Process code review feedback with technical rigor and verification",
+      "promptTriggers": {
+        "keywords": [
+          "review feedback",
+          "address review",
+          "code review comments",
+          "reviewer said"
+        ],
+        "intentPatterns": [
+          "(address|respond.*to|handle).*review",
+          "reviewer.*(said|suggested|commented)",
+          "review.*(feedback|comments)"
+        ]
+      }
+    },
+
+    "superpowers@superpowers-marketplace:dispatching-parallel-agents": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "low",
+      "description": "Dispatch multiple agents to investigate independent failures concurrently",
+      "promptTriggers": {
+        "keywords": [
+          "multiple failures",
+          "several errors",
+          "parallel investigation",
+          "investigate concurrently"
+        ],
+        "intentPatterns": [
+          "(multiple|several|many).*(failures?|errors?|issues?)",
+          "investigat(e|ing).*(parallel|concurrent)",
+          "dispatch.*agents"
+        ]
+      }
+    },
+
+    "superpowers-developing-for-claude-code@superpowers-marketplace:developing-claude-code-plugins": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Streamlined workflows for Claude Code plugin development lifecycle",
+      "promptTriggers": {
+        "keywords": [
+          "create plugin",
+          "plugin development",
+          "claude plugin",
+          "develop plugin",
+          "plugin structure"
+        ],
+        "intentPatterns": [
+          "(create|develop|build|make).*(plugin|claude.*plugin)",
+          "plugin.*(development|structure|lifecycle)"
+        ]
+      }
+    },
+
+    "superpowers-developing-for-claude-code@superpowers-marketplace:working-with-claude-code": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "medium",
+      "description": "Comprehensive documentation for all Claude Code features and capabilities",
+      "promptTriggers": {
+        "keywords": [
+          "claude code",
+          "how does claude code",
+          "claude code feature",
+          "claude code hook",
+          "claude code MCP"
+        ],
+        "intentPatterns": [
+          "(how|what).*(does|is).*claude.*code",
+          "claude.*code.*(feature|hook|command|skill|agent|MCP)"
+        ]
+      }
+    }
+  }
+}
