@@ -36,7 +36,8 @@ atuinsh/atuin
 Tarrasch/zsh-mcd
 rupa/z
 ohmyzsh/ohmyzsh path:plugins/rust
-zpm-zsh/ls
 
 # mac
 ohmyzsh/ohmyzsh path:plugins/brew
+
+
