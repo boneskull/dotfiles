@@ -1,14 +1,14 @@
 # macOS-specific aliases
 
 # Man pages to Dash (if installed)
-is-app-installed Dash && {
-  dash_man() {
-    /usr/bin/open "dash://?query=manpages:$(omz_urlencode ${@})"
+if is-app-installed Dash; then
+  function man {
+    if [[ -t 1 ]]; then
+      # Interactive terminal - use Dash
+      /usr/bin/open "dash://manpages:${(j:%20:)@}"
+    else
+      # Piped/scripted - use real man
+      command man "$@"
+    fi
   }
-  alias man=dash_man
-}
-
-# VS Code shortcut
-(( $+commands[code] )) && {
-  alias c=code
-}
+fi
