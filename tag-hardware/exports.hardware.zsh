@@ -1,3 +1,4 @@
+# I have no idea if this still works
 
 [[ -d ${HOME}/esp32 ]] && {
   export IDF_PATH="${HOME}/esp32/esp-idf"
@@ -7,4 +8,5 @@
 
 [[ -d ${HOME}/projects/moddable/moddable ]] && {
   export MODDABLE="${HOME}/projects/moddable/moddable"
+  export PATH="${MODDABLE}/build/bin/mac/release:$PATH"
 }
