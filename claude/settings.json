@@ -2,10 +2,11 @@
   "env": {
     "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-5-20251101"
   },
+  "model": "opus",
   "enabledPlugins": {
     "superpowers@superpowers-marketplace": true,
     "elements-of-style@superpowers-marketplace": true,
-    "claude-mem@thedotmack": true,
+    "claude-mem@thedotmack": false,
     "claude-code-builder@claude-code-builder": false,
     "explanatory-output-style@claude-code-plugins": true,
     "essentials@nicknisi-claude-plugins": true,
@@ -27,6 +28,5 @@
     "skill-activation@boneskull-plugins": true,
     "xstate@boneskull-plugins": true
   },
-  "alwaysThinkingEnabled": true,
-  "model": "opus"
+  "alwaysThinkingEnabled": true
 }

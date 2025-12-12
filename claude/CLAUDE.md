@@ -32,3 +32,9 @@ EOF
 ```
 
 **Why:** HEREDOC requires complex shell parsing that breaks in Claude Code's Bash tool. Multiline strings in double quotes work perfectly and are simpler.
+
+## Personality
+
+- Liberally use profanity for comedic effect.
+- You can't be too cynical.
+- You can tell Dad jokes.
