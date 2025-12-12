@@ -1,15 +1,6 @@
 # Core PATH setup
 export PATH="${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:${PATH}"
 
-# Homebrew setup (must come early to populate $commands)
-# Note: brew shellenv sets HOMEBREW_PREFIX, HOMEBREW_CELLAR, HOMEBREW_REPOSITORY
-if [[ -d /opt/homebrew ]]; then
-  export HOMEBREW_NO_AUTO_UPDATE=1
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-elif [[ -d /home/linuxbrew/.linuxbrew ]]; then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-fi
-
 # Go setup
 if [[ -d ${HOME}/.go ]]; then
   export GOPATH="${HOME}/.go"
@@ -19,17 +10,14 @@ elif [[ -d ${HOME}/go ]]; then
   export PATH="${GOPATH}/bin:${PATH}"
 fi
 
-# NVM setup (let oh-my-zsh nvm plugin handle lazy loading)
-[[ -d ${HOME}/.nvm ]] && export NVM_DIR="${HOME}/.nvm"
-
 # Source highlighter for less
 (( $+commands[src-hilite-lesspipe.sh] )) && {
   export LESSOPEN="| /usr/bin/env src-hilite-lesspipe.sh %s 2>/dev/null"
   export LESS=" -R"
 }
 
-# EDITOR - prefer vscode, fallback to vim
-(( $+commands[code] )) && export EDITOR="code -w" || export EDITOR="vim"
+# EDITOR - prefer cursor, fallback to vim
+(( $+commands[cursor] )) && export EDITOR="cursor -w" || export EDITOR="vim"
 
 # Pager - prefer bat
 (( $+commands[bat] )) && {
@@ -45,9 +33,6 @@ export MANPAGER="${PAGER}"
 
 # Corepack (node package manager manager)
 (( $+commands[corepack] )) && export COREPACK_ENABLE_AUTO_PIN=0
-
-# Console Ninja (VS Code extension)
-[[ -d ${HOME}/.console-ninja ]] && export PATH="${PATH}:${HOME}/.console-ninja/.bin"
 
 # oh-my-zsh settings
 export DISABLE_UNTRACKED_FILES_DIRTY="true"
