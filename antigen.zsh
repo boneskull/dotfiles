@@ -5,6 +5,7 @@ export ANTIDOTE_HOME=${ANTIDOTE_HOME:-${XDG_DATA_HOME:-$HOME/.local/share}/antid
 
 # Install antidote if not present
 [[ ! -d $ANTIDOTE_HOME ]] && {
+  echo "Installing antidote..." >&2
   git clone --depth=1 https://github.com/mattmc3/antidote.git $ANTIDOTE_HOME
 }
 
