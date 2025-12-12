@@ -17,41 +17,41 @@
 #
 # WARNING: not compatible with bash.
 
-set -euo pipefail
+set -Eeuo pipefail
 
 default_prefix='boneskull'
 
-log() {
+function log {
   print -P "$@" >&2
 }
 
-ok() {
+function ok {
   log "%F{green}✓%f $@"
 }
 
-warn() {
+function warn {
   log "%F{yellow}⚠%f $@"
 }
 
-info() {
+function info {
   log "%F{blue}ℹ%f $@"
 }
 
-error() {
+function error {
   log "%F{red}✗%f $@"
   exit 1
 }
 
-em() {
+function em {
   echo "%F{yellow}$@%f"
 }
 
-bold() {
+function bold {
   echo "%F{red}$@%f"
 }
 
 # Gets the branch prefix from git config or uses the default.
-get_prefix() {
+function get_prefix {
   local prefix=$(git config get user.branchPrefix)
   if [[ -z $prefix ]]; then
     echo $default_prefix
@@ -61,19 +61,19 @@ get_prefix() {
 }
 
 # Checks that the target branch exists on the remote.
-check_target() {
+function check_target {
   if ! git show-branch "${remote}/${target}" > /dev/null 2>&1; then
     error "No such branch: $(em "${remote}/${target}")"
   fi
 }
 
 # Determines the default branch of the remote repository
-default_branch() {
+function default_branch {
   echo $(git rev-parse --abbrev-ref "${remote}/HEAD" | cut -c8-)
 }
 
 # Prompts the user for confirmation with a default response.
-confirm() {
+function confirm {
   local message="${1}"
   local default="${2:-N/y}"
   print -Pn "${message} "
@@ -87,7 +87,7 @@ confirm() {
 }
 
 # Removes local branches that have been rebased onto the target branch
-cleanup_local_rebased() {
+function cleanup_local_rebased {
   local deleted=false
   local branches=($(git branch --list "${prefix}/*" --format='%(refname:short)'))
   if [[ -z $branches ]]; then
@@ -113,7 +113,7 @@ cleanup_local_rebased() {
 }
 
 # Removes remote branches that have been rebased onto the target branch
-cleanup_remote_rebased() {
+function cleanup_remote_rebased {
   local deleted=false
   local branches=($(git branch -r --list "${remote}/${prefix}/*" --format='%(refname:lstrip=3)'))
   if [[ -z $branches ]]; then

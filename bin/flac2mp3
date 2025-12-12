@@ -1,4 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env zsh
+
+set -Eeuo pipefail
+
+if (( ! $+commands[ffmpeg] )); then
+  echo "ffmpeg not found"
+  exit 1
+fi
 
 FILE=$1
 ffmpeg -i "${FILE}" -b:a 256k -map_metadata 0 -id3v2_version 3 "${FILE%.flac}.mp3"

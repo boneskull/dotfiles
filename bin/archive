@@ -1,24 +1,22 @@
 #!/usr/bin/env zsh
 
-set -euo pipefail
+set -Eeuo pipefail
 
-# why this isn't pulled out of fpath defined in .zshenv, I don't know.
-slugify() {
-  echo "$1" | iconv -t ascii//TRANSLIT | sed -E 's/[^a-zA-Z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | tr "[:upper:]" "[:lower:]"
-}
+# Load slugify from zshfunctions
+fpath=(~/.dotfiles/zshfunctions $fpath)
+autoload -Uz slugify
 
-UNAME=$(uname -o)
-if [[ ${UNAME} == Darwin ]]; then
-  TAR=$(whence -p gtar)
-  if [[ -z ${TAR} ]]; then
-    echo "tar not found, please exceute 'brew install gnu-tar'"
+# We want gtar because tar on macOS doesn't support the --exclude-vcs-ignores option
+if [[ "${OSTYPE}" == darwin* ]]; then
+  (( ! $+commands[gtar] )) && {
+    echo "tar not found, please execute 'brew install gnu-tar'"
     exit 1
-  fi
+  }
 else
-  TAR=$(whence -p tar)
+  TAR=${commands[tar]:-/usr/bin/tar}
 fi
 
-BACKUP_DIR="${HOME}/project/archives"
+BACKUP_DIR="${HOME}/projects/archives"
 DIR="${1}"
 
 [[ ${DIR} ]] || {
