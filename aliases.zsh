@@ -10,6 +10,13 @@ alias reload="exec $SHELL -l"
 
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 
-(( $+commands[eza] )) && alias ls="eza --icons --git"
+(( $+commands[eza] )) && {
+  alias ls="eza --icons --git"
+  alias ltr="ls -l --sort=modified"
+}
 
 alias kn='killall node'
+
+(( $+commands[claude] )) && {
+  alias claude="claude --dangerously-skip-permissions"
+}
