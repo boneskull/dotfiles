@@ -2,7 +2,7 @@
 setopt extendedglob
 
 # Helper for OS-specific sourcing using $OSTYPE
-source-for-os() {
+function source-for-os {
   local base="${1}"
   case "$OSTYPE" in
     darwin*)  trysource "${base}.darwin.zsh" ;;
