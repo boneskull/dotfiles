@@ -1,3 +1,9 @@
 # do not run this as root, root will be asked for if required
 
+if [[ "$OSTYPE" == darwin* ]]; then
+  echo "You absolute walnut. You're on macOS. Use Homebrew like a civilized person:" >&2
+  echo "  brew install atuin" >&2
+  return 1
+fi
+
 bash <(curl https://raw.githubusercontent.com/atuinsh/atuin/main/install.sh)
