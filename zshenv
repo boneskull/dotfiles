@@ -1,4 +1,2 @@
-fpath+=${HOME}/.zshfunctions
-
-# dedupes, I think; see zshbuiltins(1)
-typeset -U fpath
+# Dedupe fpath and path
+typeset -U fpath path
