@@ -2,25 +2,33 @@
 
 export PATH="${HOME}/.local/bin:${PATH}"
 
-function homebrew_exports {
-  local HOMEBREW_PREFIX="${1}"
-  # Homebrew-specific setup (HOMEBREW_PREFIX set by brew shellenv in exports.zsh)
-  if [[ -n "${HOMEBREW_PREFIX}" ]]; then
-    # Zsh help files from homebrew
-    [[ -d "${HOMEBREW_PREFIX}/share/zsh/help" ]] && export HELPDIR="${HOMEBREW_PREFIX}/share/zsh/help"
-
-    # leaving this enabled makes everything slow af
-    export HOMEBREW_NO_INSTALL_CLEANUP=1
-    export HOMEBREW_NO_AUTO_UPDATE=1
-
-    # NVM via homebrew (oh-my-zsh nvm plugin handles lazy loading)
-    (( $+commands[nvm] )) && : ${NVM_DIR:="${HOMEBREW_PREFIX}/opt/nvm"}
+# Find and initialize Homebrew (not in default PATH on Apple Silicon)
+function _init_homebrew {
+  local brew_path
+  if [[ -x /opt/homebrew/bin/brew ]]; then
+    brew_path="/opt/homebrew/bin/brew"
+  elif [[ -x /usr/local/bin/brew ]]; then
+    brew_path="/usr/local/bin/brew"
   else
-    echo "HOMEBREW_PREFIX is not set! Skipping Homebrew exports." >&2
+    return 1
   fi
+
+  # This sets HOMEBREW_PREFIX, HOMEBREW_CELLAR, etc. and updates PATH
+  eval "$("${brew_path}" shellenv)"
+
+  # Zsh help files from homebrew
+  [[ -d "${HOMEBREW_PREFIX}/share/zsh/help" ]] && export HELPDIR="${HOMEBREW_PREFIX}/share/zsh/help"
+
+  # Leaving this enabled makes everything slow af
+  export HOMEBREW_NO_INSTALL_CLEANUP=1
+  export HOMEBREW_NO_AUTO_UPDATE=1
+
+  # NVM via homebrew (oh-my-zsh nvm plugin handles lazy loading)
+  # Check for directory, not command - nvm is a function loaded later
+  [[ -d "${HOMEBREW_PREFIX}/opt/nvm" ]] && export NVM_DIR="${HOMEBREW_PREFIX}/opt/nvm"
 }
 
-(( $+commands[brew] )) && homebrew_exports "$(brew --prefix)"
+_init_homebrew
 
 # Always enable colored `grep` output
 export GREP_OPTIONS="--color=auto"
