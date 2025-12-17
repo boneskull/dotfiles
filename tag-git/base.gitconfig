@@ -150,3 +150,6 @@ autoStageIfNothingStaged = true
 
 [remote "origin"]
 	prune = true
+
+[github]
+user = boneskull
