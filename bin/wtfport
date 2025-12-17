@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+
+# from https://github.com/nicknisi/dotfiles/blob/e15dc3c0a0fa6e137dee615eb7a5e224bf6d2355/bin/pt
+
+# List out the pid for the process that is currently listening on the provided port
+# Usage: wtfport find <port>
+# Usage: wtfport kill <port>
+# Example: wtfport find 3000
+# Example: wtfport kill 3000
+
+find_port() {
+  local port=$1
+  line="$(lsof -i -P -n | grep LISTEN | grep ":$port")"
+  pid=$(echo "$line" | awk '{print $2}')
+
+  # If there's nothing running, exit
+  if [[ -z "$pid" ]]; then
+    echo >&2 -e "No process found listening on port $port"
+    exit 0
+  fi
+
+  # Get detailed process info (output to stderr so it won't be piped along)
+  echo >&2 -e "Process listening on port $port:"
+  echo >&2 -e "  PID:      $pid"
+  echo >&2 -e "  User:     $(ps -p "$pid" -o user= 2>/dev/null)"
+  echo >&2 -e "  CPU:    $(ps -p "$pid" -o %cpu= 2>/dev/null)%"
+  echo >&2 -e "  Memory:  $(ps -p "$pid" -o %mem= 2>/dev/null)%"
+  echo >&2 -e "  Started: $(ps -p "$pid" -o start= 2>/dev/null)"
+  echo >&2 -e "  Command:  $(ps -p "$pid" -o args= 2>/dev/null)"
+
+  # print the process id. It can be piped, for example to pbcopy
+  echo -e "$pid"
+}
+
+kill_port() {
+  local port=$1
+  line="$(lsof -i -P -n | grep LISTEN | grep ":$port")"
+  pid=$(echo "$line" | awk '{print $2}')
+
+  # If there's nothing running, exit
+  if [[ -z "$pid" ]]; then
+    echo >&2 -e "No process found listening on port $port"
+    exit 0
+  fi
+
+  # Grab the command before we nuke it
+  local cmd
+  cmd=$(ps -p "$pid" -o args= 2>/dev/null)
+
+  kill -9 "$pid"
+  echo "Killed process on port $port:"
+  echo "  PID:     $pid"
+  echo "  Command: $cmd"
+}
+
+case "$1" in
+find | f)
+  if [ -z "$2" ]; then
+    echo "Usage: wtfport find <port>"
+    exit 1
+  fi
+  find_port "$2"
+  ;;
+kill | k)
+  if [ -z "$2" ]; then
+    echo "Usage: wtfport kill <port>"
+    exit 1
+  fi
+  kill_port "$2"
+  ;;
+*)
+  echo "Usage: wtfport <find|kill> <port>"
+  exit 1
+  ;;
+esac
