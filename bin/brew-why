@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# from https://github.com/nicknisi/dotfiles/blob/e15dc3c0a0fa6e137dee615eb7a5e224bf6d2355/bin/brew-why
+
+# List out all installed apps along with all the apps each app is dependent on.
+
+# Trap SIGINT (Ctrl-C) to exit cleanly
+trap 'echo; exit 130' INT
+
+while read -r cask; do
+    echo -ne "\x1B[1;34m $cask \x1B[0m"
+    brew uses "$cask" --installed | awk '{printf(" %s ", $0)}'
+    echo ""
+done < <(brew list -1 --formula)
