@@ -2,6 +2,10 @@
 
 > _My precious dotfiles_
 
+## Summary
+
+My dotfiles are managed by [rcm](https://github.com/thoughtbot/rcm).
+
 ## Requirements
 
 macOS or Debian-based Linux distro
