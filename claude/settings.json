@@ -28,5 +28,9 @@
     "skill-activation@boneskull-plugins": true,
     "xstate@boneskull-plugins": true
   },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "statusLine": {
+    "type": "command",
+    "command": "claude-statusline"
+  }
 }
