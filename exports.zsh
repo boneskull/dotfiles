@@ -21,7 +21,6 @@ fi
 
 # Pager - prefer bat
 (( $+commands[bat] )) && {
-  export BAT_STYLE="changes,header"
   export PAGER="bat"
 } || {
   export PAGER="less"
