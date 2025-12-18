@@ -116,7 +116,6 @@ brew mpdecimal
 brew ncurses
 brew netpbm
 brew ninja
-brew node
 brew nvm
 brew oniguruma
 brew openexr
@@ -140,7 +139,6 @@ brew rtmpdump
 brew ruby
 brew rustup
 brew shared-mime-info
-brew simdjson
 brew snappy
 brew sqlite
 brew starship
@@ -151,10 +149,8 @@ brew tree
 brew unixodbc
 brew utf8proc
 brew uv
-brew uvwasi
 brew vim
 brew vivid
-brew wangle
 brew webp
 brew wget
 brew x265
