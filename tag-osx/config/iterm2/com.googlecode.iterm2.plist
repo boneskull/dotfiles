@@ -14084,11 +14084,30 @@
 					<key>name</key>
 					<string>Annotate installed package versions</string>
 					<key>parameter</key>
-					<string>/bin/zsh -l -c '/opt/homebrew/bin/uv run --quiet --script ~/bin/package-json-annotator'</string>
+					<string>/opt/homebrew/bin/zsh -l -c '/opt/homebrew/bin/uv run --quiet --script ~/bin/package-json-annotator'</string>
 					<key>partial</key>
 					<false/>
 					<key>regex</key>
-					<string>\scat\s+(\S*/)?package\.json$</string>
+					<string>cat\s+(\S*/)?package\.json$</string>
+				</dict>
+				<dict>
+					<key>action</key>
+					<string>CoprocessTrigger</string>
+					<key>contentregex</key>
+					<string></string>
+					<key>disabled</key>
+					<integer>0</integer>
+					<key>matchType</key>
+					<integer>0</integer>
+					<key>name</key>
+					<string>ESLint Annotator</string>
+					<key>parameter</key>
+					<string>/opt/homebrew/bin/zsh -l -c '/opt/homebrew/bin/uv run --quiet --script ~/bin/eslint-annotator --debug'
+</string>
+					<key>partial</key>
+					<false/>
+					<key>regex</key>
+					<string>cat\s+(\S+\.[jt]s)\s*$</string>
 				</dict>
 			</array>
 			<key>Unicode Version</key>

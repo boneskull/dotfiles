@@ -1,0 +1,332 @@
+#!/usr/bin/env -S uv run --quiet --script
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#     "iterm2",
+# ]
+# ///
+"""
+iTerm2 coprocess: Annotate files with ESLint errors/warnings when you cat them.
+
+When you `cat some-file.js` or `cat some-file.ts`, this script:
+  1. Finds the cat command in scrollback to extract the filename
+  2. Runs `npx eslint <filename> -f json` to get lint results
+  3. Annotates the displayed lines with errors/warnings
+
+Setup:
+  1. Enable Python API: iTerm2 → Settings → General → Magic → Enable Python API
+  2. iTerm2 → Settings → Profiles → Advanced → Triggers → Edit
+  3. Add trigger:
+     - Regex: cat\\s+(\\S+\\.(?:js|ts))(?:\\s|$)
+     - Action: Run Coprocess
+     - Parameters: /bin/zsh -l -c '/opt/homebrew/bin/uv run --quiet --script ~/.dotfiles/tag-osx/bin/eslint-annotator'
+
+Requires:
+  - uv (brew install uv)
+  - npx/npm (for eslint)
+  - iTerm2 with Python API enabled
+"""
+
+import argparse
+import asyncio
+import json
+import os
+import re
+import subprocess
+import sys
+
+import iterm2
+
+DEBUG = False
+
+# Regex to strip ANSI escape codes
+ANSI_ESCAPE = re.compile(r"\x1b\[[0-9;]*m")
+
+
+def strip_ansi(text: str) -> str:
+    """Remove ANSI escape codes from text."""
+    return ANSI_ESCAPE.sub("", text)
+
+
+def debug(msg: str) -> None:
+    """Print debug message to stderr if debug mode is enabled."""
+    if DEBUG:
+        print(f"[eslint-annotator] {msg}", file=sys.stderr)
+
+
+def run_eslint(filepath: str, cwd: str | None = None) -> list[dict]:
+    """
+    Run `npx eslint <filepath> -f json` and return list of messages.
+
+    Each message dict has: line, column, severity, message, ruleId
+    Returns empty list on failure or if no issues.
+    """
+    debug(f"Running eslint on {filepath} in {cwd or 'current dir'}")
+
+    try:
+        result = subprocess.run(
+            ["npx", "eslint", filepath, "-f", "json"],
+            stdin=subprocess.DEVNULL,  # CRITICAL: prevents hanging
+            capture_output=True,
+            text=True,
+            cwd=cwd,
+            timeout=30,
+        )
+
+        # ESLint returns non-zero if there are lint errors, but still outputs valid JSON
+        if not result.stdout:
+            debug(f"eslint produced no output, stderr: {result.stderr[:200] if result.stderr else '(empty)'}")
+            return []
+
+        data = json.loads(result.stdout)
+
+        # ESLint JSON format: array of file results, each with messages array
+        if not data or not isinstance(data, list):
+            debug("Unexpected eslint output format")
+            return []
+
+        # Get messages from the first (and should be only) file result
+        file_result = data[0] if data else {}
+        messages = file_result.get("messages", [])
+
+        debug(f"Found {len(messages)} lint messages")
+        for msg in messages:
+            severity = "error" if msg.get("severity") == 2 else "warning"
+            debug(f"  Line {msg.get('line')}: [{severity}] {msg.get('message', '')[:50]}")
+
+        return messages
+
+    except subprocess.TimeoutExpired:
+        debug("eslint timed out after 30s")
+        return []
+    except json.JSONDecodeError as e:
+        debug(f"Failed to parse eslint output: {e}")
+        return []
+    except FileNotFoundError:
+        debug("npx not found")
+        return []
+    except Exception as e:
+        debug(f"Error running eslint: {e}")
+        return []
+
+
+async def annotate_with_eslint() -> bool:
+    """
+    Main logic: find cat command in scrollback, run eslint, annotate lines.
+    """
+    debug("Connecting to iTerm2...")
+
+    # Pattern to find `cat <file>.js` or `cat <file>.ts`
+    cat_pattern = re.compile(r"cat\s+(\S+\.(?:js|ts))(?:\s|$)")
+
+    try:
+        connection = await iterm2.Connection.async_create()
+        app = await iterm2.async_get_app(connection)
+
+        session = app.current_terminal_window.current_tab.current_session
+        if not session:
+            debug("No active session found")
+            return False
+
+        debug(f"Got session: {session.session_id}")
+
+        # Small delay to ensure cat output is in buffer
+        await asyncio.sleep(0.1)
+
+        # Get line info
+        line_info = await session.async_get_line_info()
+        total_lines = line_info.scrollback_buffer_height + line_info.mutable_area_height
+        debug(
+            f"Line info: overflow={line_info.overflow}, "
+            f"scrollback={line_info.scrollback_buffer_height}, "
+            f"mutable={line_info.mutable_area_height}, "
+            f"total={total_lines}"
+        )
+
+        # Search backwards to find the cat command
+        search_for_cat = 500
+        search_start = max(line_info.overflow, line_info.overflow + total_lines - search_for_cat)
+        search_num = min(search_for_cat, total_lines)
+
+        debug(f"Searching for cat command in last {search_num} lines (starting at {search_start})")
+
+        search_contents = await session.async_get_contents(search_start, search_num)
+
+        cat_abs_line = -1
+        filename: str | None = None
+        for i in range(len(search_contents) - 1, -1, -1):
+            text = strip_ansi(search_contents[i].string)
+            match = cat_pattern.search(text)
+            if match:
+                cat_abs_line = search_start + i
+                filename = match.group(1)
+                debug(f"Found cat command at absolute line {cat_abs_line}: {text[:60]}")
+                debug(f"Filename: {filename}")
+                break
+
+        if cat_abs_line == -1 or not filename:
+            debug("Could not find 'cat <file>.js/.ts' in scrollback")
+            return False
+
+        # Small delay to ensure file content is fully rendered after cat
+        await asyncio.sleep(0.2)
+
+        # Re-fetch line info in case buffer grew
+        line_info = await session.async_get_line_info()
+        total_lines = line_info.scrollback_buffer_height + line_info.mutable_area_height
+
+        # Try to get session's working directory for eslint
+        cwd: str | None = None
+        try:
+            cwd = await session.async_get_variable("path")
+            debug(f"Got session cwd: {cwd}")
+        except Exception as e:
+            debug(f"Could not get session cwd: {e}")
+
+        # Read from cat command forward to capture the file content
+        file_read_lines = 2000  # Support larger files
+        file_start = cat_abs_line
+        available_lines = line_info.overflow + total_lines - cat_abs_line
+        file_num = min(file_read_lines, available_lines)
+
+        debug(f"cat command at abs line {cat_abs_line}, total buffer is {line_info.overflow + total_lines}")
+        debug(f"Available lines after cat: {available_lines}, reading {file_num} lines")
+
+        contents = await session.async_get_contents(file_start, file_num)
+        debug(f"Actually got {len(contents)} lines from scrollback")
+
+        # Convert to clean strings with absolute line numbers
+        lines: list[tuple[int, str]] = []
+        for i, line_content in enumerate(contents):
+            clean = strip_ansi(line_content.string)
+            lines.append((file_start + i, clean))
+
+        # The cat command is at index 0 in our lines list
+        # File content starts on the next line
+        cat_line_idx = 0
+        file_content_start_idx = cat_line_idx + 1
+
+        # We don't try to detect end of file - just use all available lines
+        # The eslint line numbers will naturally constrain what we annotate
+        debug(f"File content starts at scrollback index {file_content_start_idx} (abs line {lines[file_content_start_idx][0] if file_content_start_idx < len(lines) else 'N/A'})")
+        debug(f"Total lines available after cat: {len(lines) - file_content_start_idx}")
+
+        # Run eslint on the file
+        eslint_messages = run_eslint(filename, cwd)
+
+        if not eslint_messages:
+            debug("No lint issues found - nothing to annotate")
+            # Optionally add a "clean" annotation on the first line
+            if file_content_start_idx < len(lines):
+                first_line_num, first_line_text = lines[file_content_start_idx]
+                coord_range = iterm2.CoordRange(
+                    iterm2.Point(0, first_line_num),
+                    iterm2.Point(len(first_line_text), first_line_num),
+                )
+                await session.async_add_annotation(coord_range, "✅ ESLint: No issues!")
+            return True
+
+        # Group messages by line number for consolidated annotations
+        messages_by_line: dict[int, list[dict]] = {}
+        for msg in eslint_messages:
+            source_line = msg.get("line", 0)
+            if source_line >= 1:
+                messages_by_line.setdefault(source_line, []).append(msg)
+
+        # Annotate each line that has issues (one annotation per line)
+        annotated_count = 0
+        for source_line, line_messages in messages_by_line.items():
+            # Convert source line number to scrollback line index
+            # Source line 1 = file_content_start_idx in our lines array
+            scrollback_idx = file_content_start_idx + source_line - 1
+
+            if scrollback_idx >= len(lines):
+                debug(f"Line {source_line} is outside visible content (scrollback_idx {scrollback_idx} >= {len(lines)} lines)")
+                continue
+
+            abs_line_num, line_text = lines[scrollback_idx]
+
+            # Build consolidated annotation text
+            # Sort by column so messages appear in reading order
+            line_messages.sort(key=lambda m: m.get("column", 0))
+
+            annotation_parts: list[str] = []
+            has_error = False
+            for msg in line_messages:
+                if msg.get("severity") == 2:
+                    has_error = True
+                severity_emoji = "❌" if msg.get("severity") == 2 else "⚠️"
+                rule_id = msg.get("ruleId", "")
+                message_text = msg.get("message", "Unknown error")
+                part = f"{severity_emoji} {message_text}"
+                if rule_id:
+                    part += f" ({rule_id})"
+                annotation_parts.append(part)
+
+            # Join multiple messages with newlines for readability
+            annotation = "\n".join(annotation_parts)
+
+            # Highlight the full line content (since we have multiple positions)
+            stripped = line_text.lstrip()
+            start_col = len(line_text) - len(stripped)
+            end_col = len(line_text)
+
+            coord_range = iterm2.CoordRange(
+                iterm2.Point(start_col, abs_line_num),
+                iterm2.Point(end_col, abs_line_num),
+            )
+
+            msg_count = len(line_messages)
+            debug(f"Annotating line {source_line} (scrollback {abs_line_num}) with {msg_count} message(s)")
+            await session.async_add_annotation(coord_range, annotation)
+            annotated_count += 1
+
+        debug(f"Done: {annotated_count} annotations added")
+        return True
+
+    except Exception as e:
+        debug(f"iTerm2 API error: {e}")
+        import traceback
+        debug(traceback.format_exc())
+        return False
+
+
+async def async_main() -> None:
+    """Main async entry point."""
+    success = await annotate_with_eslint()
+    if not success:
+        debug("Failed to annotate with ESLint")
+
+    debug("Work complete, forcing exit")
+    os._exit(0)
+
+
+def main() -> None:
+    global DEBUG
+
+    parser = argparse.ArgumentParser(
+        description="Annotate cat'd JS/TS files with ESLint errors/warnings"
+    )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Print debug output to stderr",
+    )
+    args = parser.parse_args()
+    DEBUG = args.debug
+
+    debug("Starting eslint-annotator")
+
+    try:
+        asyncio.run(async_main())
+    except Exception as e:
+        debug(f"Fatal error: {e}")
+        os._exit(1)
+
+    # Should never reach here due to os._exit() in async_main
+    os._exit(0)
+
+
+if __name__ == "__main__":
+    main()
+

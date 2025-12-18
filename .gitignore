@@ -1,3 +1,4 @@
 extra.zsh
 *.zwc
 .history
+__pycache__/
