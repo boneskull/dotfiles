@@ -14,6 +14,7 @@ brew autoconf
 brew awk
 brew bash
 brew bat
+brew bat-extras
 brew blake3
 brew boost
 brew brotli
