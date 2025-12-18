@@ -35,3 +35,6 @@ export GREP_OPTIONS="--color=auto"
 
 # Use vivid for LS_COLORS if installed
 (( $+commands[vivid] )) && export LS_COLORS="$(vivid generate lava)"
+[[ -d "${HOMEBREW_PREFIX}/opt/ruby" ]] && {
+  export PATH="${HOMEBREW_PREFIX}/opt/ruby/bin:${PATH}"
+}
