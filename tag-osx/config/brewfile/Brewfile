@@ -9,11 +9,9 @@ brew apr
 brew apr-util
 brew argon2
 brew asciinema
-brew aspell
 brew atuin
 brew autoconf
 brew awk
-brew awscli
 brew bash
 brew bat
 brew blake3
@@ -30,10 +28,7 @@ brew dav1d
 brew double-conversion
 brew dprint
 brew duti
-brew edencommon
 brew eza
-brew fb303
-brew fbthrift
 brew fd
 brew findutils
 brew fizz
@@ -66,6 +61,7 @@ brew harfbuzz
 brew highway
 brew hiredis
 brew icu4c@77
+brew icu4c@78
 brew imagemagick
 brew imath
 brew jasper
@@ -80,6 +76,7 @@ brew libevent
 brew libgit2
 brew libgit2@1.7
 brew libheif
+brew libiconv
 brew libidn2
 brew liblqr
 brew libnghttp2
@@ -121,7 +118,6 @@ brew netpbm
 brew ninja
 brew node
 brew nvm
-brew ollama
 brew oniguruma
 brew openexr
 brew openjpeg
@@ -159,7 +155,6 @@ brew uvwasi
 brew vim
 brew vivid
 brew wangle
-brew watchman
 brew webp
 brew wget
 brew x265
@@ -239,10 +234,10 @@ tap thoughtbot/formulae
 
 # App Store applications
 appstore 1569813296 1Password for Safari (8.11.22)
-appstore 1091189122 Bear (2.6.5)
+appstore 1091189122 Bear (2.6.6)
 appstore 1584423325 BloonsTD6+ (52.2)
 appstore 1470584107 Dato (5.6.9)
-appstore 682658836 GarageBand (10.4.12)
+appstore 682658836 GarageBand (10.4.13)
 appstore 408981434 iMovie (10.4.3)
 appstore 409183694 Keynote (14.4)
 appstore 409203825 Numbers (14.4)
