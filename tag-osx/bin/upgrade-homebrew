@@ -1,0 +1,40 @@
+#!/usr/bin/env zsh
+set -Eeuo pipefail
+
+# launchd runs with a pathetic minimal PATH, so we need to set it up ourselves.
+# Homebrew lives in /opt/homebrew on Apple Silicon, /usr/local on Intel.
+# Why did the PATH cross the road? To get to the other /bin! ...I'll see myself out.
+path=(/opt/homebrew/bin /usr/local/bin $path)
+rehash
+
+# Bail if brew isn't installed
+if (( ! $+commands[brew] )); then
+  echo "Error: brew not found" >&2
+  exit 1
+fi
+
+brew=${commands[brew]}
+
+# Warn if terminal-notifier isn't installed (but carry on, you brave little script)
+if (( ! $+commands[terminal-notifier] )); then
+  echo "Warning: terminal-notifier not found; notifications disabled (brew install terminal-notifier)" >&2
+  notifier=""
+else
+  notifier=${commands[terminal-notifier]}
+fi
+
+$brew update && $brew upgrade
+brew_status=$?
+
+# Clean up orphaned dependencies (packages installed as deps but no longer needed)
+$brew autoremove
+
+# Only notify if we have terminal-notifier and the upgrade succeeded
+if [[ -n $notifier ]] && (( brew_status == 0 )); then
+  $notifier \
+    -title Homebrew \
+    -message "Homebrew upgraded!" \
+    -timeout 10 \
+    -group com.boneskull.homebrew-upgrade \
+    -contentImage "${HOME}/bin/assets/homebrew-logo.png"
+fi
