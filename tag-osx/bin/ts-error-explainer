@@ -1,0 +1,308 @@
+#!/usr/bin/env -S uv run --quiet --script
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#     "iterm2",
+# ]
+# ///
+"""
+iTerm2 coprocess: Capture TypeScript errors and get Claude to explain them.
+
+Adds an annotation directly in iTerm2 with Claude's explanation. No notifications,
+no bullshit — just the answer right there where you need it.
+
+When triggered, this script reads the terminal's scrollback buffer directly via
+iTerm2's Python API (rather than trying to catch stdin in realtime, which is
+unreliable due to startup latency).
+
+Setup:
+  1. Enable Python API: iTerm2 → Settings → General → Magic → Enable Python API
+  2. iTerm2 → Settings → Profiles → Advanced → Triggers → Edit
+  3. Add trigger:
+     - Regex: Found \\d+ errors? in
+     - Action: Run Coprocess
+     - Parameters: /opt/homebrew/bin/uv run --quiet --script ~/bin/ts-error-explainer
+     - Check "Instant" (optional)
+
+Requires:
+  - uv (brew install uv)
+  - claude CLI (authenticated via OAuth)
+  - iTerm2 with Python API enabled
+"""
+
+import argparse
+import asyncio
+import os
+import re
+import subprocess
+import sys
+import threading
+
+import iterm2
+
+DEBUG = False
+
+# Regex to strip ANSI escape codes (colors, formatting, etc.)
+ANSI_ESCAPE = re.compile(r"\x1b\[[0-9;]*m")
+
+
+def strip_ansi(text: str) -> str:
+    """Remove ANSI escape codes from text."""
+    return ANSI_ESCAPE.sub("", text)
+
+
+def debug(msg: str) -> None:
+    """Print debug message to stderr if debug mode is enabled."""
+    if DEBUG:
+        print(f"[ts-error-explainer] {msg}", file=sys.stderr)
+
+
+def ask_claude(error_text: str) -> str:
+    """
+    Ask Claude to explain the error using the CLI.
+
+    Uses --tools "" to disable tool use (we just need a text response) and
+    --no-session-persistence to avoid writing to disk. Speed over everything.
+    """
+    prompt = (
+        "Explain this TypeScript error in plain English. "
+        "Be brief (1-2 sentences max). What's wrong and how to fix it?\n\n"
+        f"```\n{error_text}\n```"
+    )
+
+    debug(f"Sending to Claude: {len(error_text)} chars")
+
+    try:
+        debug("Starting claude subprocess (streaming)...")
+        process = subprocess.Popen(
+            [
+                "/opt/homebrew/bin/claude",
+                "--no-session-persistence",
+                "--model",
+                "sonnet",
+                "-p",
+                prompt,
+            ],
+            stdin=subprocess.DEVNULL,  # Don't wait for input
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+        debug(f"Process started, PID={process.pid}")
+
+        stderr_lines: list[str] = []
+
+        def read_stderr() -> None:
+            """Read stderr in a thread to avoid deadlock."""
+            assert process.stderr is not None
+            for line in process.stderr:
+                line = line.rstrip()
+                stderr_lines.append(line)
+                debug(f"claude stderr: {line}")
+
+        stderr_thread = threading.Thread(target=read_stderr, daemon=True)
+        stderr_thread.start()
+
+        # Read stdout line by line (the actual response)
+        stdout_lines: list[str] = []
+        assert process.stdout is not None
+        for line in process.stdout:
+            line = line.rstrip()
+            stdout_lines.append(line)
+            debug(f"claude stdout: {line[:100]}...")
+
+        # Wait for process to finish (with timeout)
+        try:
+            returncode = process.wait(timeout=30)
+        except subprocess.TimeoutExpired:
+            debug("Claude timed out after 30s, killing...")
+            process.kill()
+            process.wait()
+            return "Claude took too long (timed out after 30s)"
+
+        stderr_thread.join(timeout=1)  # Give stderr thread a moment to finish
+
+        debug(f"Claude exited with code {returncode}")
+
+        if returncode == 0:
+            explanation = "\n".join(stdout_lines).strip()
+            debug(f"Claude says: {explanation[:100]}...")
+            return explanation
+
+        error_msg = f"Claude CLI error (exit {returncode}): {' '.join(stderr_lines)}"
+        debug(error_msg)
+        return error_msg
+
+    except FileNotFoundError as e:
+        debug(f"claude CLI not found: {e}")
+        return "claude CLI not found - is it installed?"
+    except Exception as e:
+        debug(f"Exception: {type(e).__name__}: {e}")
+        return f"Error: {e}"
+
+
+async def find_and_annotate_error() -> bool:
+    """
+    Find TypeScript errors in the terminal scrollback and add Claude's explanation.
+
+    Instead of reading stdin (which is unreliable due to coprocess startup latency),
+    we read the scrollback buffer directly via iTerm2's Python API.
+    """
+    debug("Connecting to iTerm2...")
+
+    error_pattern = re.compile(r"error TS\d+:")
+    summary_pattern = re.compile(r"Found \d+ errors? in")
+
+    try:
+        connection = await iterm2.Connection.async_create()
+        app = await iterm2.async_get_app(connection)
+
+        # Get the current session
+        session = app.current_terminal_window.current_tab.current_session
+        if not session:
+            debug("No active session found")
+            return False
+
+        debug(f"Got session: {session.session_id}")
+
+        # Get line info
+        line_info = await session.async_get_line_info()
+        debug(
+            f"Line info: overflow={line_info.overflow}, "
+            f"scrollback={line_info.scrollback_buffer_height}, "
+            f"mutable={line_info.mutable_area_height}"
+        )
+
+        # Read last N lines from scrollback + screen
+        search_lines = 150  # How far back to look
+        total_lines = line_info.scrollback_buffer_height + line_info.mutable_area_height
+        start_line = max(line_info.overflow, line_info.overflow + total_lines - search_lines)
+        num_lines = min(search_lines, total_lines)
+
+        debug(f"Reading {num_lines} lines starting at {start_line}")
+
+        contents = await session.async_get_contents(start_line, num_lines)
+
+        # Convert to clean strings
+        lines: list[tuple[int, str]] = []
+        for i, line_content in enumerate(contents):
+            clean = strip_ansi(line_content.string)
+            lines.append((start_line + i, clean))
+
+        # Find the error block by searching backwards for the summary, then the error
+        summary_idx = None
+        error_idx = None
+        error_line_text = None
+
+        # Pattern to extract error count from summary like "Found 3 errors in 2 files"
+        error_count_pattern = re.compile(r"Found (\d+) errors?")
+
+        # Search backwards for the summary line first
+        summary_text = ""
+        for i in range(len(lines) - 1, -1, -1):
+            line_num, text = lines[i]
+            if summary_pattern.search(text):
+                summary_idx = i
+                summary_text = text
+                debug(f"Found summary at index {i} (line {line_num}): {text[:60]}")
+                break
+
+        if summary_idx is None:
+            debug("No summary line found in scrollback")
+            return False
+
+        # Parse the error count from the summary
+        count_match = error_count_pattern.search(summary_text)
+        expected_errors = int(count_match.group(1)) if count_match else 1
+        debug(f"Expecting {expected_errors} error(s)")
+
+        # Search backwards from summary, counting error lines until we've found them all
+        # Each error is ~5-6 lines, so max lookback is roughly errors * 10
+        max_lookback = max(50, expected_errors * 10)
+        start_search = max(0, summary_idx - max_lookback)
+
+        error_indices: list[int] = []
+        for i in range(summary_idx, start_search - 1, -1):
+            line_num, text = lines[i]
+            if error_pattern.search(text):
+                error_indices.append(i)
+                debug(f"Found error {len(error_indices)}/{expected_errors} at index {i}")
+                if len(error_indices) >= expected_errors:
+                    break  # Found all the errors we expected
+
+        if not error_indices:
+            debug("No error lines found before summary")
+            return False
+
+        # First error is the last one we found (furthest back in the buffer)
+        error_idx = error_indices[-1]
+        error_line_text = lines[error_idx][1]
+        debug(f"Using first error at index {error_idx}")
+
+        # Extract the error block (from first error to summary, inclusive)
+        error_block = "\n".join(text for _, text in lines[error_idx : summary_idx + 1])
+        error_line_num = lines[error_idx][0]
+
+        debug(f"Error block is {summary_idx - error_idx + 1} lines")
+
+        # Ask Claude to explain
+        explanation = ask_claude(error_block)
+
+        # Add annotation spanning the entire error line
+        line_length = len(error_line_text)
+        coord_range = iterm2.CoordRange(
+            iterm2.Point(0, error_line_num),
+            iterm2.Point(line_length, error_line_num),
+        )
+
+        debug(f"Adding annotation at line {error_line_num}")
+        await session.async_add_annotation(coord_range, f"🤖 {explanation}")
+        debug("Annotation added successfully!")
+        return True
+
+    except Exception as e:
+        debug(f"iTerm2 API error: {e}")
+        import traceback
+
+        debug(traceback.format_exc())
+        return False
+
+
+async def async_main() -> None:
+    """Main async entry point."""
+    success = await find_and_annotate_error()
+    if not success:
+        debug("Failed to find/annotate error")
+
+    debug("Work complete, forcing exit")
+    os._exit(0)
+
+
+def main() -> None:
+    global DEBUG
+
+    parser = argparse.ArgumentParser(
+        description="Explain TypeScript errors using Claude"
+    )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Print debug output to stderr",
+    )
+    args = parser.parse_args()
+    DEBUG = args.debug
+
+    debug("Starting ts-error-explainer")
+
+    try:
+        asyncio.run(async_main())
+    except Exception as e:
+        debug(f"Fatal error: {e}")
+        os._exit(1)
+
+    # Should never reach here due to os._exit() in async_main
+    os._exit(0)
+
+
+if __name__ == "__main__":
+    main()
