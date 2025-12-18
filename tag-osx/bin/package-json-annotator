@@ -1,0 +1,540 @@
+#!/usr/bin/env -S uv run --quiet --script
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#     "iterm2",
+#     "node-semver",
+# ]
+# ///
+"""
+iTerm2 coprocess: Annotate package.json dependencies with version issues.
+
+When you `cat package.json`, this script reads the scrollback, finds each
+dependency, runs `npm ls --json` once, and annotates ONLY:
+  - Missing packages (not installed)
+  - Packages installed outside the specified semver range
+
+Packages that are installed and satisfy their version spec are NOT annotated.
+Non-semver specs (URLs, git refs, file paths, etc.) are skipped.
+
+Setup:
+  1. Enable Python API: iTerm2 → Settings → General → Magic → Enable Python API
+  2. iTerm2 → Settings → Profiles → Advanced → Triggers → Edit
+  3. Add trigger:
+     - Regex: cat\\s+(\\S*/)?package\\.json\\s*$
+     - Action: Run Coprocess
+      - Parameters: /bin/zsh -l -c '/opt/homebrew/bin/uv run --quiet --script ~/.dotfiles/bin/package-json-annotator'
+
+Requires:
+  - uv (brew install uv)
+  - npm
+  - iTerm2 with Python API enabled
+"""
+
+import argparse
+import asyncio
+import json
+import os
+import re
+import subprocess
+import sys
+
+import iterm2
+import nodesemver  # node-semver package - handles npm's ^ ~ >= etc.
+
+DEBUG = False
+
+# Regex to strip ANSI escape codes
+ANSI_ESCAPE = re.compile(r"\x1b\[[0-9;]*m")
+
+# Dependency field names we care about
+DEP_FIELDS = ["dependencies", "devDependencies", "peerDependencies", "optionalDependencies"]
+
+# Patterns that indicate a version spec is NOT a semver range
+NON_SEMVER_PATTERNS = [
+    r"^https?://",          # URLs
+    r"^git(\+https?)?://",  # Git URLs
+    r"^git\+ssh://",        # Git SSH URLs
+    r"^github:",            # GitHub shorthand
+    r"^gitlab:",            # GitLab shorthand
+    r"^bitbucket:",         # Bitbucket shorthand
+    r"^npm:",               # npm aliases
+    r"^file:",              # Local file paths
+    r"^link:",              # npm link
+    r"^workspace:",         # Workspace protocol (pnpm/yarn)
+    r"^[^@]+/[^@]+",        # GitHub user/repo shorthand (no @ prefix)
+    r"^latest$",            # Tags
+    r"^next$",
+    r"^canary$",
+    r"^beta$",
+    r"^alpha$",
+    r"^experimental$",
+]
+NON_SEMVER_RE = re.compile("|".join(NON_SEMVER_PATTERNS), re.IGNORECASE)
+
+
+def strip_ansi(text: str) -> str:
+    """Remove ANSI escape codes from text."""
+    return ANSI_ESCAPE.sub("", text)
+
+
+def is_semver_range(version_spec: str) -> bool:
+    """Check if a version spec looks like a semver range (not a URL, git ref, etc.)."""
+    if NON_SEMVER_RE.match(version_spec):
+        return False
+    # Also reject if it contains certain characters unlikely in semver
+    if "://" in version_spec:
+        return False
+    return True
+
+
+def version_satisfies(installed: str, spec: str) -> bool:
+    """Check if an installed version satisfies a semver range spec."""
+    try:
+        return nodesemver.satisfies(installed, spec)
+    except Exception:
+        # If parsing fails, assume it's not a valid semver range
+        return True  # Don't flag as a problem if we can't parse
+
+
+def debug(msg: str) -> None:
+    """Print debug message to stderr if debug mode is enabled."""
+    if DEBUG:
+        print(f"[package-json-annotator] {msg}", file=sys.stderr)
+
+
+def get_installed_versions(cwd: str | None = None) -> dict[str, str]:
+    """
+    Run `npm ls --json` and return a dict of package name -> installed version.
+
+    Returns empty dict on failure.
+    """
+    debug(f"Running npm ls --json in {cwd or 'current dir'}")
+
+    try:
+        result = subprocess.run(
+            ["npm", "ls", "--json", "--depth=0"],
+            stdin=subprocess.DEVNULL,  # CRITICAL: prevents hanging
+            capture_output=True,
+            text=True,
+            cwd=cwd,
+            timeout=30,
+        )
+
+        # npm ls returns non-zero if there are missing deps, but still outputs valid JSON
+        if not result.stdout:
+            debug(f"npm ls produced no output, stderr: {result.stderr[:200]}")
+            return {}
+
+        data = json.loads(result.stdout)
+        versions: dict[str, str] = {}
+
+        deps = data.get("dependencies", {})
+        for pkg_name, pkg_info in deps.items():
+            if isinstance(pkg_info, dict) and "version" in pkg_info:
+                versions[pkg_name] = pkg_info["version"]
+                debug(f"  {pkg_name}: {pkg_info['version']}")
+
+        debug(f"Found {len(versions)} installed packages")
+        return versions
+
+    except subprocess.TimeoutExpired:
+        debug("npm ls timed out after 30s")
+        return {}
+    except json.JSONDecodeError as e:
+        debug(f"Failed to parse npm ls output: {e}")
+        return {}
+    except FileNotFoundError:
+        debug("npm not found")
+        return {}
+    except Exception as e:
+        debug(f"Error running npm ls: {e}")
+        return {}
+
+
+def parse_package_json_from_lines(lines: list[tuple[int, str]]) -> tuple[dict | None, int, int]:
+    """
+    Find and parse package.json content from terminal lines.
+
+    Returns (parsed_json, start_line_idx, end_line_idx) or (None, -1, -1) on failure.
+    """
+    # Find the start of the JSON (first line that's just "{")
+    json_start_idx = -1
+    for i, (_, text) in enumerate(lines):
+        stripped = text.strip()
+        if stripped == "{":
+            json_start_idx = i
+            break
+
+    if json_start_idx == -1:
+        debug("Could not find JSON start")
+        return None, -1, -1
+
+    # Find the end (matching "}")
+    brace_count = 0
+    json_end_idx = -1
+
+    for i in range(json_start_idx, len(lines)):
+        text = lines[i][1]
+        for char in text:
+            if char == "{":
+                brace_count += 1
+            elif char == "}":
+                brace_count -= 1
+                if brace_count == 0:
+                    json_end_idx = i
+                    break
+        if json_end_idx != -1:
+            break
+
+    if json_end_idx == -1:
+        debug("Could not find JSON end")
+        return None, -1, -1
+
+    # Extract and parse JSON
+    json_text = "\n".join(text for _, text in lines[json_start_idx:json_end_idx + 1])
+
+    try:
+        parsed = json.loads(json_text)
+        debug(f"Parsed package.json: {parsed.get('name', 'unnamed')}")
+        return parsed, json_start_idx, json_end_idx
+    except json.JSONDecodeError as e:
+        debug(f"Failed to parse package.json: {e}")
+        return None, -1, -1
+
+
+def find_dep_field_headers(
+    lines: list[tuple[int, str]],
+    pkg_json: dict,
+    json_start_idx: int,
+    json_end_idx: int
+) -> dict[str, tuple[int, str]]:
+    """
+    Find the line numbers for each dependency field header.
+
+    Returns dict of field_name -> (absolute_line_num, line_text).
+    """
+    results: dict[str, tuple[int, str]] = {}
+
+    # Pattern to match field headers like: "dependencies": {
+    for field in DEP_FIELDS:
+        if field not in pkg_json:
+            continue
+        field_pattern = re.compile(rf'^\s*"{field}"\s*:\s*\{{')
+        for i in range(json_start_idx, json_end_idx + 1):
+            abs_line_num, text = lines[i]
+            if field_pattern.match(text):
+                results[field] = (abs_line_num, text)
+                debug(f"  Found '{field}' header at line {abs_line_num}")
+                break
+
+    return results
+
+
+def find_dependency_lines(
+    lines: list[tuple[int, str]],
+    pkg_json: dict,
+    json_start_idx: int,
+    json_end_idx: int
+) -> list[tuple[int, str, str, str, str]]:
+    """
+    Find lines containing dependency declarations within the JSON block.
+
+    IMPORTANT: Only matches dependencies within their actual field blocks,
+    not other fields like "scripts" that might have matching key names.
+
+    Returns list of (absolute_line_num, line_text, package_name, version_spec, field_name).
+    """
+    results: list[tuple[int, str, str, str, str]] = []
+
+    # Build sets of packages per field for validation
+    field_packages: dict[str, dict[str, str]] = {}
+    for field in DEP_FIELDS:
+        if field in pkg_json and isinstance(pkg_json[field], dict):
+            field_packages[field] = pkg_json[field]
+
+    if not field_packages:
+        debug("No dependencies found in package.json")
+        return results
+
+    total_deps = sum(len(pkgs) for pkgs in field_packages.values())
+    debug(f"Looking for {total_deps} dependencies across {len(field_packages)} fields")
+
+    # Pattern to match field headers and dependency lines
+    dep_pattern = re.compile(r'^\s*"([^"]+)"\s*:\s*"([^"]+)"')
+
+    # Track which field we're currently inside (if any)
+    current_field: str | None = None
+    brace_depth = 0
+
+    for i in range(json_start_idx, json_end_idx + 1):
+        abs_line_num, text = lines[i]
+
+        # Check if we're entering a dependency field
+        if current_field is None:
+            for field in field_packages:
+                if re.match(rf'^\s*"{field}"\s*:\s*\{{', text):
+                    current_field = field
+                    brace_depth = 1
+                    debug(f"  Entering {field} block at line {abs_line_num}")
+                    break
+            continue
+
+        # We're inside a dependency field - track braces
+        for char in text:
+            if char == "{":
+                brace_depth += 1
+            elif char == "}":
+                brace_depth -= 1
+                if brace_depth == 0:
+                    debug(f"  Leaving {current_field} block at line {abs_line_num}")
+                    current_field = None
+                    break
+
+        if current_field is None:
+            continue
+
+        # Look for dependency lines within this field
+        match = dep_pattern.match(text)
+        if match:
+            pkg_name = match.group(1)
+            version_spec = match.group(2)
+            # Only match if this package is actually in this field
+            if pkg_name in field_packages[current_field]:
+                results.append((abs_line_num, text, pkg_name, version_spec, current_field))
+                debug(f"  Found {pkg_name} ({current_field}) at line {abs_line_num}")
+
+    return results
+
+
+async def annotate_dependencies() -> bool:
+    """
+    Main logic: find package.json in scrollback, get installed versions, annotate.
+    """
+    debug("Connecting to iTerm2...")
+
+    # Pattern captures optional path prefix before package.json
+    cat_pattern = re.compile(r"cat\s+((\S*/)?)package\.json")
+
+    try:
+        connection = await iterm2.Connection.async_create()
+        app = await iterm2.async_get_app(connection)
+
+        session = app.current_terminal_window.current_tab.current_session
+        if not session:
+            debug("No active session found")
+            return False
+
+        debug(f"Got session: {session.session_id}")
+
+        # Small delay to ensure cat output is in buffer
+        await asyncio.sleep(0.1)
+
+        # Get line info
+        line_info = await session.async_get_line_info()
+        total_lines = line_info.scrollback_buffer_height + line_info.mutable_area_height
+        debug(
+            f"Line info: overflow={line_info.overflow}, "
+            f"scrollback={line_info.scrollback_buffer_height}, "
+            f"mutable={line_info.mutable_area_height}, "
+            f"total={total_lines}"
+        )
+
+        # Step 1: Search backwards from the end to find the `cat package.json` command
+        # Search back far enough to handle large package.json files + prompt overhead
+        search_for_cat = 500
+        search_start = max(line_info.overflow, line_info.overflow + total_lines - search_for_cat)
+        search_num = min(search_for_cat, total_lines)
+
+        debug(f"Searching for cat command in last {search_num} lines (starting at {search_start})")
+
+        search_contents = await session.async_get_contents(search_start, search_num)
+
+        cat_abs_line = -1
+        pkg_json_dir: str | None = None
+        for i in range(len(search_contents) - 1, -1, -1):
+            text = strip_ansi(search_contents[i].string)
+            match = cat_pattern.search(text)
+            if match:
+                cat_abs_line = search_start + i
+                # Extract directory path if present (e.g., "cat ./foo/package.json" -> "./foo/")
+                pkg_json_dir = match.group(1) if match.group(1) else None
+                debug(f"Found cat command at absolute line {cat_abs_line}: {text[:60]}")
+                debug(f"Package.json directory: {pkg_json_dir or '(current dir)'}")
+                break
+
+        if cat_abs_line == -1:
+            debug("Could not find 'cat package.json' in scrollback")
+            return False
+
+        # If no explicit path, try to get session's working directory
+        if not pkg_json_dir:
+            try:
+                pkg_json_dir = await session.async_get_variable("path")
+                debug(f"Got session cwd: {pkg_json_dir}")
+            except Exception as e:
+                debug(f"Could not get session cwd: {e}")
+                pkg_json_dir = None
+
+        # Step 2: Now read from the cat command forward to capture the JSON output
+        # Read up to 500 lines to handle large package.json files
+        json_read_lines = 500
+        json_start = cat_abs_line
+        json_num = min(json_read_lines, line_info.overflow + total_lines - cat_abs_line)
+
+        debug(f"Reading {json_num} lines starting at {json_start} to capture JSON")
+
+        contents = await session.async_get_contents(json_start, json_num)
+
+        # Convert to clean strings
+        lines: list[tuple[int, str]] = []
+        for i, line_content in enumerate(contents):
+            clean = strip_ansi(line_content.string)
+            lines.append((json_start + i, clean))
+
+        # The cat command is at index 0 in our lines list now
+        cat_line_idx = 0
+
+        # Parse JSON from lines after the cat command
+        json_lines = lines[cat_line_idx + 1:]
+        debug(f"Parsing JSON from {len(json_lines)} lines after cat command")
+        pkg_json, json_start_rel, json_end_rel = parse_package_json_from_lines(json_lines)
+
+        if pkg_json is None:
+            debug("Could not parse package.json from scrollback")
+            return False
+
+        # Adjust indices to be relative to the full lines list
+        json_start_idx = cat_line_idx + 1 + json_start_rel
+        json_end_idx = cat_line_idx + 1 + json_end_rel
+
+        # Find dependency field headers and individual dependency lines
+        field_headers = find_dep_field_headers(lines, pkg_json, json_start_idx, json_end_idx)
+        dep_lines = find_dependency_lines(lines, pkg_json, json_start_idx, json_end_idx)
+
+        if not dep_lines:
+            debug("No dependency lines found - nothing to check")
+            return True
+
+        # Get installed versions (run npm ls --json once, in the right directory!)
+        installed = get_installed_versions(pkg_json_dir)
+
+        # Track which fields have problems and which have been checked
+        fields_with_problems: set[str] = set()
+        fields_checked: set[str] = set()
+
+        # Annotate ONLY problematic dependencies:
+        # - Missing packages
+        # - Packages installed outside the specified semver range
+        # Skip non-semver specs (URLs, git refs, etc.) and satisfied deps
+        annotated_count = 0
+        skipped_non_semver = 0
+        skipped_satisfied = 0
+
+        for abs_line_num, line_text, pkg_name, version_spec, field_name in dep_lines:
+            fields_checked.add(field_name)
+
+            # Skip non-semver specs (URLs, git refs, file paths, etc.)
+            if not is_semver_range(version_spec):
+                debug(f"  Skipping {pkg_name}: non-semver spec '{version_spec}'")
+                skipped_non_semver += 1
+                continue
+
+            # Check if installed
+            if pkg_name not in installed:
+                annotation = "❌ not installed"
+                fields_with_problems.add(field_name)
+            else:
+                installed_version = installed[pkg_name]
+                # Check if installed version satisfies the spec
+                if version_satisfies(installed_version, version_spec):
+                    debug(f"  Skipping {pkg_name}: {installed_version} satisfies {version_spec}")
+                    skipped_satisfied += 1
+                    continue
+                else:
+                    annotation = f"⚠️ {installed_version} (expected {version_spec})"
+                    fields_with_problems.add(field_name)
+
+            # Find where the actual content starts (skip leading whitespace)
+            stripped = line_text.lstrip()
+            start_col = len(line_text) - len(stripped)
+            end_col = len(line_text)
+
+            coord_range = iterm2.CoordRange(
+                iterm2.Point(start_col, abs_line_num),
+                iterm2.Point(end_col, abs_line_num),
+            )
+
+            debug(f"Annotating line {abs_line_num} col {start_col}-{end_col}: {pkg_name} → {annotation}")
+            await session.async_add_annotation(coord_range, annotation)
+            annotated_count += 1
+
+        # Annotate field headers that have no problems with a green checkmark
+        for field_name in fields_checked:
+            if field_name in fields_with_problems:
+                continue
+            if field_name not in field_headers:
+                continue
+
+            header_line_num, header_text = field_headers[field_name]
+            stripped = header_text.lstrip()
+            start_col = len(header_text) - len(stripped)
+            end_col = len(header_text)
+
+            coord_range = iterm2.CoordRange(
+                iterm2.Point(start_col, header_line_num),
+                iterm2.Point(end_col, header_line_num),
+            )
+
+            debug(f"Annotating {field_name} header at line {header_line_num}: ✅ All packages installed to spec!")
+            await session.async_add_annotation(coord_range, "✅ All packages installed to spec!")
+
+        debug(f"Done: {annotated_count} problem annotations, {skipped_satisfied} satisfied, {skipped_non_semver} non-semver")
+        return True
+
+    except Exception as e:
+        debug(f"iTerm2 API error: {e}")
+        import traceback
+        debug(traceback.format_exc())
+        return False
+
+
+async def async_main() -> None:
+    """Main async entry point."""
+    success = await annotate_dependencies()
+    if not success:
+        debug("Failed to annotate dependencies")
+
+    debug("Work complete, forcing exit")
+    os._exit(0)
+
+
+def main() -> None:
+    global DEBUG
+
+    parser = argparse.ArgumentParser(
+        description="Annotate package.json dependencies with installed versions"
+    )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Print debug output to stderr",
+    )
+    args = parser.parse_args()
+    DEBUG = args.debug
+
+    debug("Starting package-json-annotator")
+
+    try:
+        asyncio.run(async_main())
+    except Exception as e:
+        debug(f"Fatal error: {e}")
+        os._exit(1)
+
+    # Should never reach here due to os._exit() in async_main
+    os._exit(0)
+
+
+if __name__ == "__main__":
+    main()
+
