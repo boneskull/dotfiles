@@ -34,7 +34,8 @@ _init_homebrew
 export GREP_OPTIONS="--color=auto"
 
 # Use vivid for LS_COLORS if installed
-(( $+commands[vivid] )) && export LS_COLORS="$(vivid generate lava)"
+(( $+commands[vivid] )) && export LS_COLORS="$(vivid generate retro-synth-matrix)"
+
 [[ -d "${HOMEBREW_PREFIX}/opt/ruby" ]] && {
   export PATH="${HOMEBREW_PREFIX}/opt/ruby/bin:${PATH}"
 }
