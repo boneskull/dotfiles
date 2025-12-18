@@ -16,14 +16,14 @@ script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
 
 function usage {
   cat <<EOF
-Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v] [-B <base>] [-C] <branch> <path>
+Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v] [-B <base>] [-C] [-d <dir>] <branch> [path]
 
 Create a new worktree with the specified branch name at the given path.
 
 Arguments:
 
 <branch>                      The branch to create or use
-<path>                        The directory for the worktree
+[path]                        The directory for the worktree (optional; auto-generated from branch if omitted)
 
 Options:
 
@@ -31,10 +31,13 @@ Options:
 -v, --verbose                 Print script debug info
 -B, --base                    Base branch for new worktree (default: origin/main)
 -C, --create-upstream         Create/set upstream branch on origin
+-d, --worktree-dir            Parent directory for worktrees (default: .worktrees)
 
 Example:
 
-  git create-worktree boneskull/my-feature .worktrees/my-feature
+  git create-worktree boneskull/my-feature
+  git create-worktree -d worktrees feat/gnarly-stuff
+  git create-worktree my-branch my-custom-path
 EOF
   exit
 }
@@ -71,6 +74,55 @@ function die {
   local code=${2-1} # default exit status 1
   msg "$msg"
   exit "$code"
+}
+
+# Sanitize a string for use as a filesystem path
+# Handles each path component separately, preserving:
+#   - Leading dots (for hidden dirs like .worktrees)
+#   - Slashes (path separators)
+#   - Parent dir references (../)
+# Each component is transliterated to ASCII, non-alphanumeric chars replaced
+# with hyphens, leading/trailing hyphens stripped, and lowercased.
+# Based on https://gist.github.com/oneohthree/f528c7ae1e701ad990e6
+function slugify {
+  local input="$1"
+  local result=""
+  local IFS='/'
+
+  # Reject malformed parent dir references like "..foo" (should be "../foo")
+  if [[ "$input" =~ \.\.[^/] ]]; then
+    die "Invalid path '$input': '..' looks like you screwed up the path"
+  fi
+
+  # Process each path component separately
+  read -ra components <<< "$input"
+  for component in "${components[@]}"; do
+    local prefix=""
+
+    # Preserve "." and ".." directory references as-is
+    if [[ "$component" == "." || "$component" == ".." ]]; then
+      : # nothing to do, keep component as-is
+    elif [[ "$component" == .* ]]; then
+      # Preserve leading dot for hidden directories
+      prefix="."
+      component="${component#.}"
+      # Slugify the rest
+      if [[ -n "$component" ]]; then
+        component="$(iconv -t ascii//TRANSLIT <<< "$component" | sed -E 's/[^a-zA-Z0-9]+/-/g; s/^-+|-+$//g' | tr '[:upper:]' '[:lower:]')"
+      fi
+    elif [[ -n "$component" ]]; then
+      # Slugify normal components
+      component="$(iconv -t ascii//TRANSLIT <<< "$component" | sed -E 's/[^a-zA-Z0-9]+/-/g; s/^-+|-+$//g' | tr '[:upper:]' '[:lower:]')"
+    fi
+
+    # Build result with slash separator
+    if [[ -n "$result" ]]; then
+      result="$result/"
+    fi
+    result="$result$prefix$component"
+  done
+
+  echo "$result"
 }
 
 function spinner {
@@ -114,6 +166,7 @@ function parse_params {
   # default values of variables set from params
   create_upstream=0
   base='origin/main'
+  worktree_dir='.worktrees'
 
   while :; do
     case "${1-}" in
@@ -125,19 +178,41 @@ function parse_params {
       base="${2-}"
       shift
       ;;
+    -d | --worktree-dir)
+      worktree_dir="${2-}"
+      shift
+      ;;
     -?*) die "Unknown option: $1" ;;
     *) break ;;
     esac
     shift
   done
 
-  args=("$@")
+  local args=("$@")
 
-  # require exactly 2 positional arguments: branch and path
-  [[ ${#args[@]} -ne 2 ]] && die "Usage: $(basename "${BASH_SOURCE[0]}") <branch> <path>"
+  # require at least 1 positional argument (branch), path is optional
+  [[ ${#args[@]} -lt 1 ]] && die "Usage: $(basename "${BASH_SOURCE[0]}") <branch> [path]"
+  [[ ${#args[@]} -gt 2 ]] && die "Usage: $(basename "${BASH_SOURCE[0]}") <branch> [path]"
 
   branch="${args[0]}"
-  worktree="${args[1]}"
+
+  if [[ ${#args[@]} -eq 2 ]]; then
+    # Path provided - sanitize the basename while preserving directory structure
+    local provided_path="${args[1]}"
+    local dir_part base_part
+    dir_part="$(dirname "$provided_path")"
+    base_part="$(basename "$provided_path")"
+    base_part="$(slugify "$base_part")"
+
+    if [[ "$dir_part" == "." ]]; then
+      worktree="$base_part"
+    else
+      worktree="$dir_part/$base_part"
+    fi
+  else
+    # No path provided - generate from branch name
+    worktree="$(slugify "$worktree_dir")/$(slugify "$branch")"
+  fi
 
   return 0
 }
