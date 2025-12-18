@@ -1,0 +1,191 @@
+# Retro Synth Matrix theme for vivid
+# Converted from VSCode theme by buckedunicorn
+# Cyberpunk aesthetic: matrix green, hot magenta, electric cyan
+
+colors:
+  # Core palette
+  matrix_green: '00ff41'
+  bright_green: '33ff66'
+  dark_green: '003300'
+
+  magenta: 'ff00ff'
+  hot_pink: 'ff33cc'
+  light_pink: 'ff66ff'
+
+  cyan: '00ffff'
+  teal: '33cccc'
+  dark_cyan: '00cccc'
+
+  electric_blue: '00aaff'
+  bright_blue: '3399ff'
+
+  orange: 'ff9933'
+  gold: 'ffcc00'
+  yellow: 'ffff00'
+
+  red: 'ff0066'
+  bright_red: 'ff3399'
+
+  gray: '808080'
+  dark_gray: '333333'
+  black: '000000'
+  white: 'ffffff'
+
+core:
+  regular_file:
+    foreground: matrix_green
+
+  reset_to_normal:
+    foreground: matrix_green
+
+  directory:
+    foreground: hot_pink
+    font-style: bold
+
+  executable_file:
+    foreground: bright_green
+    font-style: bold
+
+  symlink:
+    foreground: cyan
+    font-style: underline
+
+  broken_symlink:
+    foreground: black
+    background: red
+    font-style: bold
+
+  missing_symlink_target:
+    foreground: black
+    background: red
+    font-style: bold
+
+  setuid:
+    foreground: black
+    background: orange
+    font-style: bold
+
+  setgid:
+    foreground: black
+    background: gold
+    font-style: bold
+
+  file_with_capability:
+    foreground: black
+    background: electric_blue
+
+  multi_hard_link:
+    foreground: teal
+
+  fifo:
+    foreground: black
+    background: magenta
+    font-style: bold
+
+  socket:
+    foreground: black
+    background: magenta
+    font-style: bold
+
+  door:
+    foreground: black
+    background: magenta
+    font-style: bold
+
+  character_device:
+    foreground: black
+    background: gold
+    font-style: bold
+
+  block_device:
+    foreground: black
+    background: orange
+    font-style: bold
+
+  normal_text:
+    foreground: matrix_green
+
+  other_writable:
+    foreground: black
+    background: bright_green
+
+  sticky:
+    foreground: black
+    background: electric_blue
+
+  sticky_other_writable:
+    foreground: black
+    background: cyan
+
+text:
+  special:
+    foreground: gold
+    font-style: bold
+
+  todo:
+    foreground: yellow
+    font-style: bold
+
+  licenses:
+    foreground: gray
+
+  configuration:
+    foreground: gold
+
+  other:
+    foreground: teal
+
+markup:
+  foreground: cyan
+
+programming:
+  source:
+    foreground: matrix_green
+
+  tooling:
+    foreground: orange
+
+    continuous-integration:
+      foreground: gold
+
+    vcs:
+      foreground: hot_pink
+
+    build:
+      foreground: orange
+
+    packaging:
+      foreground: teal
+
+media:
+  image:
+    foreground: magenta
+
+  audio:
+    foreground: electric_blue
+
+  video:
+    foreground: electric_blue
+    font-style: bold
+
+  fonts:
+    foreground: light_pink
+
+  3d:
+    foreground: magenta
+
+office:
+  foreground: cyan
+  font-style: bold
+
+archives:
+  foreground: red
+  font-style: bold
+
+executable:
+  foreground: bright_green
+  font-style: bold
+
+unimportant:
+  foreground: dark_gray
+
