@@ -31,6 +31,7 @@ brew double-conversion
 brew dprint
 brew duti
 brew eza
+brew fastfetch
 brew fd
 brew findutils
 brew fizz
@@ -159,6 +160,7 @@ brew x265
 brew xorgproto
 brew xxhash
 brew xz
+brew yyjson
 brew z
 brew zenith
 brew zsh
