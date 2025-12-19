@@ -105,7 +105,7 @@ export const className = `
   .github-notifications {
     ${glowBox()}
     padding: 10px;
-    background-color: ${theme.black};
+    background-color: ${theme.background};
     display: flex;
     align-items: center;
     color: ${theme.green};

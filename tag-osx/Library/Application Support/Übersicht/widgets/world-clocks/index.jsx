@@ -60,7 +60,7 @@ export const className = `
   }
 
   .world-clocks {
-    background: ${theme.black};
+    background: ${theme.background};
     ${glowBox()}
     padding: 16px 24px;
     font-family: ${synth.font};

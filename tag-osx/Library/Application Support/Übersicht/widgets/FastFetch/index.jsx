@@ -88,6 +88,7 @@ export const render = ({ output }) => {
         whiteSpace: "pre",
         color: theme.green,
         padding: "15px",
+        background: theme.background,
         border: `${synth.borderWidth} solid ${theme.magenta}`,
         borderRadius: tahoe.borderRadius,
         boxShadow: `0 0 10px ${theme.magenta}44, 0 0 30px ${theme.magenta}22, inset 0 0 20px ${theme.black}`
