@@ -38,8 +38,8 @@
     "hideCursor": false,
     "separator": ": ",
     "color": {
-      "keys": "magenta",
-      "title": "bright_yellow",
+      "keys": "bright_yellow",
+      "title": "magenta",
       "output": "bright_green",
       "separator": "white"
     },

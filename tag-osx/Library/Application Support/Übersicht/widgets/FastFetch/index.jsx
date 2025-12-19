@@ -34,7 +34,7 @@ const logoColorStyles = {
 const dataColorStyles = {
   red: "color: #ff0066;",
   green: "color: #00ff41;",
-  yellow: "color: #ff9933;",  // Orange for data labels
+  yellow: "letter-spacing: 1px; font-weight: bold; color: #ff9933; text-transform: uppercase; text-shadow: 0 0 1px #ff993388, 0 0 2px #ff993344;",  // Orange for data labels
   olive: "color: #ff9933;",   // aha sometimes uses "olive" for yellow
   cyan: "color: #00ffff;",
   purple: "color: #ff00ff;",
@@ -86,6 +86,9 @@ export const render = ({ output }) => {
         whiteSpace: "pre",
         color: "#00ff41",
         padding: "15px",
+        border: "2px solid #ff00ff",
+        borderRadius: "30px",
+        boxShadow: "0 0 10px #ff00ff44, 0 0 30px #ff00ff22, inset 0 0 20px #000000"
       }}
     >
       {/* ASCII Logo - left column */}
@@ -95,7 +98,7 @@ export const render = ({ output }) => {
       />
       {/* System Info - right column */}
       <div
-        style={{ flexShrink: 0 }}
+        style={{ flexShrink: 0, lineHeight: 1.2 }}
         dangerouslySetInnerHTML={{ __html: dataPart }}
       />
     </div>
