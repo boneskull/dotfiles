@@ -1,0 +1,94 @@
+# Retro Synth Matrix Theme for btop
+# Converted from VSCode theme by buckedunicorn
+# Cyberpunk aesthetic: matrix green, hot magenta, electric cyan
+
+# Main background, empty for terminal default, need to be empty if you want transparent background
+theme[main_bg]="#000000"
+
+# Main text color
+theme[main_fg]="#00ff41"
+
+# Title color for boxes
+theme[title]="#ff00ff"
+
+# Highlight color for keyboard shortcuts
+theme[hi_fg]="#ff33cc"
+
+# Background color of selected item in processes box
+theme[selected_bg]="#330066"
+
+# Foreground color of selected item in processes box
+theme[selected_fg]="#00ff41"
+
+# Color of inactive/disabled text
+theme[inactive_fg]="#808080"
+
+# Color of text appearing on top of graphs, i.e uptime and current network graph scaling
+theme[graph_text]="#00ffff"
+
+# Background color of the percentage meters
+theme[meter_bg]="#1a1a1a"
+
+# Misc colors for processes box including mini cpu graphs, details memory graph and details status text
+theme[proc_misc]="#00aaff"
+
+# Cpu box outline color
+theme[cpu_box]="#ff00ff"
+
+# Memory/disks box outline color
+theme[mem_box]="#00ffff"
+
+# Net up/down box outline color
+theme[net_box]="#ff33cc"
+
+# Processes box outline color
+theme[proc_box]="#00ff41"
+
+# Box divider line and small boxes line color
+theme[div_line]="#333333"
+
+# Temperature graph colors (cool to hot: cyan -> magenta -> red)
+theme[temp_start]="#00ffff"
+theme[temp_mid]="#ff00ff"
+theme[temp_end]="#ff0066"
+
+# CPU graph colors (matrix green gradient with cyan/magenta accents)
+theme[cpu_start]="#00ff41"
+theme[cpu_mid]="#00ffff"
+theme[cpu_end]="#ff00ff"
+
+# Mem/Disk free meter (pink gradient)
+theme[free_start]="#ff66ff"
+theme[free_mid]="#ff33cc"
+theme[free_end]="#ff00ff"
+
+# Mem/Disk cached meter (cyan gradient)
+theme[cached_start]="#33ffff"
+theme[cached_mid]="#00ffff"
+theme[cached_end]="#00cccc"
+
+# Mem/Disk available meter (orange/gold gradient)
+theme[available_start]="#ffcc00"
+theme[available_mid]="#ff9933"
+theme[available_end]="#ff6600"
+
+# Mem/Disk used meter (matrix green gradient)
+theme[used_start]="#33ff66"
+theme[used_mid]="#00ff41"
+theme[used_end]="#00cc33"
+
+# Download graph colors (cyan -> green -> blue)
+theme[download_start]="#00ffff"
+theme[download_mid]="#00ff41"
+theme[download_end]="#00aaff"
+
+# Upload graph colors (magenta -> pink -> red)
+theme[upload_start]="#ff00ff"
+theme[upload_mid]="#ff33cc"
+theme[upload_end]="#ff0066"
+
+# Process box color gradient for threads, mem and cpu usage
+theme[process_start]="#00ff41"
+theme[process_mid]="#00aaff"
+theme[process_end]="#ff00ff"
+
