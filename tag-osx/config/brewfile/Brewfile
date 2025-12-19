@@ -3,6 +3,7 @@
 
 tap homebrew/core
 brew act
+brew aha
 brew antidote
 brew aom
 brew apr
@@ -217,6 +218,7 @@ cask signal
 cask slack
 cask steam
 cask the-unarchiver
+cask ubersicht
 cask visual-studio-code
 cask vivaldi
 cask wireshark
