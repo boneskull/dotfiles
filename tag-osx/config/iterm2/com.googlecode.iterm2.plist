@@ -17628,8 +17628,6 @@
 			<false/>
 			<key>Set Local Environment Vars</key>
 			<true/>
-			<key>Shortcut</key>
-			<string>B</string>
 			<key>Show Mark Indicators</key>
 			<false/>
 			<key>Silence Bell</key>
@@ -19196,7 +19194,7 @@
 			<key>Badge Right Margin</key>
 			<real>30</real>
 			<key>Badge Text</key>
-			<string>fury</string>
+			<string></string>
 			<key>Badge Top Margin</key>
 			<real>10</real>
 			<key>Blend</key>
@@ -19255,7 +19253,7 @@
 			<key>Columns</key>
 			<integer>80</integer>
 			<key>Command</key>
-			<string>/opt/homebrew/bin/zenith</string>
+			<string>/opt/homebrew/bin/btop</string>
 			<key>Cursor Boost</key>
 			<real>0.0</real>
 			<key>Cursor Color</key>
@@ -19705,7 +19703,7 @@
 			<key>Mouse Reporting</key>
 			<true/>
 			<key>Name</key>
-			<string>zenith</string>
+			<string>btop</string>
 			<key>Non Ascii Font</key>
 			<string>FiraCodeNFM-Reg 14</string>
 			<key>Non-ASCII Anti Aliased</key>
@@ -19814,7 +19812,7 @@
 			<key>Set Local Environment Vars</key>
 			<true/>
 			<key>Shortcut</key>
-			<string>Z</string>
+			<string>B</string>
 			<key>Show Mark Indicators</key>
 			<false/>
 			<key>Silence Bell</key>
