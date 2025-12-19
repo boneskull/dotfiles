@@ -14,6 +14,8 @@
  *    https://github.com/settings/tokens
  */
 
+import { theme, tahoe, synth, glowBox, iconGlow } from "../shared/theme.js";
+
 // Configuration
 const config = {
   // Your GitHub username
@@ -90,14 +92,6 @@ const iconMapping = [
   ["subscribed", Octicons.eye, "Watching", "https://github.com/notifications?query=is%3Aunread+reason%3Asubscribed"],
 ];
 
-// Retro Synthwave Matrix Theme Colors
-const theme = {
-  magenta: "#ff00ff",
-  green: "#00ff41",
-  orange: "#ff9933",
-  black: "#000",
-};
-
 // Styles
 export const className = `
   right: 10px;
@@ -109,13 +103,7 @@ export const className = `
   }
 
   .github-notifications {
-    border: 2px solid ${theme.magenta};
-    border-radius: 15px;
-    box-shadow:
-      0 0 10px ${theme.magenta}44,
-      0 0 30px ${theme.magenta}22,
-      inset 0 0 20px ${theme.black};
-
+    ${glowBox()}
     padding: 10px;
     background-color: ${theme.black};
     display: flex;
@@ -132,7 +120,7 @@ export const className = `
   .octicon svg {
     width: 100%;
     height: 100%;
-    filter: drop-shadow(0 0 4px ${theme.green}) drop-shadow(0 0 8px ${theme.green}66);
+    filter: ${iconGlow()};
   }
 
   .count-group {
@@ -151,10 +139,10 @@ export const className = `
 
   .count {
     font-size: 11px;
-    font-family: '3270 Nerd Font Mono', monospace;
+    font-family: ${synth.font};
     background-color: ${theme.orange};
     color: ${theme.black};
-    border-radius: 10px;
+    border-radius: ${tahoe.borderRadiusPill};
     padding: 2px 5px;
     position: absolute;
     top: -5px;

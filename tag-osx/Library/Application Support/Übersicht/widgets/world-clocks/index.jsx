@@ -7,6 +7,8 @@
  * Theme: Retro Synth Matrix
  */
 
+import { theme, tahoe, synth, glowBox, textGlow, labelGlow } from "../shared/theme.js";
+
 // ============================================================================
 // CONFIGURATION - Edit this to customize your timezones
 // ============================================================================
@@ -19,17 +21,6 @@ const config = {
     { zone: "America/New_York", label: "NEW YORK" },
     { zone: "Europe/Warsaw", label: "WARSAW" },
   ],
-};
-
-// ============================================================================
-// Theme Colors (Retro Synth Matrix)
-// ============================================================================
-const theme = {
-  black: "#000000",
-  cyan: "#00ffff",
-  magenta: "#ff00ff",
-  orange: "#ff9933",
-  green: "#00ff41",
 };
 
 /**
@@ -70,14 +61,9 @@ export const className = `
 
   .world-clocks {
     background: ${theme.black};
-    border: 2px solid ${theme.magenta};
-    border-radius: 30px;
+    ${glowBox()}
     padding: 16px 24px;
-    font-family: '3270 Nerd Font Mono', monospace;
-    box-shadow:
-      0 0 10px ${theme.magenta}44,
-      0 0 30px ${theme.magenta}22,
-      inset 0 0 20px ${theme.black};
+    font-family: ${synth.font};
   }
 
   .clock-row {
@@ -96,10 +82,7 @@ export const className = `
     font-weight: bold;
     color: ${theme.green};
     letter-spacing: 4px;
-    text-shadow:
-      0 0 1px ${theme.green}cc,
-      0 0 3px ${theme.green}66,
-      0 0 6px ${theme.magenta}33;
+    text-shadow: ${textGlow(theme.green)};
     min-width: 140px;
   }
 
@@ -120,9 +103,7 @@ export const className = `
     color: ${theme.orange};
     letter-spacing: 1px;
     text-transform: uppercase;
-    text-shadow:
-      0 0 1px ${theme.orange}88,
-      0 0 2px ${theme.orange}44;
+    text-shadow: ${labelGlow()};
   }
 
   .error-message {

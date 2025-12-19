@@ -1,3 +1,5 @@
+import { theme, tahoe, synth, glowBox, labelGlow } from "../shared/theme.js";
+
 // Two separate commands: one for logo only, one for data only
 export const command = `
   export PATH="/opt/homebrew/bin:$PATH"
@@ -19,27 +21,27 @@ export const className = `
 // Retro Synth Matrix inline styles for aha output
 // Logo colors - keep original yellow for Apple logo
 const logoColorStyles = {
-  red: "color: #ff0066;",
-  green: "color: #00ff41;",
-  yellow: "color: #ffcc00;",  // Keep yellow for logo
-  olive: "color: #ffcc00;",   // aha sometimes uses "olive" for yellow
-  cyan: "color: #00ffff;",
-  purple: "color: #ff00ff;",
-  blue: "color: #00aaff;",
-  white: "color: #ffffff;",
+  red: `color: ${theme.red};`,
+  green: `color: ${theme.green};`,
+  yellow: `color: ${theme.yellow};`,  // Keep yellow for logo
+  olive: `color: ${theme.yellow};`,   // aha sometimes uses "olive" for yellow
+  cyan: `color: ${theme.cyan};`,
+  purple: `color: ${theme.magenta};`,
+  blue: `color: ${theme.blue};`,
+  white: `color: ${theme.white};`,
   black: "color: #333333;",
 };
 
 // Data colors - orange instead of yellow for text labels
 const dataColorStyles = {
-  red: "color: #ff0066;",
-  green: "color: #00ff41;",
-  yellow: "letter-spacing: 1px; font-weight: bold; color: #ff9933; text-transform: uppercase; text-shadow: 0 0 1px #ff993388, 0 0 2px #ff993344;",  // Orange for data labels
-  olive: "color: #ff9933;",   // aha sometimes uses "olive" for yellow
-  cyan: "color: #00ffff;",
-  purple: "color: #ff00ff;",
-  blue: "color: #00aaff;",
-  white: "color: #ffffff;",
+  red: `color: ${theme.red};`,
+  green: `color: ${theme.green};`,
+  yellow: `letter-spacing: 1px; font-weight: bold; color: ${theme.orange}; text-transform: uppercase; text-shadow: ${labelGlow()};`,
+  olive: `color: ${theme.orange};`,   // aha sometimes uses "olive" for yellow
+  cyan: `color: ${theme.cyan};`,
+  purple: `color: ${theme.magenta};`,
+  blue: `color: ${theme.blue};`,
+  white: `color: ${theme.white};`,
   black: "color: #333333;",
 };
 
@@ -82,13 +84,13 @@ export const render = ({ output }) => {
         flexDirection: "row",
         alignItems: "flex-start",
         gap: "20px",
-        fontFamily: "'3270 Nerd Font Mono', monospace",
+        fontFamily: synth.font,
         whiteSpace: "pre",
-        color: "#00ff41",
+        color: theme.green,
         padding: "15px",
-        border: "2px solid #ff00ff",
-        borderRadius: "30px",
-        boxShadow: "0 0 10px #ff00ff44, 0 0 30px #ff00ff22, inset 0 0 20px #000000"
+        border: `${synth.borderWidth} solid ${theme.magenta}`,
+        borderRadius: tahoe.borderRadius,
+        boxShadow: `0 0 10px ${theme.magenta}44, 0 0 30px ${theme.magenta}22, inset 0 0 20px ${theme.black}`
       }}
     >
       {/* ASCII Logo - left column */}
