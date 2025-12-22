@@ -13395,15 +13395,15 @@
 			<key>Badge Color</key>
 			<dict>
 				<key>Alpha Component</key>
-				<real>0.5</real>
+				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.13960540294647217</real>
+				<real>0.96748238799999997</real>
 				<key>Color Space</key>
 				<string>P3</string>
 				<key>Green Component</key>
-				<real>0.25479039549827576</real>
+				<real>0.200260669</real>
 				<key>Red Component</key>
-				<real>0.92929404973983765</real>
+				<real>0.91748410459999996</real>
 			</dict>
 			<key>Badge Color (Dark)</key>
 			<dict>
