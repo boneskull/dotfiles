@@ -72,6 +72,7 @@ brew jasper
 brew jpeg-turbo
 brew jpeg-xl
 brew jq
+brew json-c
 brew krb5
 brew libavif
 brew libde265
@@ -100,6 +101,7 @@ brew libunistring
 brew libusb
 brew libuv
 brew libvmaf
+brew libwebsockets
 brew libx11
 brew libxau
 brew libxcb
@@ -150,6 +152,7 @@ brew terminal-notifier
 brew tidy-html5
 brew tmux
 brew tree
+brew ttyd
 brew unixodbc
 brew utf8proc
 brew uv
