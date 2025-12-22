@@ -3,7 +3,7 @@
 # Cyberpunk aesthetic: matrix green, hot magenta, electric cyan
 
 # Main background, empty for terminal default, need to be empty if you want transparent background
-theme[main_bg]="#000000"
+theme[main_bg]=""
 
 # Main text color
 theme[main_fg]="#00ff41"
