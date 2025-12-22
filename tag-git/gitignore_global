@@ -98,3 +98,4 @@ coverage/
 #*wallaby.js
 
 .claude-skills
+CLAUDE.local.*
