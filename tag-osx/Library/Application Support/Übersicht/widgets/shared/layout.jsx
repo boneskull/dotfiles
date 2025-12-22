@@ -15,25 +15,16 @@
 // ============================================================================
 
 /**
- * Minimum width to be considered an "ultrawide" monitor
- * 3440px ultrawide = show widgets, anything smaller = hide
+ * Minimum width of monitor to display widgets
  */
-const ULTRAWIDE_MIN_WIDTH = 3000;
-
-/**
- * Check if we're on the ultrawide monitor
- * @returns {boolean} True if screen width >= 3000px
- */
-export const isUltrawide = () => {
-  return typeof window !== 'undefined' && window.screen.width >= ULTRAWIDE_MIN_WIDTH;
-};
+const MIN_DISPLAY_WIDTH = 2336;
 
 /**
  * Check if widget should render on current screen
  * Returns false on smaller monitors to hide widgets
  * @returns {boolean} True if widget should render
  */
-export const shouldRender = () => isUltrawide();
+export const shouldRender = () => window.screen.width >= MIN_DISPLAY_WIDTH;
 
 // ============================================================================
 // Layout Constants
