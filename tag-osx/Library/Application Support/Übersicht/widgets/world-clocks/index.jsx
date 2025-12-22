@@ -7,7 +7,8 @@
  * Theme: Retro Synth Matrix
  */
 
-import { theme, tahoe, synth, glowBox, textGlow, labelGlow } from "../shared/theme.js";
+import { theme, tahoe, synth, glowBox, textGlow, labelGlow } from "../shared/theme.jsx";
+import { shouldRender, dockSlot, getLayout } from "../shared/layout.jsx";
 
 // ============================================================================
 // CONFIGURATION - Edit this to customize your timezones
@@ -52,8 +53,7 @@ export const command = "date +%s";
 
 // Widget positioning and base styles
 export const className = `
-  left: 10px;
-  bottom: 10px;
+  ${dockSlot(2)}
 
   * {
     box-sizing: border-box;
@@ -64,6 +64,10 @@ export const className = `
     ${glowBox()}
     padding: 16px 24px;
     font-family: ${synth.font};
+    width: ${getLayout().leftColumnWidth}px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
   }
 
   .clock-row {
@@ -115,6 +119,8 @@ export const className = `
 
 // Render function
 export const render = () => {
+  if (!shouldRender()) return null;
+
   return (
     <div className="world-clocks">
       {config.timezones.map((tz) => {

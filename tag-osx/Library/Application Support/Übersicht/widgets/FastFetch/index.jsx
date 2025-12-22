@@ -1,4 +1,5 @@
-import { theme, tahoe, synth, glowBox, labelGlow } from "../shared/theme.js";
+import { theme, tahoe, synth, glowBox, labelGlow } from "../shared/theme.jsx";
+import { shouldRender, dockSlot, getLayout } from "../shared/layout.jsx";
 
 // Two separate commands: one for logo only, one for data only
 export const command = `
@@ -12,9 +13,7 @@ export const command = `
 export const refreshFrequency = 10000; // Refresh every 10 seconds
 
 export const className = `
-  position: absolute;
-  top: 50px;
-  left: 10px;
+  ${dockSlot(0)}
   z-index: 10;
 `;
 
@@ -70,6 +69,7 @@ function applyTronStyles(html, colorStyles) {
 }
 
 export const render = ({ output }) => {
+  if (!shouldRender()) return null;
   if (!output) return <div>Loading...</div>;
 
   // Split the output into logo and data sections
@@ -91,7 +91,10 @@ export const render = ({ output }) => {
         background: theme.background,
         border: `${synth.borderWidth} solid ${theme.magenta}`,
         borderRadius: tahoe.borderRadius,
-        boxShadow: `0 0 10px ${theme.magenta}44, 0 0 30px ${theme.magenta}22, inset 0 0 20px ${theme.black}`
+        boxShadow: `0 0 10px ${theme.magenta}44, 0 0 30px ${theme.magenta}22, inset 0 0 20px ${theme.black}`,
+        width: getLayout().rightColumnWidth,
+        boxSizing: "border-box",
+        overflow: "hidden",
       }}
     >
       {/* ASCII Logo - left column */}

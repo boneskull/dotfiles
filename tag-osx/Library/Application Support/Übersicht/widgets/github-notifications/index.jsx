@@ -14,7 +14,8 @@
  *    https://github.com/settings/tokens
  */
 
-import { theme, tahoe, synth, glowBox, iconGlow } from "../shared/theme.js";
+import { theme, tahoe, synth, glowBox, iconGlow } from "../shared/theme.jsx";
+import { shouldRender, dockSlot, getLayout } from "../shared/layout.jsx";
 
 // Configuration
 const config = {
@@ -94,8 +95,7 @@ const iconMapping = [
 
 // Styles
 export const className = `
-  right: 10px;
-  bottom: 10px;
+  ${dockSlot(3)}
 
   a:link, a:visited, a:hover, a:active {
     color: ${theme.green};
@@ -108,7 +108,10 @@ export const className = `
     background-color: ${theme.background};
     display: flex;
     align-items: center;
+    justify-content: center;
     color: ${theme.green};
+    width: ${getLayout().leftColumnWidth}px;
+    box-sizing: border-box;
   }
 
   .octicon {
@@ -161,6 +164,8 @@ export const className = `
 `;
 
 export const render = ({ output }) => {
+  if (!shouldRender()) return null;
+
   if (!output) {
     return (
       <div className="github-notifications">
