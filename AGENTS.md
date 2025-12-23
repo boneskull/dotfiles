@@ -19,22 +19,22 @@ When `rcup` runs, it symlinks files from this repo into `$HOME`:
 
 ### Platform Configuration
 
-| Platform | Config File | Tags |
-|----------|-------------|------|
-| macOS | `osx.rcrc` | `app`, `osx`, `git` |
-| Linux | `linux.rcrc` | `app`, `linux`, `git` |
+| Platform | Config File  | Tags                  |
+| -------- | ------------ | --------------------- |
+| macOS    | `osx.rcrc`   | `app`, `osx`, `git`   |
+| Linux    | `linux.rcrc` | `app`, `linux`, `git` |
 
 ## Tag System
 
 The `tag-*` directories contain content that's symlinked based on the `TAGS` setting in `.rcrc`. Contents are treated as if they were in the repository root.
 
-| Tag | Purpose |
-|-----|---------|
-| `tag-app/` | Application configs (curl, wget, vim) |
-| `tag-git/` | Git configuration (shared across platforms) |
-| `tag-osx/` | macOS-specific (Homebrew, Kaleidoscope, Übersicht) |
-| `tag-linux/` | Linux/WSL2-specific |
-| `tag-hardware/` | Hardware-specific overrides (optional) |
+| Tag             | Purpose                                            |
+| --------------- | -------------------------------------------------- |
+| `tag-app/`      | Application configs (curl, wget, vim)              |
+| `tag-git/`      | Git configuration (shared across platforms)        |
+| `tag-osx/`      | macOS-specific (Homebrew, Kaleidoscope, Übersicht) |
+| `tag-linux/`    | Linux/WSL2-specific                                |
+| `tag-hardware/` | Hardware-specific overrides (optional)             |
 
 ### Example: How Tags Work
 
@@ -49,7 +49,7 @@ With `TAGS="app osx git"`:
 
 Uses Git's modular `[include]` feature for platform-specific configs that share a common base:
 
-```
+```text
 ~/.gitconfig          ← tag-{osx,linux}/gitconfig (platform-specific)
     └── [include]
         └── path = .base.gitconfig
@@ -78,14 +78,14 @@ Key plugins:
 
 ### Key Files
 
-| File | Purpose |
-|------|---------|
-| `zshrc` | Main shell config, sources other files |
-| `zshenv` | Environment setup (runs for all zsh instances) |
-| `exports.zsh` | Environment variables |
-| `aliases.zsh` | Command aliases |
-| `functions.zsh` | Sources files from `zshfunctions/` |
-| `zshfunctions/` | Individual function files |
+| File            | Purpose                                        |
+| --------------- | ---------------------------------------------- |
+| `zshrc`         | Main shell config, sources other files         |
+| `zshenv`        | Environment setup (runs for all zsh instances) |
+| `exports.zsh`   | Environment variables                          |
+| `aliases.zsh`   | Command aliases                                |
+| `functions.zsh` | Sources files from `zshfunctions/`             |
+| `zshfunctions/` | Individual function files                      |
 
 ## macOS Specifics
 
@@ -102,6 +102,7 @@ See [widgets/README.md](tag-osx/Library/Application%20Support/Übersicht/widgets
 ### Scripts
 
 macOS-specific scripts in `tag-osx/bin/`:
+
 - `upgrade-homebrew` - Homebrew upgrade with notifications
 - `init-osx` - Initial macOS setup
 - `imgls` - iTerm2 image display
@@ -140,5 +141,3 @@ Common scripts in `bin/` (shared across platforms):
 ├── tag-linux/             # Linux-specific
 └── tag-hardware/          # Hardware overrides (optional)
 ```
-
-
