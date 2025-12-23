@@ -3,6 +3,10 @@
     "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-5-20251101"
   },
   "model": "opus",
+  "statusLine": {
+    "type": "command",
+    "command": "claude-statusline"
+  },
   "enabledPlugins": {
     "superpowers@superpowers-marketplace": true,
     "elements-of-style@superpowers-marketplace": true,
@@ -10,7 +14,6 @@
     "claude-code-builder@claude-code-builder": false,
     "explanatory-output-style@claude-code-plugins": true,
     "essentials@nicknisi-claude-plugins": true,
-    "tools@boneskull-plugins": true,
     "git-commit-smart@claude-code-plugins-plus": true,
     "bupkis@boneskull-plugins": true,
     "github@boneskull-plugins": true,
@@ -26,11 +29,12 @@
     "zod@boneskull-plugins": true,
     "application-performance@claude-code-workflows": true,
     "skill-activation@boneskull-plugins": true,
-    "xstate@boneskull-plugins": true
+    "xstate@boneskull-plugins": true,
+    "context7@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true,
+    "tools@boneskull-plugins": true
   },
-  "alwaysThinkingEnabled": true,
-  "statusLine": {
-    "type": "command",
-    "command": "claude-statusline"
-  }
+  "alwaysThinkingEnabled": true
 }
