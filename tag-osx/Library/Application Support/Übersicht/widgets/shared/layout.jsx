@@ -58,7 +58,7 @@ const slots = {
   // Weather - top LEFT corner
   1: { top: layout.padding, left: layout.padding },
   // World Clocks - LEFT column, below Weather (estimated Weather height ~680px)
-  2: { top: 730, left: layout.padding },
+  2: { top: 920, left: layout.padding },
   // GitHub Notifications - LEFT column, bottom
   3: { bottom: layout.padding, left: layout.padding },
   // btop - RIGHT column, below FastFetch

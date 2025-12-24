@@ -6,7 +6,7 @@
  * Font: 3270 Nerd Font Mono
  */
 
-import { theme, tahoe, synth, glowBox, textGlow, labelGlow } from "../shared/theme.jsx";
+import { theme, synth, glowBox, textGlow, labelGlow } from "../shared/theme.jsx";
 import { shouldRender, dockSlot, getLayout } from "../shared/layout.jsx";
 
 // ============================================================================
@@ -364,7 +364,7 @@ export const className = `
   }
 
   .alert-event {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     color: ${theme.red};
     text-transform: uppercase;
@@ -373,7 +373,7 @@ export const className = `
   }
 
   .alert-severity {
-    font-size: 12px;
+    font-size: 16px;
     color: ${theme.orange};
     background: ${theme.orange}33;
     padding: 2px 6px;
@@ -382,13 +382,13 @@ export const className = `
   }
 
   .alert-headline {
-    font-size: 14px;
+    font-size: 16px;
     color: ${theme.yellow};
     line-height: 1.3;
   }
 
   .alert-expires {
-    font-size: 12px;
+    font-size: 14px;
     color: ${theme.cyan};
     margin-top: 6px;
     opacity: 0.8;
@@ -424,6 +424,27 @@ export const className = `
     text-shadow: ${textGlow(theme.cyan, theme.blue)};
   }
 `;
+
+/**
+ * Get numeric severity rank (higher = more severe)
+ * NWS severity levels: Extreme, Severe, Moderate, Minor, Unknown
+ * @param {string} severity - Alert severity from NWS
+ * @returns {number} Severity rank (5 = most severe, 1 = least)
+ */
+const getSeverityRank = (severity) => {
+  switch (severity?.toLowerCase()) {
+    case "extreme":
+      return 5;
+    case "severe":
+      return 4;
+    case "moderate":
+      return 3;
+    case "minor":
+      return 2;
+    default:
+      return 1;
+  }
+};
 
 /**
  * Get alert severity class
@@ -519,8 +540,10 @@ export const render = ({ output }) => {
   const current = weatherData.current;
   const daily = weatherData.daily;
 
-  // Extract active alerts (if any)
-  const alerts = alertsData?.features?.slice(0, 3) || []; // Limit to 3 alerts
+  // Extract most severe active alert (if any)
+  const alerts = alertsData?.features
+    ?.sort((a, b) => getSeverityRank(b.properties?.severity) - getSeverityRank(a.properties?.severity))
+    ?.slice(0, 1) || [];
 
   if (!current) {
     return (
