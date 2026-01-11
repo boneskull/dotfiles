@@ -36,6 +36,11 @@ macOS or Debian-based Linux distro
 
 Put sensitive env vars in `${HOME}/.extras.zsh`.
 
+## Other Stuff
+
+- Random stuff in [`misc/`](misc/)
+- `cspell.json` becomes the user-level [CSpell](https://cspell.org/) config which is _also_ used in this repo. Whether this is a good idea is debatable.
+
 ## Prior Art
 
 Based on [Mathias's dotfiles](https://github.com/mathiasbynens/dotfiles), but subsequently modified beyond recognition.
