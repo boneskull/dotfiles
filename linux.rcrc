@@ -1,3 +1,3 @@
-EXCLUDES="LICENSE *:README.md .editorconfig .gitignore *.rcrc iterm .vscode AGENTS.md"
+EXCLUDES="LICENSE *:README.md .editorconfig .gitignore *.rcrc iterm .vscode AGENTS.md misc"
 UNDOTTED="bin"
 TAGS="app linux git"
