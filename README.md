@@ -34,7 +34,7 @@ macOS or Debian-based Linux distro
 
 ## Extras
 
-Put sensitive env vars in `${HOME}/.extras.zsh`.
+Put sensitive env vars in `${HOME}/.extra.zsh`.
 
 ## Other Stuff
 
