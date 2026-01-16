@@ -15,26 +15,44 @@
     "explanatory-output-style@claude-code-plugins": true,
     "essentials@nicknisi-claude-plugins": true,
     "git-commit-smart@claude-code-plugins-plus": true,
-    "bupkis@boneskull-plugins": true,
-    "github@boneskull-plugins": true,
     "spec-driven@nicknisi-claude-plugins": false,
     "formatter@claude-code-plugins-plus": false,
     "superpowers-developing-for-claude-code@superpowers-marketplace": true,
     "feature-dev@claude-code-plugins": true,
-    "update-claudemd@awesome-claude-code-plugins": true,
-    "tool-evaluator@awesome-claude-code-plugins": true,
-    "ui-designer@awesome-claude-code-plugins": true,
     "developer-experience@nicknisi-claude-plugins": true,
-    "refactor@boneskull-plugins": true,
-    "zod@boneskull-plugins": true,
     "application-performance@claude-code-workflows": true,
-    "skill-activation@boneskull-plugins": true,
-    "xstate@boneskull-plugins": true,
     "context7@claude-plugins-official": true,
-    "feature-dev@claude-plugins-official": true,
     "code-review@claude-plugins-official": true,
     "commit-commands@claude-plugins-official": true,
-    "tools@boneskull-plugins": true
+    "zod@boneskull-plugins": true,
+    "developer-experience@nicknisi": true,
+    "content@nicknisi": true,
+    "essentials@nicknisi": true,
+    "tools@boneskull-plugins": true,
+    "bupkis@boneskull-plugins": true,
+    "github@boneskull-plugins": true,
+    "refactor@boneskull-plugins": false,
+    "skill-activation@boneskull-plugins": true,
+    "claude-watcher@boneskull-plugins": true,
+    "github@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "plugin-dev@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "ralph-wiggum@claude-code-plugins": true,
+    "feature-dev@claude-plugins-official": true,
+    "ralph-loop@claude-plugins-official": true
   },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/agents-md.sh"
+          }
+        ]
+      }
+    ]
+  }
 }
