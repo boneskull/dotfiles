@@ -2,13 +2,7 @@
 export PATH="${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:${PATH}"
 
 # Go setup
-if [[ -d ${HOME}/.go ]]; then
-  export GOPATH="${HOME}/.go"
-  export PATH="${GOPATH}/bin:${PATH}"
-elif [[ -d ${HOME}/go ]]; then
-  export GOPATH="${HOME}/go"
-  export PATH="${GOPATH}/bin:${PATH}"
-fi
+(( $+commands[go] )) && export PATH="$(go env GOPATH)/bin:${PATH}"
 
 # Source highlighter for less
 (( $+commands[src-hilite-lesspipe.sh] )) && {
