@@ -3,6 +3,18 @@
     "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-5-20251101"
   },
   "model": "opus",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/agents-md.sh"
+          }
+        ]
+      }
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "claude-statusline"
@@ -34,25 +46,13 @@
     "refactor@boneskull-plugins": false,
     "skill-activation@boneskull-plugins": true,
     "claude-watcher@boneskull-plugins": true,
-    "github@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
     "plugin-dev@claude-plugins-official": true,
     "code-simplifier@claude-plugins-official": true,
-    "ralph-wiggum@claude-code-plugins": true,
     "feature-dev@claude-plugins-official": true,
-    "ralph-loop@claude-plugins-official": true
+    "ralph-loop@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
-  "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/agents-md.sh"
-          }
-        ]
-      }
-    ]
-  }
+  "includeCoAuthoredBy": false
 }
