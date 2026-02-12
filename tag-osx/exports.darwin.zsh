@@ -39,3 +39,6 @@ export GREP_OPTIONS="--color=auto"
 [[ -d "${HOMEBREW_PREFIX}/opt/ruby" ]] && {
   export PATH="${HOMEBREW_PREFIX}/opt/ruby/bin:${PATH}"
 }
+
+# Go setup
+(( $+commands[go] )) && export PATH="$(go env GOPATH)/bin:${PATH}"

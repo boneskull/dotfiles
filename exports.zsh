@@ -1,9 +1,6 @@
 # Core PATH setup
 export PATH="${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:${PATH}"
 
-# Go setup
-(( $+commands[go] )) && export PATH="$(go env GOPATH)/bin:${PATH}"
-
 # Source highlighter for less
 (( $+commands[src-hilite-lesspipe.sh] )) && {
   export LESSOPEN="| /usr/bin/env src-hilite-lesspipe.sh %s 2>/dev/null"
