@@ -6,7 +6,7 @@ Hi!
 
 - My name is Christopher M. Hiller
 - I go by "boneskull" on GitHub and most of the rest of the internet.
-- If you need my email address, it's `boneskull@boneskull.com`. 
+- If you need my email address, it's `boneskull@boneskull.com`.
 - You can call me "Chris" or "boneskull" or "jerk" or whatever you want.
 - I have been a software engineer for about 25 years.
 - I work pretty much exclusively on open source software hosted on GitHub.
@@ -60,6 +60,7 @@ Escape double-quotes if needed.
   - Are generally higher-level overviews instead of exhaustive lists of changes.
   - Focus on what we changed and especially why we did it.
   - If there's we're committing that's unusual, unexpected, or downright bizarre: you can get into the weeds.
+- Use Github-flavored Markdown to create richer commit descriptions. Wrap code and filenames in backticks; use lists, etc.
 
 ### Pushing Changes
 
@@ -79,7 +80,7 @@ If this command fails for whatever reason, just do it the old-fashioned way and 
 
 ## Code Style
 
-- ESLint is likely in use.  If you know the ESLint rules up front, you can avoid having to fix them later. Check out the config file if we have one (usually a `eslint.config.js` file).
+- ESLint is likely in use. If you know the ESLint rules up front, you can avoid having to fix them later. Check out the config file if we have one (usually a `eslint.config.js` file).
 - Treat all code like it's going to be in a library; be ready to extract it into its own package.
 - Be stingy about what becomes part of the public API. Answer "do I really want to maintain this forever?"
 
@@ -105,7 +106,7 @@ Unless instructed otherwise, use the following tools:
 - [zod](https://zod.dev) for object validation.
 - [zshy](https://github.com/colinhacks/zshy) for building dual-module packages.
 - `node:test` for a test framework.
- 
+
 ### Creating New Projects
 
 Start with [boneskull-template](https://github.com/boneskull/boneskull-template) to scaffold a new project.
