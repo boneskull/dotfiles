@@ -29,7 +29,7 @@ Options:
 
 -h, --help                    Print this help and exit
 -v, --verbose                 Print script debug info
--B, --base                    Base branch for new worktree (default: origin/main)
+-B, --base                    Base branch for new worktree (default: HEAD)
 -C, --create-upstream         Create/set upstream branch on origin
 -d, --worktree-dir            Parent directory for worktrees (default: .worktrees)
 
@@ -152,9 +152,7 @@ function run_command {
   shift
   echo >&2 -ne "$message "
   "$@" &>/dev/null &
-  spinner $!
-  # shellcheck disable=SC2181
-  if [ $? -eq 0 ]; then
+  if spinner $!; then
     echo >&2 -e " ${GREEN}Done.${NOFORMAT}"
   else
     echo >&2 -e " ${RED}FAILED.${NOFORMAT}"
@@ -165,7 +163,7 @@ function run_command {
 function parse_params {
   # default values of variables set from params
   create_upstream=0
-  base='origin/main'
+  base='HEAD'
   worktree_dir='.worktrees'
 
   while :; do
@@ -247,9 +245,16 @@ msg "${GRAY}Moving into worktree: $worktree${NOFORMAT}"
 cd "$worktree"
 update_remote "$branch"
 
-# Only run npm install if package.json exists and no yarn/pnpm lockfiles are present
-if [[ -f package.json ]] && [[ ! -f yarn.lock ]] && [[ ! -f pnpm-lock.yaml ]]; then
-  run_command "Installing dependencies" npm --no-progress --silent install
+if [[ -f package.json ]]; then
+  if [[ -f pnpm-lock.yaml ]]; then
+    run_command "Installing dependencies (pnpm)" pnpm install --silent
+  elif [[ -f yarn.lock ]]; then
+    run_command "Installing dependencies (yarn)" yarn install --silent
+  elif [[ -f bun.lockb ]] || [[ -f bun.lock ]]; then
+    run_command "Installing dependencies (bun)" bun install
+  else
+    run_command "Installing dependencies (npm)" npm install --no-progress --silent
+  fi
 fi
 
 msg "${GREEN}Success.${NOFORMAT}"
