@@ -1,0 +1,140 @@
+.Dd April 7, 2026
+.Dt GIT-CREATE-WORKTREE 1
+.Os
+.Sh NAME
+.Nm git-create-worktree
+.Nd create a Git worktree with interactive or CLI flow
+.Sh SYNOPSIS
+.Nm
+.Op Fl h
+.Op Fl v
+.Op Fl B Ar base
+.Op Fl C
+.Op Fl d Ar dir
+.Op Sy \-\-no-color
+.Op Ar branch
+.Op Ar path
+.Sh DESCRIPTION
+.Nm
+runs
+.Xr git-worktree 1
+to add a worktree for
+.Ar branch .
+If the branch already exists locally, it is checked out; otherwise a new branch is created from
+.Fl B
+(or
+.Sy HEAD
+in non-interactive mode).
+.Pp
+With no
+.Ar branch
+and a TTY, the script prompts for branch name, base ref, worktree path, and whether to set upstream on
+.Sy origin .
+Without a TTY, a branch is required.
+.Pp
+The script
+.Xr cd 1
+into the new worktree before installing dependencies; that only affects the script process, not your interactive shell when you run
+.Nm
+from the terminal.
+If
+.Pa package.json
+exists, dependencies are installed using
+.Xr pnpm 1 ,
+.Xr yarn 1 ,
+.Xr bun 1 ,
+or
+.Xr npm 1
+based on lockfiles.
+.Pp
+Output and prompts use
+.Lk https://github.com/charmbracelet/gum charmbracelet/gum .
+.Sh OPTIONS
+.Bl -tag -width Ds
+.It Fl h , Sy \-\-help
+Print usage and exit.
+.It Fl v , Sy \-\-verbose
+Enable shell trace
+.Pq Xr bash 1 Ic set Fl x .
+.It Fl B Ar base , Sy \-\-base Ar base
+Ref to use when creating a new branch.
+Default is
+.Sy HEAD ;
+in interactive mode, the default base shown is the current branch when that would otherwise be
+.Sy HEAD .
+.It Fl C , Sy \-\-create-upstream
+After the worktree exists, create the branch on
+.Sy origin
+if missing, or set upstream to
+.Sy origin/ Ns Ar branch .
+.It Fl d Ar dir , Sy \-\-worktree-dir Ar dir
+Parent directory name used when deriving the default worktree path
+.Po default
+.Pa .worktrees
+.Pc .
+Path components are passed through internal slugification (see
+.Sx PATH SLUGIFICATION ) .
+.It Sy \-\-no-color
+Set
+.Ev NO_COLOR
+to disable color in
+.Nm gum .
+.It Ar branch
+Branch to create or check out.
+.It Ar path
+Filesystem path for the worktree.
+If omitted, the default path is the parent from
+.Fl d ,
+a path separator, and a slug derived from
+.Ar branch .
+If
+.Ar path
+is given, the basename is slugified and combined with the dirname as provided.
+.El
+.Sh ENVIRONMENT
+.Bl -tag -width NO_COLOR
+.It Ev NO_COLOR
+When non-empty (including via
+.Sy \-\-no-color ) ,
+disables color in gum output.
+.El
+.Sh PATH SLUGIFICATION
+Branch and path components are transliterated to ASCII, non-alphanumeric runs become hyphens, and names are lowercased.
+Leading dots on components are preserved
+.Pq e.g. .Pa .worktrees .
+.Sy \&.
+and
+.Sy ..
+components are kept for path structure.
+Invalid patterns involving
+.Sy ..
+are rejected.
+.Sh EXIT STATUS
+The utility exits 0 on success, and
+.Ql >0
+if
+.Nm gum
+is missing, an unknown option is given, too many arguments are passed, stdin is non-TTY with no branch, slugification fails, or a git or install command fails.
+.Sh EXAMPLES
+.Bl -tag -width Ds
+.It Li git\ create-worktree
+Interactive prompts
+.Pq TTY required .
+.It Li git\ create-worktree boneskull/my-feature
+New or existing branch; default path under
+.Pa .worktrees/ .
+.It Li git\ create-worktree Fl d Ar worktrees Li feat/gnarly-stuff
+Use
+.Pa worktrees/
+as the parent for the default path.
+.It Li git\ create-worktree Li my-branch Li my-custom-path
+Explicit worktree path; basename is slugified.
+.El
+.Sh SEE ALSO
+.Xr git 1 ,
+.Xr git-worktree 1 ,
+.Xr gum 1
+.Sh AUTHORS
+.An Christopher M. Hiller Aq Mt boneskull@boneskull.com .
+.Pp
+Originally derived from Nick Nisi's dotfiles; adapted for gum and local conventions.

@@ -1,6 +1,15 @@
 # Core PATH setup
 export PATH="${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:${PATH}"
 
+# Local man pages: repo man/* → ~/.man/ via rcm (e.g. man git-create-worktree)
+if [[ -d "${HOME}/.man" ]]; then
+  if [[ -z "${MANPATH-}" ]]; then
+    export MANPATH="${HOME}/.man:$(manpath 2>/dev/null || echo /usr/share/man)"
+  else
+    export MANPATH="${HOME}/.man:${MANPATH}"
+  fi
+fi
+
 # Source highlighter for less
 (( $+commands[src-hilite-lesspipe.sh] )) && {
   export LESSOPEN="| /usr/bin/env src-hilite-lesspipe.sh %s 2>/dev/null"

@@ -1,40 +1,41 @@
 #!/usr/bin/env bash
 
 # modified from https://github.com/nicknisi/dotfiles/blob/e15dc3c0a0fa6e137dee615eb7a5e224bf6d2355/bin/git-create-worktree
-
-# This script should help facilitate setting up a new worktree, including:
-
-# - creating a new worktree
-# - installing dependencies
-# - creating a new branch
+# glamorized with https://github.com/charmbracelet/gum
 
 set -Eeuo pipefail
 trap cleanup SIGINT SIGTERM ERR EXIT
 
-# shellcheck disable=SC2034
-script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
+if ! command -v gum &>/dev/null; then
+  echo >&2 "gum is not installed."
+  echo >&2 "See https://github.com/charmbracelet/gum#installation"
+  exit 1
+fi
 
 function usage {
   cat <<EOF
-Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v] [-B <base>] [-C] [-d <dir>] <branch> [path]
+Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v] [-B <base>] [-C] [-d <dir>] [<branch>] [path]
 
 Create a new worktree with the specified branch name at the given path.
+Run without arguments for interactive mode (requires a TTY).
 
 Arguments:
 
-<branch>                      The branch to create or use
-[path]                        The directory for the worktree (optional; auto-generated from branch if omitted)
+  <branch>                    The branch to create or use
+  [path]                      The directory for the worktree (optional; auto-generated from branch if omitted)
 
 Options:
 
--h, --help                    Print this help and exit
--v, --verbose                 Print script debug info
--B, --base                    Base branch for new worktree (default: HEAD)
--C, --create-upstream         Create/set upstream branch on origin
--d, --worktree-dir            Parent directory for worktrees (default: .worktrees)
+  -h, --help                  Print this help and exit
+  -v, --verbose               Print script debug info
+  -B, --base <ref>            Base branch for new worktree (default: HEAD; current branch in interactive mode)
+  -C, --create-upstream       Create/set upstream branch on origin
+  -d, --worktree-dir <dir>    Parent directory for worktrees (default: .worktrees)
+  --no-color                  Disable color output
 
 Example:
 
+  git create-worktree                            # interactive mode
   git create-worktree boneskull/my-feature
   git create-worktree -d worktrees feat/gnarly-stuff
   git create-worktree my-branch my-custom-path
@@ -44,39 +45,14 @@ EOF
 
 function cleanup {
   trap - SIGINT SIGTERM ERR EXIT
-  tput cnorm 2>/dev/null || true # enable cursor
-}
-
-function setup_colors {
-  if [[ -t 2 ]] && [[ -z "${NO_COLOR-}" ]] && [[ "${TERM-}" != "dumb" ]]; then
-    # shellcheck disable=SC2034
-    NOFORMAT='\033[0m' GRAY='\033[0;90m' RED='\033[0;31m' GREEN='\033[0;32m' ORANGE='\033[0;33m' BLUE='\033[0;34m' PURPLE='\033[0;35m' CYAN='\033[0;36m' YELLOW='\033[1;33m'
-  else
-    # shellcheck disable=SC2034
-    NOFORMAT='' GRAY='' RED='' GREEN='' ORANGE='' BLUE='' PURPLE='' CYAN='' YELLOW=''
-  fi
-}
-
-function msg {
-  echo >&2 -e "${1-}"
-}
-
-function log {
-   echo >&2 -ne "${1-}"
-}
-
-function info {
-  msg "${GRAY}[INFO]${NOFORMAT} ${1-}"
 }
 
 function die {
-  local msg=$1
-  local code=${2-1} # default exit status 1
-  msg "$msg"
-  exit "$code"
+  gum log --level fatal "$1"
+  exit "${2-1}"
 }
 
-# Sanitize a string for use as a filesystem path
+# Sanitize a string for use as a filesystem path.
 # Handles each path component separately, preserving:
 #   - Leading dots (for hidden dirs like .worktrees)
 #   - Slashes (path separators)
@@ -89,33 +65,26 @@ function slugify {
   local result=""
   local IFS='/'
 
-  # Reject malformed parent dir references like "..foo" (should be "../foo")
   if [[ "$input" =~ \.\.[^/] ]]; then
     die "Invalid path '$input': '..' looks like you screwed up the path"
   fi
 
-  # Process each path component separately
   read -ra components <<< "$input"
   for component in "${components[@]}"; do
     local prefix=""
 
-    # Preserve "." and ".." directory references as-is
     if [[ "$component" == "." || "$component" == ".." ]]; then
-      : # nothing to do, keep component as-is
+      :
     elif [[ "$component" == .* ]]; then
-      # Preserve leading dot for hidden directories
       prefix="."
       component="${component#.}"
-      # Slugify the rest
       if [[ -n "$component" ]]; then
         component="$(iconv -t ascii//TRANSLIT <<< "$component" | sed -E 's/[^a-zA-Z0-9]+/-/g; s/^-+|-+$//g' | tr '[:upper:]' '[:lower:]')"
       fi
     elif [[ -n "$component" ]]; then
-      # Slugify normal components
       component="$(iconv -t ascii//TRANSLIT <<< "$component" | sed -E 's/[^a-zA-Z0-9]+/-/g; s/^-+|-+$//g' | tr '[:upper:]' '[:lower:]')"
     fi
 
-    # Build result with slash separator
     if [[ -n "$result" ]]; then
       result="$result/"
     fi
@@ -125,52 +94,49 @@ function slugify {
   echo "$result"
 }
 
-function spinner {
-  # make sure we use non-unicode character type locale
-  # (that way it works for any locale as long as the font supports the characters)
-  local LC_CTYPE=C
-  local pid=$1 # Process Id of the previous running command
-  local spin='⣾⣽⣻⢿⡿⣟⣯⣷'
-  local charwidth=3
-
-  local i=0
-  tput civis 2>/dev/null || true # cursor invisible
-  while kill -0 "$pid" 2>/dev/null; do
-    local i=$(((i + charwidth) % ${#spin}))
-    printf >&2 "%s" "${spin:$i:$charwidth}"
-
-    printf >&2 "\b"
-    sleep .1
-  done
-  tput cnorm 2>/dev/null || true
-  wait "$pid" # capture exit code
-  return $?
-}
-
 function run_command {
   local message=$1
   shift
-  echo >&2 -ne "$message "
-  "$@" &>/dev/null &
-  if spinner $!; then
-    echo >&2 -e " ${GREEN}Done.${NOFORMAT}"
-  else
-    echo >&2 -e " ${RED}FAILED.${NOFORMAT}"
+  if ! gum spin --spinner dot --title "$message" -- "$@"; then
+    gum log --level error "$message"
     exit 1
+  fi
+  gum log --level info "$message"
+}
+
+function interactive_prompts {
+  branch=$(gum input --placeholder "e.g., feat/my-feature" --header "Branch name")
+  [[ -z "$branch" ]] && die "Branch name is required"
+
+  # In interactive mode, default to current branch name instead of "HEAD"
+  if [[ "$base" == "HEAD" ]]; then
+    base=$(git branch --show-current 2>/dev/null || echo "HEAD")
+  fi
+  base=$(gum input --value "$base" --placeholder "Base ref" --header "Base branch or ref")
+  [[ -z "$base" ]] && base="HEAD"
+
+  local default_path
+  default_path="$(slugify "$worktree_dir")/$(slugify "$branch")"
+  worktree=$(gum input --value "$default_path" --placeholder "Path" --header "Worktree path")
+  [[ -z "$worktree" ]] && worktree="$default_path"
+
+  if gum confirm "Create/set upstream branch on origin?"; then
+    create_upstream=1
   fi
 }
 
 function parse_params {
-  # default values of variables set from params
   create_upstream=0
   base='HEAD'
   worktree_dir='.worktrees'
+  branch=''
+  worktree=''
 
   while :; do
     case "${1-}" in
     -h | --help) usage ;;
     -v | --verbose) set -x ;;
-    --no-color) NO_COLOR=1 ;;
+    --no-color) export NO_COLOR=1 ;;
     -C | --create-upstream) create_upstream=1 ;;
     -B | --base)
       base="${2-}"
@@ -187,61 +153,63 @@ function parse_params {
   done
 
   local args=("$@")
+  [[ ${#args[@]} -gt 2 ]] && die "Too many arguments. Run with -h for usage."
 
-  # require at least 1 positional argument (branch), path is optional
-  [[ ${#args[@]} -lt 1 ]] && die "Usage: $(basename "${BASH_SOURCE[0]}") <branch> [path]"
-  [[ ${#args[@]} -gt 2 ]] && die "Usage: $(basename "${BASH_SOURCE[0]}") <branch> [path]"
+  if [[ ${#args[@]} -ge 1 ]]; then
+    branch="${args[0]}"
 
-  branch="${args[0]}"
+    if [[ ${#args[@]} -eq 2 ]]; then
+      local provided_path="${args[1]}"
+      local dir_part base_part
+      dir_part="$(dirname "$provided_path")"
+      base_part="$(basename "$provided_path")"
+      base_part="$(slugify "$base_part")"
 
-  if [[ ${#args[@]} -eq 2 ]]; then
-    # Path provided - sanitize the basename while preserving directory structure
-    local provided_path="${args[1]}"
-    local dir_part base_part
-    dir_part="$(dirname "$provided_path")"
-    base_part="$(basename "$provided_path")"
-    base_part="$(slugify "$base_part")"
-
-    if [[ "$dir_part" == "." ]]; then
-      worktree="$base_part"
-    else
-      worktree="$dir_part/$base_part"
+      if [[ "$dir_part" == "." ]]; then
+        worktree="$base_part"
+      else
+        worktree="$dir_part/$base_part"
+      fi
     fi
-  else
-    # No path provided - generate from branch name
-    worktree="$(slugify "$worktree_dir")/$(slugify "$branch")"
   fi
 
   return 0
 }
 
-parse_params "$@"
-setup_colors
-
 function update_remote {
   local branch="$1"
-
-  # do nothing if create_upstream is disabled
   [ $create_upstream -eq 0 ] && return 0
 
   if [[ -z "$(git ls-remote --heads origin "$branch")" ]]; then
-    # create remote branch
-    msg "${GRAY}Branch '$branch' does not exist on remote. Creating."
-    run_command "Creating remote branch ${branch}..." git push -u origin "$branch"
+    gum log --level info "Branch '$branch' does not exist on remote — creating"
+    run_command "Creating remote branch $branch" git push -u origin "$branch"
   else
-    msg "${GRAY}Branch '$branch' exists. Setting upstream."
-    run_command "Setting upstream branch to 'origin/$branch'" git branch --set-upstream-to="origin/$branch"
+    gum log --level info "Branch '$branch' exists on remote — setting upstream"
+    run_command "Setting upstream to origin/$branch" git branch --set-upstream-to="origin/$branch"
   fi
 }
 
-# check if branch already exists
-if [[ -n "$(git branch --list "$branch")" ]]; then
-  run_command "Generating new worktree from existing branch: $branch" git worktree add "$worktree" "$branch"
-else
-  run_command "Generating new worktree: $worktree" git worktree add -b "$branch" "$worktree" "$base"
+parse_params "$@"
+
+if [[ -z "$branch" ]]; then
+  if [[ -t 0 ]]; then
+    interactive_prompts
+  else
+    die "No branch specified and stdin is not a TTY. Run with -h for usage."
+  fi
 fi
 
-msg "${GRAY}Moving into worktree: $worktree${NOFORMAT}"
+if [[ -z "$worktree" ]]; then
+  worktree="$(slugify "$worktree_dir")/$(slugify "$branch")"
+fi
+
+if [[ -n "$(git branch --list "$branch")" ]]; then
+  run_command "Creating worktree from existing branch: $branch" git worktree add "$worktree" "$branch"
+else
+  run_command "Creating worktree: $worktree" git worktree add -b "$branch" "$worktree" "$base"
+fi
+
+gum log --level info "Moving into worktree: $worktree"
 cd "$worktree"
 update_remote "$branch"
 
@@ -257,4 +225,4 @@ if [[ -f package.json ]]; then
   fi
 fi
 
-msg "${GREEN}Success.${NOFORMAT}"
+gum log --level info "Done!"
