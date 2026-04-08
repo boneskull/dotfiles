@@ -8,7 +8,7 @@ Put any sensitive env vars in `${HOME}/.extra.zsh` and reference them in `mcp.js
 "github": {
   "command": "${userHome}/bin/github-mcp-server",
   "env": {
-    "GITHUB_PERSONAL_ACCESS_TOKEN": "${env:GITHUB_MCP_TOKEN}"
+    "GITHUB_PERSONAL_ACCESS_TOKEN": "${env:GITHUB_PERSONAL_ACCESS_TOKEN}"
   },
   "args": ["stdio"]
 }
