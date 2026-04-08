@@ -2,3 +2,4 @@ extra.zsh
 *.zwc
 .history
 __pycache__/
+.worktrees
