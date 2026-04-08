@@ -2,7 +2,7 @@
   "env": {
     "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-5-20251101"
   },
-  "model": "opus",
+  "includeCoAuthoredBy": false,
   "hooks": {
     "SessionStart": [
       {
@@ -50,9 +50,9 @@
     "plugin-dev@claude-plugins-official": true,
     "code-simplifier@claude-plugins-official": true,
     "feature-dev@claude-plugins-official": true,
-    "ralph-loop@claude-plugins-official": true,
+    "ralph-loop@claude-plugins-official": false,
     "gopls-lsp@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
-  "includeCoAuthoredBy": false
+  "skipDangerousModePermissionPrompt": true
 }
