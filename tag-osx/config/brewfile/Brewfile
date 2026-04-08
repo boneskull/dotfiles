@@ -57,11 +57,14 @@ brew glog
 brew gmp
 brew gnu-sed
 brew gnu-tar
+brew go
 brew graphite2
 brew graphviz
 brew grep
 brew gts
+brew gum
 brew harfbuzz
+brew hdrhistogram_c
 brew highway
 brew hiredis
 brew icu4c@77
@@ -75,28 +78,25 @@ brew jq
 brew json-c
 brew krb5
 brew libavif
+brew libdatrie
 brew libde265
 brew libdeflate
 brew libevent
 brew libgit2
 brew libgit2@1.7
 brew libheif
-brew libiconv
 brew libidn2
-brew liblqr
 brew libnghttp2
 brew libnghttp3
 brew libngtcp2
-brew libomp
 brew libpng
 brew libpq
-brew libraw
 brew librsvg
 brew libsodium
 brew libssh2
+brew libthai
 brew libtiff
 brew libtool
-brew libultrahdr
 brew libunistring
 brew libusb
 brew libuv
@@ -112,6 +112,7 @@ brew libyaml
 brew libzip
 brew little-cms2
 brew lua
+brew lua@5.4
 brew lz4
 brew lzo
 brew m4
@@ -126,7 +127,6 @@ brew node@24
 brew nvm
 brew oniguruma
 brew openexr
-brew openjpeg
 brew openjph
 brew openldap
 brew openssl@3
@@ -169,12 +169,12 @@ brew xxhash
 brew xz
 brew yyjson
 brew z
-brew zenith
 brew zsh
 brew zstd
 
 tap homebrew/cask
 cask 1password
+cask 1password-cli
 cask activitywatch
 cask alfred
 cask claude-code
@@ -209,7 +209,6 @@ cask font-unifrakturcook
 cask font-victor-mono
 cask font-victor-mono-nerd-font
 cask fork
-cask google-chrome
 cask gpg-suite-no-mail
 cask hazel
 cask iterm2
@@ -223,35 +222,47 @@ cask raycast
 cask signal
 cask slack
 cask steam
+cask tailscale-app
 cask the-unarchiver
 cask ubersicht
 cask visual-studio-code
 cask vivaldi
-cask wireshark
-cask zed
+cask yate
 cask zulip
 
 tap bufbuild/buf
 
 tap github/gh
 
+tap openhue/cli
+brew openhue-cli
+
 tap rcmdnk/file
 brew brew-file
 
+tap sachaos/todoist
+brew todoist
+
+tap steipete/tap
+brew peekaboo
+
 tap thoughtbot/formulae
 
+tap yakitrak/yakitrak
+brew obsidian-cli
+
 # App Store applications
-appstore 1569813296 1Password for Safari (8.11.22)
-appstore 1091189122 Bear (2.6.6)
-appstore 1584423325 BloonsTD6+ (52.2)
-appstore 1470584107 Dato (5.6.9)
+appstore 1569813296 1Password for Safari (8.12.2)
+appstore 1091189122 Bear (2.6.7)
+appstore 1584423325 BloonsTD6+ (53.2)
+appstore 1470584107 Dato (5.7.1)
 appstore 682658836 GarageBand (10.4.13)
-appstore 408981434 iMovie (10.4.3)
-appstore 409183694 Keynote (14.4)
-appstore 409203825 Numbers (14.4)
-appstore 490179405 Okta Verify (9.52.0)
-appstore 409201541 Pages (14.4)
-appstore 375589283 Parcel (8.2.4)
+appstore 408981434 iMovie (10.4.4)
+appstore 409183694 Keynote (14.5)
+appstore 409203825 Numbers (14.5)
+appstore 490179405 Okta Verify (9.56.1)
+appstore 409201541 Pages (14.5)
+appstore 375589283 Parcel (8.3.1)
 appstore 1448648921 Seashore (3.43)
-appstore 585829637 Todoist (9.25.1)
+appstore 585829637 Todoist (9.26.4)
 appstore 497799835 Xcode (26.2)
