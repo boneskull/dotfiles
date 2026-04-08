@@ -5,7 +5,7 @@ if is-app-installed Dash; then
   function man {
     if [[ -t 1 ]]; then
       # Interactive terminal - use Dash
-      /usr/bin/open "dash://manpages:${(j:%20:)@}"
+      /usr/bin/open "dash://?query=manpages:${(j:%20:)@}"
     else
       # Piped/scripted - use real man
       command man "$@"
