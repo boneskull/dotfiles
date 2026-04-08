@@ -1,22 +1,29 @@
 {
   "mcpServers": {
-    "wallaby": {
-      "command": "node",
-      "args": ["${userHome}/.wallaby/mcp/"]
-    },
-    "github": {
-      "command": "${userHome}/bin/github-mcp-server",
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${env:GITHUB_MCP_TOKEN}"
-      },
-      "args": ["stdio"]
-    },
-    "todoist": {
-      "command": "npx",
-      "args": ["-y", "mcp-remote", "https://ai.todoist.net/mcp"]
-    },
     "context7": {
       "url": "https://mcp.context7.com/mcp"
+    },
+    "dash-api": {
+      "args": [
+        "--from",
+        "git+https://github.com/Kapeli/dash-mcp-server.git",
+        "dash-mcp-server"
+      ],
+      "command": "uvx"
+    },
+    "github": {
+      "headers": {
+        "Authorization": "Bearer ${env:GITHUB_MCP_TOKEN}"
+      },
+      "url": "https://api.githubcopilot.com/mcp/"
+    },
+    "todoist": {
+      "args": ["-y", "mcp-remote", "https://ai.todoist.net/mcp"],
+      "command": "npx"
+    },
+    "wallaby": {
+      "args": ["${userHome}/.wallaby/mcp/"],
+      "command": "node"
     }
   }
 }
