@@ -17,6 +17,10 @@ fi
 # for killing scripts that refuse to die, such as AVA in a debug session or a sync benchmark
 alias kn='killall -9 node'
 
+# rebase -i but auto-accept the todo list (relies on autoSquash to do the work)
+# intentionally shadows any 'rebase' function from plugins (aliases win in zsh)
+alias rebase='GIT_SEQUENCE_EDITOR=true git rebase -i'
+
 (( $+commands[claude] )) && {
   alias claude="claude --dangerously-skip-permissions"
 }
