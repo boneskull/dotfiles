@@ -13,10 +13,14 @@ export ANTIDOTE_HOME=${ANTIDOTE_HOME:-${XDG_DATA_HOME:-$HOME/.local/share}/antid
 source $ANTIDOTE_HOME/antidote.zsh
 
 # Initialize plugins from zsh-plugins.txt
-# This caches the plugins for faster loading
+# This caches the plugins for faster loading. Only regenerate when the source
+# list is newer than the cache; write atomically via a temp file + mv so a
+# concurrent shell (e.g. Cursor's shell-env resolver racing the interactive
+# terminal at startup) never sources a half-written file.
 zsh_plugins=${ZDOTDIR:-$HOME}/.zsh_plugins.zsh
-if [[ ! ${zsh_plugins}.zsh -nt ${ZDOTDIR:-$HOME}/.zsh-plugins.txt ]]; then
-  antidote bundle <${ZDOTDIR:-$HOME}/.zsh-plugins.txt >|$zsh_plugins
+zsh_plugins_txt=${ZDOTDIR:-$HOME}/.zsh-plugins.txt
+if [[ ! $zsh_plugins -nt $zsh_plugins_txt ]]; then
+  antidote bundle <$zsh_plugins_txt >|$zsh_plugins.tmp.$$ && mv -f $zsh_plugins.tmp.$$ $zsh_plugins
 fi
 source $zsh_plugins
 
