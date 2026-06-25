@@ -3,6 +3,10 @@
 # git-cleanup: A script to clean up local and remote branches in a Git
 # repository.
 #
+# This script will detect local and remote branches that have been merged,
+# rebased, or squashed into the trunk branch. The script will prompt the user
+# for confirmation before deleting any branches.
+#
 # Usage: git cleanup [remote] [target] [prefix]
 #
 #  - remote: The remote repository (default: 'origin').
