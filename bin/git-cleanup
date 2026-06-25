@@ -86,8 +86,47 @@ function confirm {
   fi
 }
 
-# Removes local branches that have been rebased onto the target branch
-function cleanup_local_rebased {
+# Echoes how $1 landed in ${remote}/${target} ("merged"|"rebased"|"squashed"),
+# or nothing if it has not. Used for both local and remote refs.
+#
+# Detection is ordered cheapest-first:
+#   1. merged   — tip is reachable from upstream (merge commit or fast-forward)
+#   2. rebased  — every commit's patch-id already exists upstream (git cherry all -)
+#   3. squashed — collapsing the branch diff into one synthetic commit produces a
+#                 patch-id that exists upstream
+function merge_status {
+  local branch="$1"
+  local upstream="${remote}/${target}"
+
+  # Merge commit or fast-forward: tip is reachable from upstream.
+  if git merge-base --is-ancestor "$branch" "$upstream" 2>/dev/null; then
+    echo merged
+    return
+  fi
+
+  # Rebase: every commit's patch-id already exists upstream.
+  local cherry
+  cherry=$(git cherry "$upstream" "$branch" 2>/dev/null)
+  if [[ -n $cherry ]] && ! grep -q '^+' <<<"$cherry"; then
+    echo rebased
+    return
+  fi
+
+  # Squash: collapse the branch's diff into one synthetic commit and
+  # check whether that patch-id already exists upstream.
+  # git commit-tree writes a dangling loose object; git gc reaps it harmlessly.
+  local mb tree synth
+  mb=$(git merge-base "$upstream" "$branch" 2>/dev/null) || return
+  tree=$(git rev-parse "${branch}^{tree}" 2>/dev/null) || return
+  synth=$(git commit-tree "$tree" -p "$mb" -m squash-probe 2>/dev/null) || return
+  if git cherry "$upstream" "$synth" 2>/dev/null | grep -q '^-'; then
+    echo squashed
+  fi
+}
+
+# Removes local branches that have been merged into the target branch
+# (via merge commit, rebase, or squash).
+function cleanup_local_merged {
   local deleted=false
   local branches=($(git branch --list "${prefix}/*" --format='%(refname:short)'))
   if [[ -z $branches ]]; then
@@ -96,9 +135,9 @@ function cleanup_local_rebased {
   fi
 
   for branch in $branches; do
-    local cherry=$(git cherry "${remote}/${target}" "${branch}")
-    if [[ -n $cherry && ! $cherry =~ '^\+' ]]; then
-      info "Local branch $(bold "${branch}") appears in $(em "${remote}/${target}")."
+    local branch_status=$(merge_status "$branch")
+    if [[ -n $branch_status ]]; then
+      info "Local branch $(bold "${branch}") was $(em "${branch_status}") into $(em "${remote}/${target}")."
       confirm "Delete local branch $(bold "${branch}")" && {
         git branch -D "${branch}"
         deleted=true
@@ -106,14 +145,15 @@ function cleanup_local_rebased {
     fi
   done
   if [[ $deleted == true ]]; then
-    ok "Deleted local branch(es) that have been rebased onto $(em "${remote}/${target}")."
+    ok "Deleted local branch(es) that have been merged into $(em "${remote}/${target}")."
   else
     info "Did not remove any local branches."
   fi
 }
 
-# Removes remote branches that have been rebased onto the target branch
-function cleanup_remote_rebased {
+# Removes remote branches that have been merged into the target branch
+# (via merge commit, rebase, or squash).
+function cleanup_remote_merged {
   local deleted=false
   local branches=($(git branch -r --list "${remote}/${prefix}/*" --format='%(refname:lstrip=3)'))
   if [[ -z $branches ]]; then
@@ -121,8 +161,9 @@ function cleanup_remote_rebased {
     return
   fi
   for branch in $branches; do
-    if [[ -z $(git cherry "${remote}/${target}" "${remote}/${branch}" 2> /dev/null | grep '^+') ]]; then
-      info "Remote branch $(bold "${remote}/${branch}") appears in $(em "${remote}/${target}")."
+    local branch_status=$(merge_status "${remote}/${branch}")
+    if [[ -n $branch_status ]]; then
+      info "Remote branch $(bold "${remote}/${branch}") was $(em "${branch_status}") into $(em "${remote}/${target}")."
       confirm "Delete remote branch $(bold "${remote}/${branch}")" && {
         git push "${remote}" --delete "${branch}"
         deleted=true
@@ -130,7 +171,7 @@ function cleanup_remote_rebased {
     fi
   done
   if [[ $deleted == true ]]; then
-    ok "Deleted remote branch(es) that have been rebased onto $(em "${remote}/${target}")."
+    ok "Deleted remote branch(es) that have been merged into $(em "${remote}/${target}")."
   else
     info "Did not remove any remote branches."
   fi
@@ -149,7 +190,7 @@ info "Using remote: $(em "${remote}"), trunk $(em "${target}"), and prefix $(em 
 git fetch --prune "${remote}"
 
 check_target
-cleanup_local_rebased
-cleanup_remote_rebased
+cleanup_local_merged
+cleanup_remote_merged
 
 ok "Done."
