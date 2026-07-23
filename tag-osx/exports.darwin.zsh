@@ -23,9 +23,16 @@ function _init_homebrew {
   export HOMEBREW_NO_INSTALL_CLEANUP=1
   export HOMEBREW_NO_AUTO_UPDATE=1
 
-  # NVM via homebrew (oh-my-zsh nvm plugin handles lazy loading)
-  # Check for directory, not command - nvm is a function loaded later
-  [[ -d "${HOMEBREW_PREFIX}/opt/nvm" ]] && export NVM_DIR="${HOMEBREW_PREFIX}/opt/nvm"
+  # NVM: keep NVM_DIR in $HOME/.nvm, NOT the Homebrew opt/Cellar path. Pointing
+  # it at Homebrew means installed Node versions and the `default` alias live in
+  # the Cellar and get nuked on every `brew upgrade nvm`. The oh-my-zsh plugin
+  # sources $NVM_DIR/nvm.sh, so bootstrap the symlinks Homebrew's wrapper expects.
+  [[ -d "${HOMEBREW_PREFIX}/opt/nvm" ]] && {
+    export NVM_DIR="${HOME}/.nvm"
+    [[ -d "${NVM_DIR}" ]] || mkdir -p "${NVM_DIR}"
+    [[ -e "${NVM_DIR}/nvm.sh" ]] || ln -s "${HOMEBREW_PREFIX}/opt/nvm/libexec/nvm.sh" "${NVM_DIR}/nvm.sh"
+    [[ -e "${NVM_DIR}/nvm-exec" ]] || ln -s "${HOMEBREW_PREFIX}/opt/nvm/libexec/nvm-exec" "${NVM_DIR}/nvm-exec"
+  }
 }
 
 _init_homebrew
