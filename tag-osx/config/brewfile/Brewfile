@@ -72,6 +72,7 @@ brew icu4c@78
 brew imagemagick
 brew imath
 brew jasper
+brew jemalloc
 brew jpeg-turbo
 brew jpeg-xl
 brew jq
@@ -111,8 +112,9 @@ brew libxrender
 brew libyaml
 brew libzip
 brew little-cms2
+brew llhttp
+brew llvm@22
 brew lua
-brew lua@5.4
 brew lz4
 brew lzo
 brew m4
@@ -134,18 +136,18 @@ brew pango
 brew pcre
 brew pcre2
 brew pixman
+brew pkgconf
 brew python-packaging
 brew python-setuptools
 brew python@3.10
 brew python@3.13
-brew python@3.14
 brew rcm
 brew readline
 brew ripgrep
 brew rtmpdump
 brew ruby
+brew rust
 brew rustup
-brew shared-mime-info
 brew simdjson
 brew snappy
 brew sqlite
@@ -169,6 +171,7 @@ brew xxhash
 brew xz
 brew yyjson
 brew z
+brew zizmor
 brew zsh
 brew zstd
 
@@ -178,6 +181,7 @@ cask 1password-cli
 cask activitywatch
 cask alfred
 cask claude-code
+cask copilot-cli
 cask cursor
 cask cursor-cli
 cask daisydisk
@@ -215,6 +219,7 @@ cask iterm2
 cask kaleidoscope@2
 cask launchcontrol
 cask marked
+cask mediaelch
 cask nordvpn
 cask notion
 cask obsidian
@@ -227,7 +232,9 @@ cask the-unarchiver
 cask ubersicht
 cask visual-studio-code
 cask vivaldi
+cask vlc
 cask yate
+cask zen
 cask zulip
 
 tap bufbuild/buf
@@ -236,6 +243,9 @@ tap github/gh
 
 tap openhue/cli
 brew openhue-cli
+
+tap pow-software/bytesync
+cask bytesync
 
 tap rcmdnk/file
 brew brew-file
@@ -249,20 +259,19 @@ brew peekaboo
 tap thoughtbot/formulae
 
 tap yakitrak/yakitrak
-brew obsidian-cli
+brew notesmd-cli
 
 # App Store applications
-appstore 1569813296 1Password for Safari (8.12.2)
-appstore 1091189122 Bear (2.6.7)
-appstore 1584423325 BloonsTD6+ (53.2)
-appstore 1470584107 Dato (5.7.1)
-appstore 682658836 GarageBand (10.4.13)
+appstore 1569813296 1Password for Safari (8.12.33)
+appstore 1091189122 Bear (2.9.3)
+appstore 1470584107 Dato (5.8.2)
+appstore 682658836 GarageBand (10.4.14)
 appstore 408981434 iMovie (10.4.4)
 appstore 409183694 Keynote (14.5)
 appstore 409203825 Numbers (14.5)
-appstore 490179405 Okta Verify (9.56.1)
+appstore 490179405 Okta Verify (9.67.1)
 appstore 409201541 Pages (14.5)
-appstore 375589283 Parcel (8.3.1)
-appstore 1448648921 Seashore (3.43)
-appstore 585829637 Todoist (9.26.4)
-appstore 497799835 Xcode (26.2)
+appstore 375589283 Parcel (8.6.3)
+appstore 1448648921 Seashore (3.44)
+appstore 585829637 Todoist (9.30.0)
+appstore 497799835 Xcode (26.6)
