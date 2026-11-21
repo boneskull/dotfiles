@@ -1,8 +1,5 @@
 {
   "mcpServers": {
-    "context7": {
-      "url": "https://mcp.context7.com/mcp"
-    },
     "dash-api": {
       "args": [
         "--from",
@@ -16,10 +13,6 @@
         "Authorization": "Bearer ${env:GITHUB_MCP_TOKEN}"
       },
       "url": "https://api.githubcopilot.com/mcp/"
-    },
-    "todoist": {
-      "args": ["-y", "mcp-remote", "https://ai.todoist.net/mcp"],
-      "command": "npx"
     },
     "wallaby": {
       "args": ["${userHome}/.wallaby/mcp/"],
